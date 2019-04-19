@@ -16,13 +16,7 @@ def task_1_fix_names_start_letter(data: DT) -> DT:
         fix_names_start_letters([{'name': 'Alex', 'age': 26}, {'name': 'denys', 'age': 89}])
         >>> [{'name': 'Alex', 'age': 26}, {'name': 'Denys', 'age': 89}]
     """
-    # for member in data:
-    #     if 'name' in member:
-    #         member["name"] = member["name"].capitalize()
-    # return data
 
-    # return [{key: (value.capitalize() if key == 'name' else value) for (key, value) in member.items()} for member in
-    #         data]
 
     return [member.update({member.keys(): member.values().capitalize()}) for member in data if
             type(member.values()) == str]
@@ -69,42 +63,13 @@ def task_5_min_value_strings(data: List[Union[str, int]]) -> str:
     """
     Find the longest string
     """
-    # return [str(x) for x in data if len(str(x)) == min(map(lambda x: len(str(x)), data), default=None)][0]
 
-    # created_dict = {str(item):len(str(item)) for item in data}
-    # try:
-    #     return list(created_dict.keys())[list(created_dict.values()).index(min(created_dict.values(), default=None))]
-    # except:
-    #     return None
-    # return []
-
-    # try:
-    #     return [str(key) for (key, value) in {item: len(str(item)) for item in data}.items() if
-    #             value == min([len(str(x)) for x in data])][0]
-    # except IndexError:
-    #     return None
-
-    # for x in data:
-    #     print(x)
-
-    # min_len = None
-    # for item in data:
-    #     if str(item) == str(data[0]):
-    #         min_len = str(item)
-    #     else:
-    #         if len(str(item)) < len(min_len):
-    #             min_len = str(item)
-    # return min_len
 
     min_len = string.ascii_letters * 1000
     for item in data:
         if len(str(item)) < len(min_len):
             min_len = str(item)
     return min_len if len(data) > 0 else None
-
-
-    # return min(map(lambda x: len(str(x)), data))
-
 
 
 
