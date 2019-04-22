@@ -20,8 +20,6 @@ def task_1_fix_names_start_letter(data: DT) -> DT:
     return [member.update({member.keys(): member.values().capitalize()}) for member in data if
             type(member.values()) == str]
 
-    # return []
-
 
 def task_2_remove_dict_fields(data: DT, redundant_keys: List[str]) -> DT:
     """given_data
