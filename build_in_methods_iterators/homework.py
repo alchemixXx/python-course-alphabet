@@ -17,13 +17,8 @@ def task_1_fix_names_start_letter(data: DT) -> DT:
         >>> [{'name': 'Alex', 'age': 26}, {'name': 'Denys', 'age': 89}]
     """
 
-
     return [member.update({member.keys(): member.values().capitalize()}) for member in data if
             type(member.values()) == str]
-
-
-    # return []
-
 
 
 def task_2_remove_dict_fields(data: DT, redundant_keys: List[str]) -> DT:
@@ -64,13 +59,11 @@ def task_5_min_value_strings(data: List[Union[str, int]]) -> str:
     Find the longest string
     """
 
-
     min_len = string.ascii_letters * 1000
     for item in data:
         if len(str(item)) < len(min_len):
             min_len = str(item)
     return min_len if len(data) > 0 else None
-
 
 
 def task_6_min_value_list_of_dicts(data: DT, key: str) -> ST:
