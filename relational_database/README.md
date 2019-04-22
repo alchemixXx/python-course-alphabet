@@ -1,76 +1,8 @@
 # PLAN OF THE LECTION
 
+# RDBMS
+
 # SQL basic commands
-
-### Introduction into PosgreSQL
-
-- Console client psql
-    - Create user with password
-    - Create database
-    - Grant all privileges to the db for created user
-
-### Data structure
-
-- create/delete databases
-
-- create/delete tables
-
-- Data types in PostgreSQL
-
-- Column and table constraints
-
-- External keys
-
-- Change tables
-
-
-### Data operations
-
-- INSERT
-
-- SELECT
-
-- WHERE
-
-- UPDATE
-
-- DELETE
-
-
-### Requests
-
-- DISTINCT. Selection of unique values
-
-- ORDER BY. Sorting
-
-- GROUP BY
-
-- HAVING
-
-- Getting a range of lines. LIMIT and OFFSET
-
-- Filter operators
-
-- Aggregate functions
-
-- Subqueries
-
-
-### Joining Tables
-
-- Implicit table join
-
-- INNER JOIN
-
-- OUTER JOIN and CROSS JOIN
-
-- Grouping in compounds
-
-- Union of sets. UNION
-
-- Set difference. EXCEPT
-
-- Intersection of many. INTERSECT
 
 # Integration with python
 
@@ -111,7 +43,7 @@ If you catch this error installing psycopg2 in your virtual env
 Running next commands could fix your problem 
 
 ```
-sudo apt-get install postgresql
+dcd
 sudo apt-get install python-psycopg2
 sudo apt-get install libpq-dev
 sudo apt-get install python3.7-dev
