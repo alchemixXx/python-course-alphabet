@@ -19,7 +19,14 @@ def task_1_add_new_record_to_db(con) -> None:
     Returns: 92 records
 
     """
-    pass
+    with con.cursor() as cur:
+        cur.execute("""INSERT INTO 
+        customers(customername, contactname, address, city, postalcode, country) 
+        VALUES 
+        ('Thomas', 'David', 'Some Address', 'London', '774', 'Singapore');
+        SELECT * FROM customers;""")
+        return cur.fetchall()
+    # pass
 
 
 def task_2_list_all_customers(cur) -> list:
@@ -32,8 +39,9 @@ def task_2_list_all_customers(cur) -> list:
     Returns: 91 records
 
     """
-    pass
-
+    # pass
+    cur.execute("SELECT * FROM Customers")
+    return cur.fetchall()
 
 def task_3_list_customers_in_germany(cur) -> list:
     """
@@ -44,7 +52,9 @@ def task_3_list_customers_in_germany(cur) -> list:
 
     Returns: 11 records
     """
-    pass
+    cur.execute("SELECT * FROM Customers WHERE country = 'Germany'")
+    return cur.fetchall()
+    # pass
 
 
 def task_4_update_customer(con):
@@ -56,7 +66,11 @@ def task_4_update_customer(con):
     Returns: 91 records with updated customer
 
     """
-    pass
+    with con.cursor() as cur:
+        cur.execute("""UPDATE customers SET customername = 'Johnny Depp' WHERE customerid = 1;
+        SELECT * FROM customers""")
+        return cur.fetchall()
+    # pass
 
 
 def task_5_delete_the_last_customer(con) -> None:
@@ -66,6 +80,10 @@ def task_5_delete_the_last_customer(con) -> None:
     Args:
         con: psycopg connection
     """
+    with con.cursor() as cur:
+        # cur.execute()
+        cur.execute("""DELETE FROM customers WHERE customerid = (SELECT MAX(customerid) FROM customers)""")
+        # return cur.fetchall()
     pass
 
 
@@ -79,6 +97,7 @@ def task_6_list_all_supplier_countries(cur) -> list:
     Returns: 29 records
 
     """
+
     pass
 
 
