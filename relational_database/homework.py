@@ -26,7 +26,6 @@ def task_1_add_new_record_to_db(con) -> None:
         ('Thomas', 'David', 'Some Address', 'London', '774', 'Singapore');
         SELECT * FROM customers;""")
         return cur.fetchall()
-    # pass
 
 
 def task_2_list_all_customers(cur) -> list:
@@ -39,7 +38,6 @@ def task_2_list_all_customers(cur) -> list:
     Returns: 91 records
 
     """
-    # pass
     cur.execute("SELECT * FROM Customers")
     return cur.fetchall()
 
@@ -56,7 +54,6 @@ def task_3_list_customers_in_germany(cur) -> list:
     cur.execute("""SELECT * FROM Customers 
                    WHERE country = 'Germany'""")
     return cur.fetchall()
-    # pass
 
 
 def task_4_update_customer(con):
@@ -73,7 +70,6 @@ def task_4_update_customer(con):
                        SET customername = 'Johnny Depp' WHERE customerid = 1;
                        SELECT * FROM customers""")
         return cur.fetchall()
-    # pass
 
 
 def task_5_delete_the_last_customer(con) -> None:
@@ -87,7 +83,6 @@ def task_5_delete_the_last_customer(con) -> None:
         cur.execute("""DELETE FROM customers 
                        WHERE customerid = (SELECT MAX(customerid) 
                        FROM customers)""")
-    # pass
 
 
 def task_6_list_all_supplier_countries(cur) -> list:
@@ -136,7 +131,6 @@ def task_8_count_customers_by_city(cur):
     # print(x)
     return x
     # return cur.fetchall()
-    # pass
 
 
 def task_9_count_customers_by_country_with_than_10_customers(cur):
@@ -222,7 +216,6 @@ def task_14_list_products_with_supplier_information(cur):
                    LEFT JOIN suppliers 
                    ON products.supplierid = suppliers.supplierid """)
     return cur.fetchall()
-    # pass
 
 
 def task_15_list_customers_with_any_order_or_not(cur):
