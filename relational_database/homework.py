@@ -152,10 +152,6 @@ def task_9_count_customers_by_country_with_than_10_customers(cur):
                 FROM customers 
                 GROUP BY country 
                 HAVING COUNT(country) > 10;""")
-<<<<<<< Updated upstream
-=======
-    print(cur.fetchall())
->>>>>>> Stashed changes
     return cur.fetchall()
 
 
@@ -165,7 +161,6 @@ def task_10_list_first_10_customers(cur):
 
     Results: 10 records
     """
-    # cur.execute("""SELECT * FROM customers WHERE customerid <= 10;""")
     cur.execute("""SELECT * FROM customers LIMIT 10;""")
     return cur.fetchall()
 
@@ -239,21 +234,12 @@ def task_15_list_customers_with_any_order_or_not(cur):
 
     Returns: 213 records
     """
-<<<<<<< Updated upstream
-    cur.execute("""SELECT customers.contactname, customers.contactname, customers.country, orders.orderid
-                   FROM customers 
-                   JOIN orders
-                   ON customers.customerid = orders.orderid
-                   ORDER BY orders.orderid""")
-=======
     cur.execute("""SELECT customers.customername, customers.contactname, customers.country, orders.orderid
                    FROM customers 
                    LEFT JOIN orders
                    ON customers.customerid = orders.customerid
                    ORDER BY orders.orderid
                    """)
->>>>>>> Stashed changes
-    # print(cur.fetchall())
     return cur.fetchall()
 
 
@@ -266,12 +252,6 @@ def task_16_match_all_customers_and_suppliers_by_country(cur):
 
     Returns: 194 records
     """
-<<<<<<< Updated upstream
-    cur.execute("""SELECT customers.contactname, customers.address, customers.country, suppliers.country, suppliers.suppliername
-                   FROM customers 
-                   FULL JOIN suppliers
-                   ON customers.country = suppliers.country""")
-=======
     cur.execute("""SELECT customers.customername customername,
                    customers.address address,
                    customers.country customercountry,
@@ -281,7 +261,4 @@ def task_16_match_all_customers_and_suppliers_by_country(cur):
                    FULL OUTER JOIN suppliers
                    ON customers.country = suppliers.country
                    ORDER BY customercountry""")
-
->>>>>>> Stashed changes
-    # print(cur.fetchall())
     return cur.fetchall()
