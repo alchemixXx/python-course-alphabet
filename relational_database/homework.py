@@ -253,5 +253,7 @@ def task_16_match_all_customers_and_suppliers_by_country(cur):
                    FROM customers 
                    FULL OUTER JOIN suppliers
                    ON customers.country = suppliers.country
-                   ORDER BY customercountry""")
+                   ORDER BY customercountry,
+                   suppliercountry;
+                   """)
     return cur.fetchall()
