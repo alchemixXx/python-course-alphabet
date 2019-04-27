@@ -46,17 +46,33 @@
 
     Колекціонерів можна порівнювати за ціною всіх їх автомобілів.
 """
+from constants import CARS_TYPES, CARS_PRODUCER, TOWNS
+import random
 
 
 class Cesar:
-    pass
+    def __init__(self, name, garages=0):
+        self.name = name
+        self.register_id = [random.randrange(0, 9) for _ in range(9)]
+        self.garages = garages
 
 
 class Car:
-    pass
+    def __init__(self, price: float, mileage:float):
+        self.price = price
+        self.type = random.choice(CARS_TYPES)
+        self.producer = random.choice(CARS_PRODUCER)
+        self.number = [random.randrange(0, 9) for _ in range(9)]
+        self.mileage = mileage
+
+
 
 
 class Garage:
+
+    def __init__(self, places:int, cars, owner=None):
+        self.town = random.choice(TOWNS)
+        self.places = places
+        self.owner = owner
+        self.cars = cars
     pass
-
-
