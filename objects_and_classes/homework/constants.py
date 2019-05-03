@@ -2,3 +2,6 @@ CARS_TYPES = ["SUV", "Truck", "Sedan", "Van", "Coupe", "Wagon", "Sports Car", "D
 CARS_PRODUCER = ["BENTLEY", "BMW", "Bugatti", "Buick", "Chery", "Chevrolet", "Dodge", "Ford", "Lamborghini"]
 
 TOWNS = ["Amsterdam", "Kiev", "Prague", "Rome", "Paris", "London", "Berlin"]
+
+
+NAMES = ["Pavel", "Tata", "Denis", "Vlad", "Masha", "Igor", "Alla", "Vladimir"]
