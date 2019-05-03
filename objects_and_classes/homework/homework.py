@@ -71,13 +71,13 @@ class Car:
         else:
             print("Producer should be instance of CARS_PRODUCER!")
 
-    def __init__(self, price: float, mileage: float, producer, type, garage_numb=None):
+    def __init__(self, price: float, mileage: float, producer, car_type, garage_numb=None):
         self.price = float(price)
         self.number = uuid.uuid4()
         self.mileage = float(mileage)
         self.garage_numb = garage_numb
         self.producer = self.producer_checking(producer)
-        self.car_type = self.type_checking(type)
+        self.car_type = self.type_checking(car_type)
 
     def __repr__(self):
         return f'Car(float(price)="{self.price}", self.type_checking(type)="{self.car_type}", uuid.uuid4()="{self.number}",' \
@@ -111,8 +111,9 @@ class Car:
     def change_number(self, new_number):
         if re.search('[\w]{8}-[\w]{4}-4[\w]{3}-[\w][\w]{3}-[\w]{12}', new_number):
             self.number = new_number
+            return "Number has been changed"
         else:
-            print('Sorry, you have entered wrong number')
+            return 'Sorry, you have entered wrong number'
             # raise ValueError
 
 
@@ -145,7 +146,10 @@ class Garage:
             else:
                 print(f"Car {car} is already in garage {car.garage_numb}")
                 continue
-        return actual_cars
+        if len(actual_cars) <= self.places:
+            return actual_cars
+        else:
+            print(f"Come on, guys! It's too much for this garage. It can contain only {self.places} cars")
 
     def __init__(self, places: int, town, *cars, owner=None):
         self.places = int(places)
@@ -161,7 +165,8 @@ class Garage:
         if len(self.cars) < self.places:
             if car.garage_numb == None:
                 car.garage_numb = self.garage_number
-                return self.cars.append(car)
+                self.cars.append(car)
+                return "Car has been added"
             else:
                 print("This car is already in other garage")
         else:
@@ -170,7 +175,9 @@ class Garage:
 
     def remove(self, car):
         if car in self.cars:
-            return self.cars.remove(car)
+            car.garage_numb = None
+            self.cars.remove(car)
+            return "Car has been removed"
         else:
             print("Sorry, there is no that car in the garage")
             # raise ValueError
@@ -179,11 +186,12 @@ class Garage:
         return sum([car.price for car in self.cars])
 
     def __str__(self):
-        return f"""This garage has next attributes:
+        return f"""Garage {self.number} has next attributes:
         cars =  '{len(self.cars)} cars', 
         owner = '{self.owner}',
         town = '{self.town}',
-        number = '{self.number}'
+        number = '{self.number}',
+        free places = {self.free_places()}
         """
 
     def __repr__(self):
@@ -197,6 +205,10 @@ class Garage:
         else:
             print("Sorry, it's not UUID. Owner has not been changed")
             # raise ValueError
+
+    def free_places(self):
+        return self.places - len(self.cars)
+
 
 
 class Cesar:
@@ -238,7 +250,7 @@ class Cesar:
     def cars_count(self):
         return sum([len(garage.cars) for garage in self.garages])
 
-    def add_car(self, car, chosen_garage = None):
+    def add_car(self, car, chosen_garage=None):
         if chosen_garage == None:
             def max_free():
                 all_garages = {garage.number: (garage.places - len(garage.cars)) for garage in self.garages}
@@ -256,12 +268,14 @@ class Cesar:
                     if garage.number == [x for x in most_empty_garage.keys()][0]:
                         garage.add(car)
                         return f"Car has been added to garage {garage.number}"
-        else:
-            if (chosen_garage.places - len(chosen_garage.cars)) != 0:
+        elif chosen_garage in self.garages:
+            if (chosen_garage.places - len(chosen_garage.cars)) >= 0:
                 chosen_garage.add(car)
                 return f"Car has been added to garage {chosen_garage}"
             else:
                 return f"Sorry, there is no free places in the garage {chosen_garage}"
+        else:
+            print("Get out of here! It's not your garage!")
 
     def __le__(self, other):
         return self.hit_hat() <= other.hit_hat()
@@ -306,33 +320,63 @@ if __name__ == '__main__':
 
 
     garage2 = Garage(random.randrange(5, 150), random.choice(TOWNS), car3,
-                     owner=random.choice(NAMES))
+                     owner=str(uuid.uuid4()))
 
     garage3 = Garage(random.randrange(5, 150), random.choice(TOWNS), car4, car5,
-                     owner=random.choice(NAMES))
+                     owner=str(uuid.uuid4()))
 
     garage4 = Garage(random.randrange(5, 150), random.choice(TOWNS), car6, car7,
-                     owner=random.choice(NAMES))
+                     owner=str(uuid.uuid4()))
 
     garage5 = Garage(random.randrange(5, 150), random.choice(TOWNS), car8, car9,
-                     owner=random.choice(NAMES))
+                     owner=str(uuid.uuid4()))
 
-    print(garage1, garage2, garage3, garage4, garage5)
-    print(garage1, garage2)
-    print(uuid.uuid4())
-    print(garage1.hit_hat())
 
     cesar_1 = Cesar(random.choice(NAMES), garage1, garage3)
     cesar_2 = Cesar(random.choice(NAMES), garage2)
     cesar_3 = Cesar(random.choice(NAMES), garage4, garage5)
+
+    new_id_correct = """ c90cb2a4-33d2-427d-8876-ba7ed1cb3fc6 """
+    new_id_wrong = """ 33d2-427d-8876-ba7ed1cb3fc6 """
+    print("Testing Car class:")
+    print(car1)
+    print(car2)
+    print(car1 > car2)
+    print(car1 >= car2)
+    print(car1 == car2)
+    print(car1 <= car2)
+    print(car1 <= car2)
+
+    print(car1.change_number(new_id_correct))
+    print(car1.change_number(new_id_wrong))
+
+
+    print('\n' * 5)
+    print("Testing Garage class:")
+    print(garage1)
+    print(garage2)
+
+    print("This is hit_hat method", garage1.hit_hat())
+
+    print(garage1.add(car10))
+    print(garage1)
+    print(garage1.remove(car10))
+    print(garage1)
+    print("This is free_spaces method", garage1.free_places())
+
+    print('\n' * 5)
+    print("Testing Cesar class:")
+
+
     print(cesar_1)
     print(cesar_2)
-    print(cesar_3)
 
-    print(garage1.all_cars())
-    print(garage2.all_cars())
 
-    print(cesar_1.hit_hat())
-    print(cesar_1.cars_count())
+    print("This is hit_hat method", cesar_1.hit_hat())
+    print("This is cars_count method", cesar_1.cars_count())
+    print("This is garage_count method", cesar_1.garages_count())
 
-    print(cesar_1.add_car(car10))
+
+    print("This is add_car method with garage specification", cesar_1.add_car(car10, garage1))
+    print(garage1.remove(car10))
+    print("This is add_car method without garage specification", cesar_1.add_car(car10))
