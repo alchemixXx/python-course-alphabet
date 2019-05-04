@@ -123,7 +123,9 @@ class Garage:
 
     @staticmethod
     def owner_checking(owner):
-        if re.search('[\w]{8}-[\w]{4}-4[\w]{3}-[\w][\w]{3}-[\w]{12}', owner):
+        if owner is None:
+            return owner
+        elif re.search('[\w]{8}-[\w]{4}-4[\w]{3}-[\w][\w]{3}-[\w]{12}', owner):
             return owner
         else:
             print("Owner should be UUID!")
@@ -214,10 +216,23 @@ class Garage:
 class Cesar:
     garages = List[Garage]
 
-    @staticmethod
-    def garages_checking(garages):
+    # @staticmethod
+    # def garages_checking(garages):
+    #     if len(garages) > 0:
+    #         return garages
+    #     else:
+    #         return []
+
+    def garages_checking(self, garages):
         if len(garages) > 0:
-            return garages
+            real_garages = list()
+            for garage in garages:
+                if garage.owner is None or garage.owner == self.register_id:
+                    garage.change_owner(str(self.register_id))
+                    real_garages.append(garage)
+                else:
+                    print("Other cesar own this garage")
+            return real_garages
         else:
             return []
 
@@ -315,15 +330,12 @@ if __name__ == '__main__':
     car10 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
                random.choice(CARS_TYPES))
 
-    garage1 = Garage(random.randrange(5, 150), random.choice(TOWNS), car1, car2,
-                     owner=str(uuid.uuid4()))
+    garage1 = Garage(random.randrange(5, 150), random.choice(TOWNS), car1, car2)
 
 
-    garage2 = Garage(random.randrange(5, 150), random.choice(TOWNS), car3,
-                     owner=str(uuid.uuid4()))
+    garage2 = Garage(random.randrange(5, 150), random.choice(TOWNS), car3)
 
-    garage3 = Garage(random.randrange(5, 150), random.choice(TOWNS), car4, car5,
-                     owner=str(uuid.uuid4()))
+    garage3 = Garage(random.randrange(5, 150), random.choice(TOWNS), car4, car5)
 
     garage4 = Garage(random.randrange(5, 150), random.choice(TOWNS), car6, car7,
                      owner=str(uuid.uuid4()))
@@ -355,6 +367,7 @@ if __name__ == '__main__':
     print("Testing Garage class:")
     print(garage1)
     print(garage2)
+    print(garage3)
 
     print("This is hit_hat method", garage1.hit_hat())
 
@@ -370,6 +383,12 @@ if __name__ == '__main__':
 
     print(cesar_1)
     print(cesar_2)
+
+
+    print("Testing garages after creating cesars")
+    print(garage1)
+    print(garage2)
+    print(garage3)
 
 
     print("This is hit_hat method", cesar_1.hit_hat())
