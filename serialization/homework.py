@@ -82,9 +82,9 @@ from pprint import pprint
 
 class Car:
 
-    def __init__(self, price: float, mileage: float, producer, car_type, garage_numb=None):
+    def __init__(self, price: float, mileage: float, producer, car_type, garage_numb=None, number=None):
         self.price = float(price)
-        self.number = uuid.uuid4()
+        self.number = uuid.uuid4() if number is None else number
         self.mileage = float(mileage)
         self.garage_numb = garage_numb
         self.producer = self.producer_checking(producer)
@@ -338,6 +338,27 @@ class JsonConverter(json.JSONEncoder):
             return {'name': obj.name, 'register_id': obj.register_id, 'garages': obj.garages}
         return json.JSONEncoder.default(self, obj)
 
+# name = data['name']
+# language = data['language']
+# position = data['position']
+# pr = Programmer(name=name, language=language, position=position)
+# pr.enough_coffee = data.get('enough_coffee', False)
+# # return pr
+
+def json_hook(obj):
+    if 'price' in obj:
+        price = obj['price']
+        mileage = obj['mileage']
+        producer = obj['producer']
+        car_type = obj['car_type']
+        garage_numb = obj['garage_numb']
+        number = obj['number']
+        car = Car(price=price, mileage=mileage, producer=producer, car_type=car_type,
+                  garage_numb=garage_numb, number=number)
+        return car
+
+
+
 
 if __name__ == '__main__':
     car1 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
@@ -377,17 +398,10 @@ if __name__ == '__main__':
     cesar_2 = Cesar(random.choice(NAMES), garage2)
     cesar_3 = Cesar(random.choice(NAMES), garage4, garage5)
 
-
-    def to_json(obj):
-        data = {'price': obj.price, 'mileage': obj.mileage, 'producer': obj.producer, 'car_type': obj.car_type,
-                'garage_numb': obj.garage_numb, 'number': obj.number}
-        return data
-
-
-    # serialized_car = json.dumps(car1, default=JsonConverter.to_json(Car))
     serialized_car = json.dumps(car1, cls=JsonConverter, indent=4)
     serialized_garage = json.dumps(garage1, cls=JsonConverter, indent=4)
     serialized_cesar = json.dumps(cesar_1, cls=JsonConverter, indent=4)
+
 
     print("!!!SERIALIZATION ZONE!!!")
     print("Car serialization:")
@@ -400,3 +414,8 @@ if __name__ == '__main__':
     print(serialized_cesar)
     print('\n'*5)
     print("!!!DESERIALIZATION ZONE!!!")
+    des_car1 = json.loads(serialized_car, object_hook=json_hook)
+    print("This is original car")
+    print(car1)
+    print("This is car after deserialization")
+    print(des_car1)
