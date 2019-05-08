@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """
 Для попереднього домашнього завдання.
 Для класу Колекціонер Машина і Гараж написати методи, які створюють інстанс обєкту
@@ -17,7 +19,6 @@ Advanced
 Добавити опрацьовку формату ini
 
 """
-
 
 """
 Вам небхідно написати 3 класи. Колекціонери Гаражі та Автомобілі.
@@ -67,13 +68,16 @@ Advanced
 
     Колекціонерів можна порівнювати за ціною всіх їх автомобілів.
 """
+
 from constants import CARS_TYPES, CARS_PRODUCER, TOWNS
 from constants import NAMES
 import random
 import uuid
-import re
 from typing import List
 import itertools
+import json
+from ruamel.yaml import YAML
+from pprint import pprint
 
 
 class Car:
@@ -99,6 +103,17 @@ class Car:
             return producer
         else:
             print("Producer should be instance of CARS_PRODUCER!")
+
+    # JSON serialization part
+    # @staticmethod
+    # def to_json(obj):
+    #     data = {'price': obj.price, 'mileage': obj.mileage, 'producer': obj.producer, 'car_type': obj.car_type,
+    #             'garage_numb': obj.garage_numb, 'number': obj.number}
+    #     return data
+
+    @classmethod
+    def from_json(cls):
+        pass
 
     def change_number(self, new_number):
         try:
@@ -231,7 +246,7 @@ class Cesar:
     def __init__(self, name, *garages):
         self.name = name
         self.register_id = uuid.uuid4()
-        self.garages = self.garages_checking(garages)]
+        self.garages = self.garages_checking(garages)
 
     def garages_checking(self, garages):
         if len(garages) > 0:
@@ -309,6 +324,21 @@ class Cesar:
         return self.hit_hat() == other.hit_hat()
 
 
+class JsonConverter(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, uuid.UUID):
+            # if the obj is uuid, we simply return the value of uuid
+            return obj.hex
+        if isinstance(obj, Car):
+            return {'price': obj.price, 'mileage': obj.mileage, 'producer': obj.producer, 'car_type': obj.car_type,
+                    'garage_numb': obj.garage_numb, 'number': obj.number}
+        if isinstance(obj, Garage):
+            return {'places': obj.places, 'owner': obj.owner, 'number': obj.number, 'cars': obj.cars, 'town': obj.town}
+        if isinstance(obj, Cesar):
+            return {'name': obj.name, 'register_id': obj.register_id, 'garages': obj.garages}
+        return json.JSONEncoder.default(self, obj)
+
+
 if __name__ == '__main__':
     car1 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
                random.choice(CARS_TYPES))
@@ -347,50 +377,26 @@ if __name__ == '__main__':
     cesar_2 = Cesar(random.choice(NAMES), garage2)
     cesar_3 = Cesar(random.choice(NAMES), garage4, garage5)
 
-    new_id_correct = "c90cb2a4-33d2-427d-8876-ba7ed1cb3fc6"
-    # new_id_correct = uuid.uuid4()
-    new_id_wrong = " 33d2-427d-8876-ba7ed1cb3fc6 "
-    print("Testing Car class:")
-    print(car1)
-    print(car2)
-    print(car1 > car2)
-    print(car1 >= car2)
-    print(car1 == car2)
-    print(car1 <= car2)
-    print(car1 <= car2)
 
-    print(car1.change_number(new_id_correct))
-    print(car1.change_number(new_id_wrong))
+    def to_json(obj):
+        data = {'price': obj.price, 'mileage': obj.mileage, 'producer': obj.producer, 'car_type': obj.car_type,
+                'garage_numb': obj.garage_numb, 'number': obj.number}
+        return data
 
-    print('\n' * 5)
-    print("Testing Garage class:")
-    print(garage1)
-    print(garage2)
-    print(garage3)
 
-    print("This is hit_hat method", garage1.hit_hat())
+    # serialized_car = json.dumps(car1, default=JsonConverter.to_json(Car))
+    serialized_car = json.dumps(car1, cls=JsonConverter, indent=4)
+    serialized_garage = json.dumps(garage1, cls=JsonConverter, indent=4)
+    serialized_cesar = json.dumps(cesar_1, cls=JsonConverter, indent=4)
 
-    print(garage1.add(car10))
-    print(garage1)
-    print(garage1.remove(car10))
-    print(garage1)
-    print("This is free_spaces method", garage1.free_places())
-
-    print('\n' * 5)
-    print("Testing Cesar class:")
-
-    print(cesar_1)
-    print(cesar_2)
-
-    print("Testing garages after creating cesars")
-    print(garage1)
-    print(garage2)
-    print(garage3)
-
-    print("This is hit_hat method", cesar_1.hit_hat())
-    print("This is cars_count method", cesar_1.cars_count())
-    print("This is garage_count method", cesar_1.garages_count())
-
-    print("This is add_car method with garage specification", cesar_1.add_car(car10, garage1))
-    print(garage1.remove(car10))
-    print("This is add_car method without garage specification", cesar_1.add_car(car10))
+    print("!!!SERIALIZATION ZONE!!!")
+    print("Car serialization:")
+    print(serialized_car)
+    print('\n'*5)
+    print("Garage serialization:")
+    print(serialized_garage)
+    print('\n'*5)
+    print("Cesar serialization:")
+    print(serialized_cesar)
+    print('\n'*5)
+    print("!!!DESERIALIZATION ZONE!!!")
