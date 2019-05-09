@@ -16,6 +16,11 @@ class Programmer:
         return f"Programmer. Name: {self.name}." \
             f"Lang :{self.language}; Postion: {self.position} developer"
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f2499423d25875f139c779e7b4d6e65a6a3abb33
     @classmethod
     def from_json(cls, data):
         name = data['name']
