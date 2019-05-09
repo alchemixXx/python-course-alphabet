@@ -1,0 +1,68 @@
+{
+    "__class__": "Cesar",
+    "__module__": "__main__",
+    "name": "Pavel",
+    "register_id": "8e7fbfca73084591aa2f51ff526cd5a0",
+    "garages": [
+        {
+            "__class__": "Garage",
+            "__module__": "__main__",
+            "places": 147,
+            "owner": "8e7fbfca-7308-4591-aa2f-51ff526cd5a0",
+            "number": 0,
+            "cars": [
+                {
+                    "__class__": "Car",
+                    "__module__": "__main__",
+                    "price": 443.0,
+                    "mileage": 1427.0,
+                    "producer": "BMW",
+                    "car_type": "Truck",
+                    "garage_numb": null,
+                    "number": "c44be52035fc4a6aa814c45af66f3893"
+                },
+                {
+                    "__class__": "Car",
+                    "__module__": "__main__",
+                    "price": 960.0,
+                    "mileage": 1337.0,
+                    "producer": "Bugatti",
+                    "car_type": "Sports Car",
+                    "garage_numb": null,
+                    "number": "a0f66455bedd497cb934a2b39bd83f19"
+                }
+            ],
+            "town": "Berlin"
+        },
+        {
+            "__class__": "Garage",
+            "__module__": "__main__",
+            "places": 79,
+            "owner": "8e7fbfca-7308-4591-aa2f-51ff526cd5a0",
+            "number": 2,
+            "cars": [
+                {
+                    "__class__": "Car",
+                    "__module__": "__main__",
+                    "price": 471.0,
+                    "mileage": 970.0,
+                    "producer": "Chery",
+                    "car_type": "SUV",
+                    "garage_numb": null,
+                    "number": "9369935ef6b74b189cd8ed2d1ad2884c"
+                },
+                {
+                    "__class__": "Car",
+                    "__module__": "__main__",
+                    "price": 594.0,
+                    "mileage": 534.0,
+                    "producer": "Chevrolet",
+                    "car_type": "SUV",
+                    "garage_numb": null,
+                    "number": "ecf33731fb154497bfed56a516ce687c"
+                }
+            ],
+            "town": "Berlin"
+        }
+    ]
+}

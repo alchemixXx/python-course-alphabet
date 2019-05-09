@@ -31,6 +31,7 @@ import json
 from ruamel.yaml import YAML
 import pickle
 from pprint import pprint
+from ruamel.yaml import safe_dump
 
 
 class Car:
@@ -425,7 +426,8 @@ if __name__ == '__main__':
 
 
 
-
+    """Для класів Колекціонер Машина і Гараж написати методи, які конвертують обєкт в строку формату
+    yaml, json, pickle відповідно."""
 
     """ Для класу Колекціонер Машина і Гараж написати методи, які створюють інстанс обєкту
     з (yaml, json, pickle) строки відповідно"""
@@ -450,15 +452,15 @@ if __name__ == '__main__':
     des_gar2 = pickle.loads(pickle_serialized_garage)
     des_ces2 = pickle.loads(pickle_serialized_cesar)
 
-    # YAML DESERIALIZATION
-    yaml_serialized_car = pickle.dumps(car1)
-    yaml_serialized_garage = pickle.dumps(garage1)
-    yaml_serialized_cesar = pickle.dumps(cesar_1)
 
     # YAML DESERIALIZATION
-    des_car3 = pickle.loads(pickle_serialized_car)
-    des_gar3 = pickle.loads(pickle_serialized_garage)
-    des_ces3 = pickle.loads(pickle_serialized_cesar)
+    yaml = YAML()
+    yaml_serialized_car = yaml.dump(car1)
+    pickle_serialized_garage = pickle.dumps(garage1)
+    pickle_serialized_cesar = pickle.dumps(cesar_1)
+
+    print(yaml_serialized_car)
+
 
 
     # print("!!!--------------------JSON SERIALIZATION ZONE-------------------------!!!")
@@ -532,3 +534,125 @@ if __name__ == '__main__':
 #     print("This is garage after deserialization")
 #     print(des_ces2)
 
+
+
+    """Для попереднього домашнього завдання.
+    Для класу Колекціонер Машина і Гараж написати методи, які створюють інстанс обєкту
+    з (yaml, json, pickle) файлу відповідно
+    
+    Для класів Колекціонер Машина і Гараж написати методи, які зберігають стан обєкту в файли формату
+    yaml, json, pickle відповідно."""
+
+    # JSON SERIALIZATION
+    with open('result_car_serialization.json', 'w') as file:
+        json.dump(car1, file, cls=JsonConverter, indent=4)
+
+    with open('result_garage_serialization.json', 'w') as file:
+        json.dump(garage1, file, cls=JsonConverter, indent=4)
+
+    with open('result_cesar_serialization.json', 'w') as file:
+        json.dump(cesar_1, file, cls=JsonConverter, indent=4)
+
+
+    # JSON DESERIALIZATION
+    with open('result_car_serialization.json', 'r') as file:
+        des_car3 = json.load(file, object_hook=json_hook)
+
+    with open('result_garage_serialization.json', 'r') as file:
+        des_gar3 = json.load(file, object_hook=json_hook)
+
+    with open('result_cesar_serialization.json', 'r') as file:
+        des_ces3 = json.load(file, object_hook=json_hook)
+
+
+    # PICKLE DESERIALIZATION
+    with open('pickle_result_car_serialization.txt', 'wb') as file:
+        pickle.dump(car1, file)
+
+    with open('pickle_result_garage_serialization.txt', 'wb') as file:
+        pickle.dump(garage1, file)
+
+    with open('pickle_result_cesar_serialization.txt', 'wb') as file:
+        pickle.dump(cesar_1, file)
+
+
+    # PICKLE DESERIALIZATION
+    with open('pickle_result_car_serialization.txt', 'rb') as file:
+        des_car4 = pickle.load(file)
+
+    with open('pickle_result_garage_serialization.txt', 'rb') as file:
+        des_gar4 = pickle.load(file)
+
+    with open('pickle_result_cesar_serialization.txt', 'rb') as file:
+        des_ces4 = pickle.load(file)
+
+
+    # YAML DESERIALIZATION
+    yaml = YAML()
+    yaml.register_class(Car)
+    yaml.register_class(uuid.UUID)
+    yaml.register_class(Garage)
+    yaml.register_class(Cesar)
+
+    # with open('yaml_result_car_serialization.yaml', 'w') as file:
+    #     yaml.dump(car1, file)
+    #
+    # with open('yaml_result_garage_serialization.yaml', 'w') as file:
+    #     yaml.dump(garage1, file)
+    #
+    # with open('yaml_result_cesar_serialization.yaml', 'w') as file:
+    #     yaml.safe_dump(cesar_1, file)
+    #
+    #
+    # # PICKLE DESERIALIZATION
+    # with open('yaml_result_car_serialization.yaml', 'r') as file:
+    #     des_car5 = yaml.load(file)
+    #
+    # with open('yaml_result_garage_serialization.yaml', 'r') as file:
+    #     des_gar5 = yaml.load(file)
+    #
+    # with open('yaml_result_cesar_serialization.yaml', 'r') as file:
+    #     des_ces5 = yaml.load(file)
+
+
+    # print("!!! --------------------JSON DESERIALIZATION ZONE--------------------!!!")
+    # print('This is the car after serailization ')
+    # print(des_car3)
+    # print()
+    #
+    # print('This is the garage after serailization ')
+    # print(des_gar3)
+    # print()
+    #
+    # print('This is cesar after serailization ')
+    # print(des_ces3)
+    # print("!!! -------------------- END OF JSON DESERIALIZATION ZONE--------------------!!!")
+
+
+
+    # print("!!! --------------------PICKLE DESERIALIZATION ZONE--------------------!!!")
+    # print('This is the car after serailization ')
+    # print(des_car4)
+    # print()
+    #
+    # print('This is the garage after serailization ')
+    # print(des_gar4)
+    # print()
+    #
+    # print('This is cesar after serailization ')
+    # print(des_ces4)
+    # print("!!! -------------------- END OF PICKLE DESERIALIZATION ZONE--------------------!!!")
+
+
+    print("!!! --------------------YAML DESERIALIZATION ZONE--------------------!!!")
+    print('This is the car after serailization ')
+    print(des_car5)
+    print()
+
+    print('This is the garage after serailization ')
+    print(des_gar5)
+    print()
+
+    print('This is cesar after serailization ')
+    print(des_ces5)
+    print("!!! -------------------- END OF YAML DESERIALIZATION ZONE--------------------!!!")
