@@ -78,6 +78,7 @@ from typing import List
 import itertools
 import json
 from ruamel.yaml import YAML
+import pickle
 from pprint import pprint
 
 
@@ -106,11 +107,18 @@ class Car:
             print("Producer should be instance of CARS_PRODUCER!")
 
     # JSON serialization part
-    # @staticmethod
-    # def to_json(obj):
-    #     data = {'price': obj.price, 'mileage': obj.mileage, 'producer': obj.producer, 'car_type': obj.car_type,
-    #             'garage_numb': obj.garage_numb, 'number': obj.number}
-    #     return data
+    def convert_to_dict(obj):
+
+        #  Populate the dictionary with object meta data
+        obj_dict = {
+            "__class__": obj.__class__.__name__,
+            "__module__": obj.__module__
+        }
+
+        #  Populate the dictionary with object properties
+        obj_dict.update(obj.__dict__)
+
+        return obj_dict
 
     @classmethod
     def from_json(cls):
@@ -324,19 +332,35 @@ class Cesar:
     def __eq__(self, other):
         return self.hit_hat() == other.hit_hat()
 
-
+# JSON SERIALIZATION
 class JsonConverter(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, uuid.UUID):
             # if the obj is uuid, we simply return the value of uuid
             return obj.hex
         if isinstance(obj, Car):
-            return {'price': obj.price, 'mileage': obj.mileage, 'producer': obj.producer, 'car_type': obj.car_type,
-                    'garage_numb': obj.garage_numb, 'number': obj.number}
+            return {"__class__": obj.__class__.__name__,
+                    "__module__": obj.__module__,
+                    'price': obj.price, 'mileage': obj.mileage,
+                    'producer': obj.producer,
+                    'car_type': obj.car_type,
+                    'garage_numb': obj.garage_numb,
+                    'number': obj.number}
         if isinstance(obj, Garage):
-            return {'places': obj.places, 'owner': obj.owner, 'number': obj.number, 'cars': obj.cars, 'town': obj.town}
+            return {"__class__": obj.__class__.__name__,
+                    "__module__": obj.__module__,
+                    'places': obj.places,
+                    'owner': obj.owner,
+                    'number': obj.number,
+                    # 'cars': obj.cars,
+                    'cars': [self.default(inst) for inst in obj.cars],
+                    'town': obj.town}
         if isinstance(obj, Cesar):
-            return {'name': obj.name, 'register_id': obj.register_id, 'garages': obj.garages}
+            return {"__class__": obj.__class__.__name__,
+                    "__module__": obj.__module__,
+                    'name': obj.name,
+                    'register_id': obj.register_id,
+                    'garages': obj.garages}
         return json.JSONEncoder.default(self, obj)
 
 # name = data['name']
@@ -345,27 +369,65 @@ class JsonConverter(json.JSONEncoder):
 # pr = Programmer(name=name, language=language, position=position)
 # pr.enough_coffee = data.get('enough_coffee', False)
 # # return pr
+#
+#     def __init__(self, price: float, mileage: float, producer, car_type, garage_numb=None, number=None):
+#         self.price = float(price)
+#         self.number = uuid.uuid4() if number is None else number
+#         self.mileage = float(mileage)
+#         self.garage_numb = garage_numb
+#         self.producer = self.producer_checking(producer)
+#         self.car_type = self.type_checking(car_type)
+
+
+def car_deserial(obj):
+    price = obj['price']
+    mileage = obj['mileage']
+    producer = obj['producer']
+    car_type = obj['car_type']
+    garage_numb = obj['garage_numb']
+    number = uuid.UUID(obj['number'], version=4)
+    car = Car(price=price, mileage=mileage, producer=producer, car_type=car_type,
+              garage_numb=garage_numb, number=number)
+    return car
+
+
+def garage_deserial(obj):
+    places = obj['places']
+    owner = obj['owner']
+    number = obj['number']
+    # cars = [car_deserial(car) for car in obj['cars']]
+    cars = obj['cars']
+    town = obj['town']
+    garage = Garage(places, town, *cars, owner=owner, number=number)
+    return garage
+
+def cesar_deserial(obj):
+    pass
+    cesar = Cesar(places, town, cars, owner=owner, number=number)
+    return cesar
+
 
 def json_hook(obj):
-    if 'price' in obj:
-        price = obj['price']
-        mileage = obj['mileage']
-        producer = obj['producer']
-        car_type = obj['car_type']
-        garage_numb = obj['garage_numb']
-        number = uuid.UUID(obj['number'], version=4)
-        car = Car(price=price, mileage=mileage, producer=producer, car_type=car_type,
-                  garage_numb=garage_numb, number=number)
-        return car
-    elif 'places' in obj:
-        places = obj['places']
-        owner = obj['owner']
-        number = obj['number']
-        cars = obj['cars']
-        town = obj['town']
-        garage = Garage(cars, places=places, town=town, owner=owner, number=number)
-        return garage
+    if obj['__class__'] == "Car":
+        return car_deserial(obj)
+    elif obj['__class__'] == "Garage":
+        return garage_deserial(obj)
+    elif obj['__class__'] == "Cesar":
+        return cesar_deserial(obj)
 
+# def json_hook(obj):
+#     if "__class__" in obj:
+#         class_name = obj.pop("__class__")
+#         module_name = obj.pop("__module__")
+#         module = __import__(module_name)
+#         class_ = getattr(module, class_name)
+#         obj = class_(**obj)
+#     else:
+#         obj = obj
+#     return obj
+
+
+# PICKLE SERIALIZATION
 
 
 if __name__ == '__main__':
@@ -406,33 +468,79 @@ if __name__ == '__main__':
     cesar_2 = Cesar(random.choice(NAMES), garage2)
     cesar_3 = Cesar(random.choice(NAMES), garage4, garage5)
 
-    serialized_car = json.dumps(car1, cls=JsonConverter, indent=4)
-    serialized_garage = json.dumps(garage1, cls=JsonConverter, indent=4)
-    serialized_cesar = json.dumps(cesar_1, cls=JsonConverter, indent=4)
+    # JSON SERIALIZATION
+    json_serialized_car = json.dumps(car1, cls=JsonConverter, indent=4)
+    # serialized_car = json.dumps(car1.convert_to_dict(), indent=4)
+    json_serialized_garage = json.dumps(garage1, cls=JsonConverter, indent=4)
+    json_serialized_cesar = json.dumps(cesar_1, cls=JsonConverter, indent=4)
 
 
-    print("!!!SERIALIZATION ZONE!!!")
+    print("!!!JSON SERIALIZATION ZONE!!!")
     print("Car serialization:")
-    print(serialized_car)
+    print(json_serialized_car)
     print('\n'*5)
     print("Garage serialization:")
-    print(serialized_garage)
+    print(json_serialized_garage)
     print('\n'*5)
     print("Cesar serialization:")
-    print(serialized_cesar)
+    print(json_serialized_cesar)
     print('\n'*5)
 
 
 
-    print("!!!DESERIALIZATION ZONE!!!")
-    des_car1 = json.loads(serialized_car, object_hook=json_hook)
+    print("!!! JSON DESERIALIZATION ZONE!!!")
+    des_car1 = json.loads(json_serialized_car, object_hook=json_hook)
     print("This is original car")
     print(car1)
     print("This is car after deserialization")
     print(des_car1)
-    des_gar1 = json.loads(serialized_garage, object_hook=json_hook)
+    # print(type(des_car1.price))
+    # print(type(des_car1.mileage))
+    print('\n'*5)
+    des_gar1 = json.loads(json_serialized_garage, object_hook=json_hook)
     print("This is original garage")
     print(garage1)
     print("This is garage after deserialization")
     print(des_gar1)
+    print(type(des_gar1))
+    # print(des_gar1[0])
+    # print(type(des_gar1[0]))
+
+# # PICKLE SERIALIZATION
+#     pickle_serialized_car = pickle.dumps(car1)
+#     # serialized_car = json.dumps(car1.convert_to_dict(), indent=4)
+#     pickle_serialized_garage = pickle.dumps(garage1)
+#     pickle_serialized_cesar = pickle.dumps(cesar_1)
+
+
+    # print("!!!S PICKLE ERIALIZATION ZONE!!!")
+    # print("Car serialization:")
+    # print(pickle_serialized_car)
+    # print('\n'*5)
+    # print("Garage serialization:")
+    # print(pickle_serialized_garage)
+    # print('\n'*5)
+    # print("Cesar serialization:")
+    # print(pickle_serialized_cesar)
+    # print('\n'*5)
+    #
+    #
+    #
+    # print("!!!PICKLE DESERIALIZATION ZONE!!!")
+    # des_car2 = pickle.loads(pickle_serialized_car)
+    # print("This is original car")
+    # print(car1)
+    # print("This is car after deserialization")
+    # print(des_car1)
+    # # print(type(des_car1.price))
+    # # print(type(des_car1.mileage))
+    # print('\n'*5)
+    # des_gar2 = pickle.loads(pickle_serialized_garage)
+    # print("This is original garage")
+    # print(garage1)
+    # print("This is garage after deserialization")
+    # print(des_gar1)
+    # print(type(des_gar1))
+    # # print(des_gar1[0])
+    # # print(type(des_gar1[0]))
 
