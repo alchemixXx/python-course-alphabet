@@ -1,0 +1,24 @@
+!Garage
+cars: !!python/tuple
+- !Car
+  car_type: Wagon
+  garage_numb: null
+  mileage: 751.0
+  number: !UUID
+    int: 169312350745172983006318741360240082283
+    is_safe: &id001 !!python/object/apply:uuid.SafeUUID [null]
+  price: 549.0
+  producer: Dodge
+- !Car
+  car_type: Luxury Car
+  garage_numb: null
+  mileage: 1460.0
+  number: !UUID
+    int: 281802039867887936903837181929127121153
+    is_safe: *id001
+  price: 714.0
+  producer: Buick
+number: 0
+owner: 84ef4a26-eb58-4cce-87b6-88099a163cb0
+places: 95
+town: Kiev
