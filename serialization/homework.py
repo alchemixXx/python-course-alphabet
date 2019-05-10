@@ -93,6 +93,20 @@ class Car:
 
         return params
 
+    # INI serialization part
+    def to_ini(self):
+        # configs = configparser.ConfigParser()
+        # configs.add_section('Car')
+        # configs.set('Car', 'price', str(self.price))
+        # configs.set('Car', 'mileage', str(self.mileage))
+        # configs.set('Car', 'number', str(self.number))
+        # configs.set('Car', 'garage_numb', str(self.garage_numb))
+        # configs.set('Car', 'producer', str(self.producer))
+        # configs.set('Car', 'car_type', str(self.car_type))
+        params = {'price': self.price, 'mileage': self.mileage, 'number':self.number, 'garage_numb':self.garage_numb, 'producer':self.producer, 'car_type':self.car_type}
+
+        return params
+
     @classmethod
     def from_json(cls):
         pass
@@ -436,6 +450,7 @@ if __name__ == '__main__':
     #
     # print(yaml_serialized_car)
 
+
     # print("!!!--------------------JSON SERIALIZATION ZONE-------------------------!!!")
     # print("Car serialization:")
     # print(json_serialized_car)
@@ -532,6 +547,7 @@ if __name__ == '__main__':
     with open('result_cesar_serialization.json', 'r') as file:
         des_ces3 = json.load(file, object_hook=json_hook)
 
+
     # PICKLE SERIALIZATION
     with open('pickle_result_car_serialization.txt', 'wb') as file:
         pickle.dump(car1, file)
@@ -552,6 +568,7 @@ if __name__ == '__main__':
     with open('pickle_result_cesar_serialization.txt', 'rb') as file:
         des_ces4 = pickle.load(file)
 
+
     # YAML SERIALIZATION
     yaml = YAML(typ='unsafe')
     yaml.register_class(Car)
@@ -564,6 +581,21 @@ if __name__ == '__main__':
 
     with open('yaml_result_garage_serialization.yaml', 'w') as file:
         yaml.dump(garage1, file)
+
+    with open('yaml_result_cesar_serialization.yaml', 'w') as file:
+        yaml.dump(cesar_1, file)
+
+
+    # YAML DESERIALIZATION
+
+    with open('yaml_result_car_serialization.yaml', 'r') as file:
+        des_car5 = yaml.load(file)
+
+    with open('yaml_result_garage_serialization.yaml', 'r') as file:
+        des_gar5 = yaml.load(file)
+
+    with open('yaml_result_cesar_serialization.yaml', 'r') as file:
+        des_ces5 = yaml.load(file)
 
     with open('yaml_result_cesar_serialization.yaml', 'w') as file:
         yaml.dump(cesar_1, file)
@@ -629,7 +661,6 @@ if __name__ == '__main__':
 
 
 
-
     # INI SERIALIZATION
     # with open('ini_car_serialization.ini', 'w') as file:
     #     params = car1.to_ini()
@@ -645,6 +676,23 @@ if __name__ == '__main__':
     # y = config.read('ini_car_serialization.ini')
     # x = config.sections()
     # for
+
+    # INI SERIALIZATION
+    # with open('ini_car_serialization.ini', 'w') as file:
+    #     params = car1.to_ini()
+    #     Config = configparser.ConfigParser()
+    #     Config.add_section("Car")
+    #     for k,v in params.items():
+    #         Config.set('Car', k, str(v))
+    #     Config.write(file)
+
+    # # INI DESERIALIZATION
+    # # with open('ini_car_serialization.ini') as file:
+    # config = configparser.ConfigParser()
+    # y = config.read('ini_car_serialization.ini')
+    # x = config.sections()
+    # for
+
     # config = configparser.RawConfigParser(allow_no_value=True)
     # config.readfp(io.BytesIO(car))
 
@@ -659,4 +707,3 @@ if __name__ == '__main__':
     # print(car)
     # print(type(car))
 
-    # print(car1.__repr__())
