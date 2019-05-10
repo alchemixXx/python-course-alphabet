@@ -1,9 +1,9 @@
 !Car
-car_type: Wagon
+car_type: Diesel
 garage_numb: null
-mileage: 1628.0
+mileage: 1010.0
 number: !UUID
-  int: 284860854556315845170208542322573780018
+  int: 105665419691390659849841256338598547451
   is_safe: !!python/object/apply:uuid.SafeUUID [null]
-price: 789.0
-producer: Dodge
+price: 974.0
+producer: Lamborghini

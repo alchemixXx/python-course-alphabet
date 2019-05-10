@@ -1,10 +1,10 @@
 {
     "__class__": "Car",
     "__module__": "__main__",
-    "price": 789.0,
-    "mileage": 1628.0,
-    "producer": "Dodge",
-    "car_type": "Wagon",
+    "price": 974.0,
+    "mileage": 1010.0,
+    "producer": "Lamborghini",
+    "car_type": "Diesel",
     "garage_numb": null,
-    "number": "d64e347965b043ecb0a17106ab2d2432"
+    "number": "4f7e6b6a0d8d474c8e9673b341ba4ffb"
 }

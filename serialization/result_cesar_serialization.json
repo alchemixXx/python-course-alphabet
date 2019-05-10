@@ -1,68 +1,68 @@
 {
     "__class__": "Cesar",
     "__module__": "__main__",
-    "name": "Alla",
-    "register_id": "efa553b2af1342b794eb7e47617fb623",
+    "name": "Tata",
+    "register_id": "c5786cfad7f5418985763867db10babc",
     "garages": [
         {
             "__class__": "Garage",
             "__module__": "__main__",
-            "places": 90,
-            "owner": "efa553b2-af13-42b7-94eb-7e47617fb623",
+            "places": 25,
+            "owner": "c5786cfa-d7f5-4189-8576-3867db10babc",
             "number": 0,
             "cars": [
                 {
                     "__class__": "Car",
                     "__module__": "__main__",
-                    "price": 789.0,
-                    "mileage": 1628.0,
-                    "producer": "Dodge",
-                    "car_type": "Wagon",
+                    "price": 974.0,
+                    "mileage": 1010.0,
+                    "producer": "Lamborghini",
+                    "car_type": "Diesel",
                     "garage_numb": null,
-                    "number": "d64e347965b043ecb0a17106ab2d2432"
+                    "number": "4f7e6b6a0d8d474c8e9673b341ba4ffb"
                 },
                 {
                     "__class__": "Car",
                     "__module__": "__main__",
-                    "price": 802.0,
-                    "mileage": 399.0,
+                    "price": 727.0,
+                    "mileage": 259.0,
                     "producer": "BMW",
-                    "car_type": "SUV",
+                    "car_type": "Van",
                     "garage_numb": null,
-                    "number": "ffe1c2f3954746f58b1c8f1807ad9395"
+                    "number": "b6c08d70e46144ef99da3e76359b6096"
                 }
             ],
-            "town": "Paris"
+            "town": "Prague"
         },
         {
             "__class__": "Garage",
             "__module__": "__main__",
-            "places": 139,
-            "owner": "efa553b2-af13-42b7-94eb-7e47617fb623",
+            "places": 34,
+            "owner": "c5786cfa-d7f5-4189-8576-3867db10babc",
             "number": 2,
             "cars": [
                 {
                     "__class__": "Car",
                     "__module__": "__main__",
-                    "price": 670.0,
-                    "mileage": 655.0,
-                    "producer": "Ford",
-                    "car_type": "SUV",
+                    "price": 608.0,
+                    "mileage": 400.0,
+                    "producer": "BMW",
+                    "car_type": "Sedan",
                     "garage_numb": null,
-                    "number": "a6a3f7c7381c496d837662058001b92f"
+                    "number": "13285645177545eaba766fad11426c50"
                 },
                 {
                     "__class__": "Car",
                     "__module__": "__main__",
-                    "price": 571.0,
-                    "mileage": 254.0,
+                    "price": 631.0,
+                    "mileage": 431.0,
                     "producer": "Dodge",
-                    "car_type": "Van",
+                    "car_type": "Sedan",
                     "garage_numb": null,
-                    "number": "06ea3d7440aa460b9490f6b26e08bcd8"
+                    "number": "7d17df2e5e9a4abe9bfa361e70008e15"
                 }
             ],
-            "town": "London"
+            "town": "Kiev"
         }
     ]
 }

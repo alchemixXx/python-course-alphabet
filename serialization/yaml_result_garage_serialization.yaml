@@ -1,24 +1,24 @@
 !Garage
 cars: !!python/tuple
 - !Car
-  car_type: Wagon
+  car_type: Diesel
   garage_numb: null
-  mileage: 1628.0
+  mileage: 1010.0
   number: !UUID
-    int: 284860854556315845170208542322573780018
+    int: 105665419691390659849841256338598547451
     is_safe: &id001 !!python/object/apply:uuid.SafeUUID [null]
-  price: 789.0
-  producer: Dodge
+  price: 974.0
+  producer: Lamborghini
 - !Car
-  car_type: SUV
+  car_type: Van
   garage_numb: null
-  mileage: 399.0
+  mileage: 259.0
   number: !UUID
-    int: 340125359804429918488889640092884112277
+    int: 242919284993681865840854532867393020054
     is_safe: *id001
-  price: 802.0
+  price: 727.0
   producer: BMW
 number: 0
-owner: efa553b2-af13-42b7-94eb-7e47617fb623
-places: 90
-town: Paris
+owner: c5786cfa-d7f5-4189-8576-3867db10babc
+places: 25
+town: Prague

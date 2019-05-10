@@ -451,40 +451,40 @@ if __name__ == '__main__':
     # print(yaml_serialized_car)
 
 
-    print("!!!--------------------JSON SERIALIZATION ZONE-------------------------!!!")
-    print("Car serialization:")
-    print(json_serialized_car)
-    print('\n'*5)
-    print("Garage serialization:")
-    print(json_serialized_garage)
-    print('\n'*5)
-    print("Cesar serialization:")
-    print(json_serialized_cesar)
-    print('\n'*5)
-
-    print("!!! --------------------JSON DESERIALIZATION ZONE--------------------!!!")
-
-    print("This is original car")
-    print(car1)
-    print()
-    print("This is car after deserialization")
-    print(des_car1)
-    print('\n'*5)
-
-    print("This is original garage")
-    print(garage1)
-    print()
-    print("This is garage after deserialization")
-    print(des_gar1)
-    print('\n'*5)
-
-    print("This is original cesar")
-    print(cesar_1)
-    print()
-    print("This is garage after deserialization")
-    print(des_ces1)
-
-    print("!!! -------------------- END OF JSON DESERIALIZATION ZONE--------------------!!!")
+    # print("!!!--------------------JSON SERIALIZATION ZONE-------------------------!!!")
+    # print("Car serialization:")
+    # print(json_serialized_car)
+    # print('\n'*5)
+    # print("Garage serialization:")
+    # print(json_serialized_garage)
+    # print('\n'*5)
+    # print("Cesar serialization:")
+    # print(json_serialized_cesar)
+    # print('\n'*5)
+    #
+    # print("!!! --------------------JSON DESERIALIZATION ZONE--------------------!!!")
+    #
+    # print("This is original car")
+    # print(car1)
+    # print()
+    # print("This is car after deserialization")
+    # print(des_car1)
+    # print('\n'*5)
+    #
+    # print("This is original garage")
+    # print(garage1)
+    # print()
+    # print("This is garage after deserialization")
+    # print(des_gar1)
+    # print('\n'*5)
+    #
+    # print("This is original cesar")
+    # print(cesar_1)
+    # print()
+    # print("This is garage after deserialization")
+    # print(des_ces1)
+    #
+    # print("!!! -------------------- END OF JSON DESERIALIZATION ZONE--------------------!!!")
     #
 
     # # PICKLE SERIALIZATION
@@ -662,36 +662,26 @@ if __name__ == '__main__':
 
 
     # INI SERIALIZATION
-    # with open('ini_car_serialization.ini', 'w') as file:
-    #     params = car1.to_ini()
-    #     Config = configparser.ConfigParser()
-    #     Config.add_section("Car")
-    #     for k, v in params.items():
-    #         Config.set('Car', k, str(v))
-    #     Config.write(file)
+    with open('ini_car_serialization.ini', 'w') as file:
+        params = car1.to_ini()
+        Config = configparser.ConfigParser()
+        Config.add_section("Car")
+        for k,v in params.items():
+            Config.set('Car', k, str(v))
+        Config.write(file)
 
     # INI DESERIALIZATION
     # with open('ini_car_serialization.ini') as file:
+    # params=dict()
     # config = configparser.ConfigParser()
     # y = config.read('ini_car_serialization.ini')
-    # x = config.sections()
-    # for
-
-    # INI SERIALIZATION
-    # with open('ini_car_serialization.ini', 'w') as file:
-    #     params = car1.to_ini()
-    #     Config = configparser.ConfigParser()
-    #     Config.add_section("Car")
-    #     for k,v in params.items():
-    #         Config.set('Car', k, str(v))
-    #     Config.write(file)
-    #
-    # # INI DESERIALIZATION
-    # # with open('ini_car_serialization.ini') as file:
-    # config = configparser.ConfigParser()
-    # y = config.read('ini_car_serialization.ini')
-    # x = config.sections()
-    # for
+    # config.sections()
+    # for section in config.sections():
+    #     for option in config.options(section):
+    #         # params.update({option:y[option]})
+    #         print(type(option))
+    #         print(option, config.get(section, option))
+    # print(params)
 
     # config = configparser.RawConfigParser(allow_no_value=True)
     # config.readfp(io.BytesIO(car))
@@ -703,7 +693,4 @@ if __name__ == '__main__':
     #         print("x %s:::%s:::%s" % (options,
     #                                   config.get(section, options),
     #                                   str(type(options))))
-
-    # print(car)
-    # print(type(car))
 
