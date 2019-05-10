@@ -1,68 +1,68 @@
 {
     "__class__": "Cesar",
     "__module__": "__main__",
-    "name": "Pavel",
-    "register_id": "8e7fbfca73084591aa2f51ff526cd5a0",
+    "name": "Masha",
+    "register_id": "84ef4a26eb584cce87b688099a163cb0",
     "garages": [
         {
             "__class__": "Garage",
             "__module__": "__main__",
-            "places": 147,
-            "owner": "8e7fbfca-7308-4591-aa2f-51ff526cd5a0",
+            "places": 95,
+            "owner": "84ef4a26-eb58-4cce-87b6-88099a163cb0",
             "number": 0,
             "cars": [
                 {
                     "__class__": "Car",
                     "__module__": "__main__",
-                    "price": 443.0,
-                    "mileage": 1427.0,
-                    "producer": "BMW",
-                    "car_type": "Truck",
+                    "price": 549.0,
+                    "mileage": 751.0,
+                    "producer": "Dodge",
+                    "car_type": "Wagon",
                     "garage_numb": null,
-                    "number": "c44be52035fc4a6aa814c45af66f3893"
+                    "number": "7f605f646209428182420d7ea90dbd6b"
                 },
                 {
                     "__class__": "Car",
                     "__module__": "__main__",
-                    "price": 960.0,
-                    "mileage": 1337.0,
-                    "producer": "Bugatti",
-                    "car_type": "Sports Car",
+                    "price": 714.0,
+                    "mileage": 1460.0,
+                    "producer": "Buick",
+                    "car_type": "Luxury Car",
                     "garage_numb": null,
-                    "number": "a0f66455bedd497cb934a2b39bd83f19"
+                    "number": "d40119443684450998e179e323bb9101"
                 }
             ],
-            "town": "Berlin"
+            "town": "Kiev"
         },
         {
             "__class__": "Garage",
             "__module__": "__main__",
-            "places": 79,
-            "owner": "8e7fbfca-7308-4591-aa2f-51ff526cd5a0",
+            "places": 20,
+            "owner": "84ef4a26-eb58-4cce-87b6-88099a163cb0",
             "number": 2,
             "cars": [
                 {
                     "__class__": "Car",
                     "__module__": "__main__",
-                    "price": 471.0,
-                    "mileage": 970.0,
+                    "price": 843.0,
+                    "mileage": 160.0,
                     "producer": "Chery",
-                    "car_type": "SUV",
+                    "car_type": "Crossover",
                     "garage_numb": null,
-                    "number": "9369935ef6b74b189cd8ed2d1ad2884c"
+                    "number": "02aca384fe834f49b0e37442522d2084"
                 },
                 {
                     "__class__": "Car",
                     "__module__": "__main__",
-                    "price": 594.0,
-                    "mileage": 534.0,
-                    "producer": "Chevrolet",
-                    "car_type": "SUV",
+                    "price": 589.0,
+                    "mileage": 1893.0,
+                    "producer": "BENTLEY",
+                    "car_type": "Sedan",
                     "garage_numb": null,
-                    "number": "ecf33731fb154497bfed56a516ce687c"
+                    "number": "cdb8e80ee5974dfb88decedfb51aaa79"
                 }
             ],
-            "town": "Berlin"
+            "town": "London"
         }
     ]
 }

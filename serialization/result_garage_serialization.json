@@ -1,30 +1,30 @@
 {
     "__class__": "Garage",
     "__module__": "__main__",
-    "places": 147,
-    "owner": "8e7fbfca-7308-4591-aa2f-51ff526cd5a0",
+    "places": 95,
+    "owner": "84ef4a26-eb58-4cce-87b6-88099a163cb0",
     "number": 0,
     "cars": [
         {
             "__class__": "Car",
             "__module__": "__main__",
-            "price": 443.0,
-            "mileage": 1427.0,
-            "producer": "BMW",
-            "car_type": "Truck",
+            "price": 549.0,
+            "mileage": 751.0,
+            "producer": "Dodge",
+            "car_type": "Wagon",
             "garage_numb": null,
-            "number": "c44be52035fc4a6aa814c45af66f3893"
+            "number": "7f605f646209428182420d7ea90dbd6b"
         },
         {
             "__class__": "Car",
             "__module__": "__main__",
-            "price": 960.0,
-            "mileage": 1337.0,
-            "producer": "Bugatti",
-            "car_type": "Sports Car",
+            "price": 714.0,
+            "mileage": 1460.0,
+            "producer": "Buick",
+            "car_type": "Luxury Car",
             "garage_numb": null,
-            "number": "a0f66455bedd497cb934a2b39bd83f19"
+            "number": "d40119443684450998e179e323bb9101"
         }
     ],
-    "town": "Berlin"
+    "town": "Kiev"
 }
