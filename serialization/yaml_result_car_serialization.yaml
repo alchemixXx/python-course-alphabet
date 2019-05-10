@@ -1,9 +1,9 @@
 !Car
 car_type: Wagon
 garage_numb: null
-mileage: 751.0
+mileage: 1628.0
 number: !UUID
-  int: 169312350745172983006318741360240082283
+  int: 284860854556315845170208542322573780018
   is_safe: !!python/object/apply:uuid.SafeUUID [null]
-price: 549.0
+price: 789.0
 producer: Dodge

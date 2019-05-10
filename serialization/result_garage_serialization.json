@@ -1,30 +1,30 @@
 {
     "__class__": "Garage",
     "__module__": "__main__",
-    "places": 95,
-    "owner": "84ef4a26-eb58-4cce-87b6-88099a163cb0",
+    "places": 90,
+    "owner": "efa553b2-af13-42b7-94eb-7e47617fb623",
     "number": 0,
     "cars": [
         {
             "__class__": "Car",
             "__module__": "__main__",
-            "price": 549.0,
-            "mileage": 751.0,
+            "price": 789.0,
+            "mileage": 1628.0,
             "producer": "Dodge",
             "car_type": "Wagon",
             "garage_numb": null,
-            "number": "7f605f646209428182420d7ea90dbd6b"
+            "number": "d64e347965b043ecb0a17106ab2d2432"
         },
         {
             "__class__": "Car",
             "__module__": "__main__",
-            "price": 714.0,
-            "mileage": 1460.0,
-            "producer": "Buick",
-            "car_type": "Luxury Car",
+            "price": 802.0,
+            "mileage": 399.0,
+            "producer": "BMW",
+            "car_type": "SUV",
             "garage_numb": null,
-            "number": "d40119443684450998e179e323bb9101"
+            "number": "ffe1c2f3954746f58b1c8f1807ad9395"
         }
     ],
-    "town": "Kiev"
+    "town": "Paris"
 }

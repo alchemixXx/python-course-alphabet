@@ -5,50 +5,50 @@ garages:
   - !Car
     car_type: Wagon
     garage_numb: null
-    mileage: 751.0
+    mileage: 1628.0
     number: !UUID
-      int: 169312350745172983006318741360240082283
+      int: 284860854556315845170208542322573780018
       is_safe: &id001 !!python/object/apply:uuid.SafeUUID [null]
-    price: 549.0
+    price: 789.0
     producer: Dodge
   - !Car
-    car_type: Luxury Car
+    car_type: SUV
     garage_numb: null
-    mileage: 1460.0
+    mileage: 399.0
     number: !UUID
-      int: 281802039867887936903837181929127121153
+      int: 340125359804429918488889640092884112277
       is_safe: *id001
-    price: 714.0
-    producer: Buick
+    price: 802.0
+    producer: BMW
   number: 0
-  owner: 84ef4a26-eb58-4cce-87b6-88099a163cb0
-  places: 95
-  town: Kiev
+  owner: efa553b2-af13-42b7-94eb-7e47617fb623
+  places: 90
+  town: Paris
 - !Garage
   cars: !!python/tuple
   - !Car
-    car_type: Crossover
+    car_type: SUV
     garage_numb: null
-    mileage: 160.0
+    mileage: 655.0
     number: !UUID
-      int: 3554847620888605406388312398281646212
+      int: 221503217227179011332546092620417448239
       is_safe: *id001
-    price: 843.0
-    producer: Chery
+    price: 670.0
+    producer: Ford
   - !Car
-    car_type: Sedan
+    car_type: Van
     garage_numb: null
-    mileage: 1893.0
+    mileage: 254.0
     number: !UUID
-      int: 273451828457155467926233461655294618233
+      int: 9191611877072208106231884740672666840
       is_safe: *id001
-    price: 589.0
-    producer: BENTLEY
+    price: 571.0
+    producer: Dodge
   number: 2
-  owner: 84ef4a26-eb58-4cce-87b6-88099a163cb0
-  places: 20
+  owner: efa553b2-af13-42b7-94eb-7e47617fb623
+  places: 139
   town: London
-name: Masha
+name: Alla
 register_id: !UUID
-  int: 176700558374615290281980830241558772912
+  int: 318543917571046332182395607822775596579
   is_safe: *id001

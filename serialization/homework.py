@@ -37,7 +37,7 @@ class Car:
 
     def __init__(self, price: float, mileage: float, producer, car_type, garage_numb=None, number=None):
         self.price = float(price)
-        self.number = uuid.uuid4() if number is None else uuid.uuid4()
+        self.number = uuid.uuid4() if number is None else number
         self.mileage = float(mileage)
         self.garage_numb = garage_numb
         self.producer = self.producer_checking(producer)
@@ -432,7 +432,7 @@ if __name__ == '__main__':
     des_gar1 = json.loads(json_serialized_garage, object_hook=json_hook)
     des_ces1 = json.loads(json_serialized_cesar, object_hook=json_hook)
 
-    # PICKLE DESERIALIZATION
+    # PICKLE SERIALIZATION
     pickle_serialized_car = pickle.dumps(car1)
     pickle_serialized_garage = pickle.dumps(garage1)
     pickle_serialized_cesar = pickle.dumps(cesar_1)
@@ -442,7 +442,7 @@ if __name__ == '__main__':
     des_gar2 = pickle.loads(pickle_serialized_garage)
     des_ces2 = pickle.loads(pickle_serialized_cesar)
 
-    # # YAML DESERIALIZATION
+    # # YAML SERIALIZATION
     # yaml = YAML()
     # yaml_serialized_car = yaml.dump(car1)
     # pickle_serialized_garage = pickle.dumps(garage1)
@@ -451,74 +451,74 @@ if __name__ == '__main__':
     # print(yaml_serialized_car)
 
 
-    # print("!!!--------------------JSON SERIALIZATION ZONE-------------------------!!!")
+    print("!!!--------------------JSON SERIALIZATION ZONE-------------------------!!!")
+    print("Car serialization:")
+    print(json_serialized_car)
+    print('\n'*5)
+    print("Garage serialization:")
+    print(json_serialized_garage)
+    print('\n'*5)
+    print("Cesar serialization:")
+    print(json_serialized_cesar)
+    print('\n'*5)
+
+    print("!!! --------------------JSON DESERIALIZATION ZONE--------------------!!!")
+
+    print("This is original car")
+    print(car1)
+    print()
+    print("This is car after deserialization")
+    print(des_car1)
+    print('\n'*5)
+
+    print("This is original garage")
+    print(garage1)
+    print()
+    print("This is garage after deserialization")
+    print(des_gar1)
+    print('\n'*5)
+
+    print("This is original cesar")
+    print(cesar_1)
+    print()
+    print("This is garage after deserialization")
+    print(des_ces1)
+
+    print("!!! -------------------- END OF JSON DESERIALIZATION ZONE--------------------!!!")
+    #
+
+    # # PICKLE SERIALIZATION
+    # print("!!!--------------------PICKLE SERIALIZATION ZONE--------------------!!!")
     # print("Car serialization:")
-    # print(json_serialized_car)
+    # print(pickle_serialized_car)
     # print('\n'*5)
     # print("Garage serialization:")
-    # print(json_serialized_garage)
+    # print(pickle_serialized_garage)
     # print('\n'*5)
     # print("Cesar serialization:")
-    # print(json_serialized_cesar)
+    # print(pickle_serialized_cesar)
     # print('\n'*5)
     #
-    # print("!!! --------------------JSON DESERIALIZATION ZONE--------------------!!!")
-    #
+    # print("!!!--------------------PICKLE DESERIALIZATION ZONE--------------------!!!")
     # print("This is original car")
     # print(car1)
     # print()
     # print("This is car after deserialization")
-    # print(des_car1)
+    # print(des_car2)
     # print('\n'*5)
     #
     # print("This is original garage")
     # print(garage1)
     # print()
     # print("This is garage after deserialization")
-    # print(des_gar1)
+    # print(des_gar2)
     # print('\n'*5)
     #
     # print("This is original cesar")
     # print(cesar_1)
     # print()
     # print("This is garage after deserialization")
-    # print(des_ces1)
-    #
-    # print("!!! -------------------- END OF JSON DESERIALIZATION ZONE--------------------!!!")
-    #
-
-    # # PICKLE SERIALIZATION
-    #     print("!!!--------------------PICKLE DESERIALIZATION ZONE--------------------!!!")
-    #     print("Car serialization:")
-    #     print(pickle_serialized_car)
-    #     print('\n'*5)
-    #     print("Garage serialization:")
-    #     print(pickle_serialized_garage)
-    #     print('\n'*5)
-    #     print("Cesar serialization:")
-    #     print(pickle_serialized_cesar)
-    #     print('\n'*5)
-    #
-    #     print("!!!--------------------PICKLE DESERIALIZATION ZONE--------------------!!!")
-    #     print("This is original car")
-    #     print(car1)
-    #     print()
-    #     print("This is car after deserialization")
-    #     print(des_car2)
-    #     print('\n'*5)
-    #
-    #     print("This is original garage")
-    #     print(garage1)
-    #     print()
-    #     print("This is garage after deserialization")
-    #     print(des_gar2)
-    #     print('\n'*5)
-    #
-    #     print("This is original cesar")
-    #     print(cesar_1)
-    #     print()
-    #     print("This is garage after deserialization")
-    #     print(des_ces2)
+    # print(des_ces2)
 
     """Для попереднього домашнього завдання.
     Для класу Колекціонер Машина і Гараж написати методи, які створюють інстанс обєкту
@@ -685,7 +685,7 @@ if __name__ == '__main__':
     #     for k,v in params.items():
     #         Config.set('Car', k, str(v))
     #     Config.write(file)
-
+    #
     # # INI DESERIALIZATION
     # # with open('ini_car_serialization.ini') as file:
     # config = configparser.ConfigParser()

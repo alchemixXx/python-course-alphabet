@@ -1,65 +1,65 @@
 {
     "__class__": "Cesar",
     "__module__": "__main__",
-    "name": "Masha",
-    "register_id": "84ef4a26eb584cce87b688099a163cb0",
+    "name": "Alla",
+    "register_id": "efa553b2af1342b794eb7e47617fb623",
     "garages": [
         {
             "__class__": "Garage",
             "__module__": "__main__",
-            "places": 95,
-            "owner": "84ef4a26-eb58-4cce-87b6-88099a163cb0",
+            "places": 90,
+            "owner": "efa553b2-af13-42b7-94eb-7e47617fb623",
             "number": 0,
             "cars": [
                 {
                     "__class__": "Car",
                     "__module__": "__main__",
-                    "price": 549.0,
-                    "mileage": 751.0,
+                    "price": 789.0,
+                    "mileage": 1628.0,
                     "producer": "Dodge",
                     "car_type": "Wagon",
                     "garage_numb": null,
-                    "number": "7f605f646209428182420d7ea90dbd6b"
+                    "number": "d64e347965b043ecb0a17106ab2d2432"
                 },
                 {
                     "__class__": "Car",
                     "__module__": "__main__",
-                    "price": 714.0,
-                    "mileage": 1460.0,
-                    "producer": "Buick",
-                    "car_type": "Luxury Car",
+                    "price": 802.0,
+                    "mileage": 399.0,
+                    "producer": "BMW",
+                    "car_type": "SUV",
                     "garage_numb": null,
-                    "number": "d40119443684450998e179e323bb9101"
+                    "number": "ffe1c2f3954746f58b1c8f1807ad9395"
                 }
             ],
-            "town": "Kiev"
+            "town": "Paris"
         },
         {
             "__class__": "Garage",
             "__module__": "__main__",
-            "places": 20,
-            "owner": "84ef4a26-eb58-4cce-87b6-88099a163cb0",
+            "places": 139,
+            "owner": "efa553b2-af13-42b7-94eb-7e47617fb623",
             "number": 2,
             "cars": [
                 {
                     "__class__": "Car",
                     "__module__": "__main__",
-                    "price": 843.0,
-                    "mileage": 160.0,
-                    "producer": "Chery",
-                    "car_type": "Crossover",
+                    "price": 670.0,
+                    "mileage": 655.0,
+                    "producer": "Ford",
+                    "car_type": "SUV",
                     "garage_numb": null,
-                    "number": "02aca384fe834f49b0e37442522d2084"
+                    "number": "a6a3f7c7381c496d837662058001b92f"
                 },
                 {
                     "__class__": "Car",
                     "__module__": "__main__",
-                    "price": 589.0,
-                    "mileage": 1893.0,
-                    "producer": "BENTLEY",
-                    "car_type": "Sedan",
+                    "price": 571.0,
+                    "mileage": 254.0,
+                    "producer": "Dodge",
+                    "car_type": "Van",
                     "garage_numb": null,
-                    "number": "cdb8e80ee5974dfb88decedfb51aaa79"
+                    "number": "06ea3d7440aa460b9490f6b26e08bcd8"
                 }
             ],
             "town": "London"
