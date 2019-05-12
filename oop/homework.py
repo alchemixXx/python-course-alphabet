@@ -327,7 +327,7 @@ class House:
         if width == 0 or height == 0:
             print("Value must be not 0")
             raise ValueError
-        elif self.__roof not None:
+        elif self.__roof is not None:
             print("The house can not have two roofs")
             raise ValueError
         else:
@@ -346,7 +346,7 @@ class House:
         if width == 0 or height == 0:
             print("Value must be not 0")
             raise ValueError
-        elif self.__door not None:
+        elif self.__door is not None:
             print("The house can not have two roofs")
             raise ValueError
         else:
@@ -362,29 +362,32 @@ class House:
     def get_door_price(self, material):
         return self.__door.door_price(material)
 
-    def update_wood_price(self):
-        pass
+    def update_wood_price(self, wood_price):
+        self.__door.update_wood_price(wood_price)
 
-    def update_metal_price(self):
-        pass
+    def update_metal_price(self, metal_price):
+        self.__door.update_metal_price(metal_price)
 
     def get_roof_square(self):
-        pass
+        return self.__roof.roof_square()
 
     def get_walls_square(self):
-        pass
+        return sum[wall.wall_square() for wall in self.__walls]
 
     def get_windows_square(self):
-        pass
+        return sum[window.window_square() for window in self.__windows]
 
     def get_door_square(self):
-        pass
+        return self.__door.door_square()
 
-    def get_number_of_rolls_of_wallpapers(self):
-        pass
+    def get_number_of_rolls_of_wallpapers(self, roll_width_m, roll_height_m):
+        if roll_height_m == 0 or roll_width_m == 0:
+            print("Sorry length must be not 0")
+            raise ValueError
+        return sum[wall.number_of_rolls_of_wallpaper(roll_width_m, roll_height_m) for wall in self.__walls]
 
     def get_room_square(self):
-        pass
+        return self.get_walls_square() - self.get_door_square() - self.get_windows_square()
 
 
 
