@@ -1,3 +1,5 @@
+from abc import ABC, abstractmethod
+
 class Cat:
     """
     Write Class Cat which will receive age from user
@@ -39,31 +41,64 @@ class Cat:
     """
 
     def __init__(self, age):
-        pass
+        self.age = age
+        self.average_speed = self._set_average_speed()
+        self.saturation_level = 50
 
     def eat(self, product):
-        pass
+        if product == 'fodder':
+            self._increase_saturation_level(10)
+        elif product == 'apple':
+            self._increase_saturation_level(5)
+        elif product == 'milk':
+            self._increase_saturation_level(2)
+        else:
+            self._increase_saturation_level(0)
 
     def _reduce_saturation_level(self, value):
-        pass
+        self.saturation_level -= value
+        if self.saturation_level <= 0:
+            print("Happy news! This cat just has been died")
+            self.saturation_level = 0
 
     def _increase_saturation_level(self, value):
-        pass
+        self.saturation_level += value
+        if self.saturation_level > 100:
+            self.saturation_level = 100
 
     def _set_average_speed(self):
-        pass
+        if self.age <= 7:
+            return 12
+        elif self.age > 7 and self.age <= 10:
+            return 9
+        else:
+            return 6
+
 
     def run(self, hours):
-        pass
+        distance = hours * self.average_speed
+        if distance <= 25:
+            self._reduce_saturation_level(2)
+        elif distance <= 50:
+            self._reduce_saturation_level(5)
+        elif distance <= 100:
+            self._reduce_saturation_level(15)
+        elif distance <= 200:
+            self._reduce_saturation_level(25)
+        else:
+            self._reduce_saturation_level(50)
+
+        return f"This ugly cat ran {distance} kilometers"
 
     def get_saturation_level(self):
-        pass
+        return self.saturation_level
 
     def get_average_speed(self):
-        pass
+        return self.average_speed
 
 
 class Cheetah:
+
     """
     * Inherit from class Cat
 
@@ -276,3 +311,25 @@ class House:
 
     def get_room_square(self):
         pass
+
+
+
+cat1 = Cat(100)
+print("This is average spped")
+print(cat1.average_speed)
+# print("This is saturation level")
+# print(cat1.saturation_level)
+# print("cat is eating")
+# cat1.eat('fodder')
+# cat1.eat('fodder')
+# cat1.eat('fodder')
+# cat1.eat('fodder')
+# cat1.eat('milk')
+# print("Shoud be 92")
+# print(cat1.saturation_level)
+# cat1.eat('fodder')
+# print(cat1.saturation_levelru
+cat1.run(80)
+
+
+
