@@ -1,5 +1,5 @@
-from abc import ABC, abstractmethod
 import math
+
 
 class Cat:
     """
@@ -61,8 +61,6 @@ class Cat:
         if self.saturation_level <= 0:
             self.saturation_level = 0
 
-
-
     def _increase_saturation_level(self, value):
         self.saturation_level += value
         if self.saturation_level > 100:
@@ -101,7 +99,6 @@ class Cat:
 
 
 class Cheetah(Cat):
-
     """
     * Inherit from class Cat
 
@@ -115,6 +112,7 @@ class Cheetah(Cat):
       if age grosser 15(not including) return 40
 
     """
+
     def eat(self, product):
         if product == 'gazelle':
             self._increase_saturation_level(30)
@@ -156,7 +154,7 @@ class Wall:
 
     def number_of_rolls_of_wallpaper(self, roll_width_m, roll_length_m):
         lines_in_roll = math.floor(roll_length_m / self.height)
-        lines = math.ceil(self.width / roll_width_m)
+        lines = math.floor(self.width / roll_width_m)
         number_of_rolls = lines / lines_in_roll
         return number_of_rolls
 
@@ -179,13 +177,12 @@ class Roof:
 
     def roof_square(self):
         if self.roof_type == "gable":
-            return self.width*self.height*2
+            return self.width * self.height * 2
         elif self.roof_type == "single-pitch":
             return self.width * self.height
         else:
             print("Sorry there is only two types of roofs")
             raise ValueError
-
 
 
 class Window:
@@ -323,7 +320,7 @@ class House:
             wall = Wall(width, height)
             self.__walls.append(wall)
 
-    def create_roof(self,  width, height, roof_type):
+    def create_roof(self, width, height, roof_type):
         if width == 0 or height == 0:
             print("Value must be not 0")
             raise ValueError
@@ -340,7 +337,7 @@ class House:
             raise ValueError
         else:
             window = Window(width, height)
-            self.__windows.append(wall)
+            self.__windows.append(window)
 
     def create_door(self, width, height):
         if width == 0 or height == 0:
@@ -372,10 +369,10 @@ class House:
         return self.__roof.roof_square()
 
     def get_walls_square(self):
-        return sum[wall.wall_square() for wall in self.__walls]
+        return sum([wall.wall_square() for wall in self.__walls])
 
     def get_windows_square(self):
-        return sum[window.window_square() for window in self.__windows]
+        return sum([window.window_square() for window in self.__windows])
 
     def get_door_square(self):
         return self.__door.door_square()
@@ -384,41 +381,7 @@ class House:
         if roll_height_m == 0 or roll_width_m == 0:
             print("Sorry length must be not 0")
             raise ValueError
-        return sum[wall.number_of_rolls_of_wallpaper(roll_width_m, roll_height_m) for wall in self.__walls]
+        return sum([wall.number_of_rolls_of_wallpaper(roll_width_m, roll_height_m) for wall in self.__walls])
 
     def get_room_square(self):
         return self.get_walls_square() - self.get_door_square() - self.get_windows_square()
-
-
-
-cat1 = Cat(2)
-# print("This is average spped")
-# print(cat1.average_speed)
-# print("This is saturation level")
-# print(cat1.saturation_level)
-# print("cat is eating")
-# cat1.eat('fodder')
-# cat1.eat('fodder')
-# cat1.eat('fodder')
-# cat1.eat('fodder')
-# cat1.eat('milk')
-# print("Shoud be 92")
-# print(cat1.saturation_level)
-# cat1.eat('fodder')
-# print(cat1.saturation_levelru
-# cat1.run(80)
-
-cheetah1 = Cheetah(7)
-print("This is age of cheetah")
-print(cheetah1.age)
-print("This is average speed of cheetah")
-print(cheetah1.average_speed)
-print("This is current saturation level of cheetah")
-print(cheetah1.saturation_level)
-print("Cheetah will ran!")
-print(cheetah1.run(4))
-print("This is saturation level after ranning")
-print(cheetah1.saturation_level)
-
-
-
