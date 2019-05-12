@@ -12,12 +12,9 @@ def task_1_add_new_record_to_db(con) -> None:
         'postalcode': '774',
         'country': 'Singapore',
     }
-
     Args:
         con: psycopg connection
-
     Returns: 92 records
-
     """
     with con.cursor() as cur:
         cur.execute("""INSERT INTO 
@@ -31,12 +28,9 @@ def task_1_add_new_record_to_db(con) -> None:
 def task_2_list_all_customers(cur) -> list:
     """
     Get all records from table Customers
-
     Args:
         cur: psycopg cursor
-
     Returns: 91 records
-
     """
     cur.execute("SELECT * FROM Customers")
     return cur.fetchall()
@@ -45,10 +39,8 @@ def task_2_list_all_customers(cur) -> list:
 def task_3_list_customers_in_germany(cur) -> list:
     """
     List the customers in Germany
-
     Args:
         cur: psycopg cursor
-
     Returns: 11 records
     """
     cur.execute("""SELECT * FROM Customers 
@@ -61,9 +53,7 @@ def task_4_update_customer(con):
     Update first customer's name (Set customername equal to  'Johnny Depp')
     Args:
         cur: psycopg cursor
-
     Returns: 91 records with updated customer
-
     """
     with con.cursor() as cur:
         cur.execute("""UPDATE customers 
@@ -75,7 +65,6 @@ def task_4_update_customer(con):
 def task_5_delete_the_last_customer(con) -> None:
     """
     Delete the last customer
-
     Args:
         con: psycopg connection
     """
@@ -88,12 +77,9 @@ def task_5_delete_the_last_customer(con) -> None:
 def task_6_list_all_supplier_countries(cur) -> list:
     """
     List all supplier countries
-
     Args:
         cur: psycopg cursor
-
     Returns: 29 records
-
     """
     cur.execute("""SELECT country FROM suppliers;""")
     return cur.fetchall()
@@ -102,12 +88,9 @@ def task_6_list_all_supplier_countries(cur) -> list:
 def task_7_list_supplier_countries_in_desc_order(cur) -> list:
     """
     List all supplier countries in descending order
-
     Args:
         cur: psycopg cursor
-
     Returns: 29 records in descending order
-
     """
     cur.execute("""SELECT country FROM suppliers 
                    ORDER BY country DESC ;""")
@@ -117,12 +100,9 @@ def task_7_list_supplier_countries_in_desc_order(cur) -> list:
 def task_8_count_customers_by_city(cur):
     """
     List the number of customers in each city
-
     Args:
         cur: psycopg cursor
-
     Returns: 69 records in descending order
-
     """
     # cur.execute("""SELECT city, COUNT(city) FROM customers GROUP BY city;""")
     cur.execute("""SELECT city, COUNT(DISTINCT city) 
@@ -136,10 +116,8 @@ def task_8_count_customers_by_city(cur):
 def task_9_count_customers_by_country_with_than_10_customers(cur):
     """
     List the number of customers in each country. Only include countries with more than 10 customers.
-
     Args:
         cur: psycopg cursor
-
     Returns: 3 records
     """
     cur.execute("""SELECT COUNT(country), country 
@@ -154,7 +132,6 @@ def task_9_count_customers_by_country_with_than_10_customers(cur):
 def task_10_list_first_10_customers(cur):
     """
     List first 10 customers from the table
-
     Results: 10 records
     """
     cur.execute("""SELECT * FROM customers LIMIT 10;""")
@@ -164,10 +141,8 @@ def task_10_list_first_10_customers(cur):
 def task_11_list_customers_starting_from_11th(cur):
     """
     List all customers starting from 11th record
-
     Args:
         cur: psycopg cursor
-
     Returns: 11 records
     """
     cur.execute("""SELECT * FROM customers OFFSET 11;""")
@@ -177,10 +152,8 @@ def task_11_list_customers_starting_from_11th(cur):
 def task_12_list_suppliers_from_specified_countries(cur):
     """
     List all suppliers from the USA, UK, OR Japan
-
     Args:
         cur: psycopg cursor
-
     Returns: 8 records
     """
     cur.execute("""SELECT supplierid, suppliername, contactname, city, country
@@ -193,10 +166,8 @@ def task_12_list_suppliers_from_specified_countries(cur):
 def task_13_list_products_from_sweden_suppliers(cur):
     """
     List products with suppliers from Sweden.
-
     Args:
         cur: psycopg cursor
-
     Returns: 3 records
     """
     cur.execute("""SELECT productname 
@@ -209,10 +180,8 @@ def task_13_list_products_from_sweden_suppliers(cur):
 def task_14_list_products_with_supplier_information(cur):
     """
     List all products with supplier information
-
     Args:
         cur: psycopg cursor
-
     Returns: 77 records
     """
     cur.execute("""SELECT products.productid, products.productname, products.unit, products.price, suppliers.country, suppliers.city, suppliers.suppliername  
@@ -225,10 +194,8 @@ def task_14_list_products_with_supplier_information(cur):
 def task_15_list_customers_with_any_order_or_not(cur):
     """
     List all customers, whether they placed any order or not.
-
     Args:
         cur: psycopg cursor
-
     Returns: 213 records
     """
     cur.execute("""SELECT customers.customername, customers.contactname, customers.country, orders.orderid
@@ -243,10 +210,8 @@ def task_15_list_customers_with_any_order_or_not(cur):
 def task_16_match_all_customers_and_suppliers_by_country(cur):
     """
     Match all customers and suppliers by country
-
     Args:
         cur: psycopg cursor
-
     Returns: 194 records
     """
     cur.execute("""SELECT customers.customername customername,
