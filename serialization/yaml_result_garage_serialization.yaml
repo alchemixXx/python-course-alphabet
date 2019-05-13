@@ -1,0 +1,24 @@
+!Garage
+cars: !!python/tuple
+- !Car
+  car_type: Sedan
+  garage_numb: null
+  mileage: 1195.0
+  number: !UUID
+    int: 224064880918288775261523604395285920617
+    is_safe: &id001 !!python/object/apply:uuid.SafeUUID [null]
+  price: 768.0
+  producer: Dodge
+- !Car
+  car_type: Wagon
+  garage_numb: null
+  mileage: 345.0
+  number: !UUID
+    int: 200286730220058831995958717714291667112
+    is_safe: *id001
+  price: 348.0
+  producer: Ford
+number: 0
+owner: 4b8249c5-7e75-41dc-8c1d-2d29b38b2462
+places: 55
+town: Amsterdam

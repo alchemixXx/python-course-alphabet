@@ -1,0 +1,9 @@
+!Car
+car_type: Sedan
+garage_numb: null
+mileage: 1195.0
+number: !UUID
+  int: 224064880918288775261523604395285920617
+  is_safe: !!python/object/apply:uuid.SafeUUID [null]
+price: 768.0
+producer: Dodge

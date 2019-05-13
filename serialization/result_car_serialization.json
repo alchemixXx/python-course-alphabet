@@ -1,0 +1,10 @@
+{
+    "__class__": "Car",
+    "__module__": "__main__",
+    "price": 768.0,
+    "mileage": 1195.0,
+    "producer": "Dodge",
+    "car_type": "Sedan",
+    "garage_numb": null,
+    "number": "a891538ca18b4faca5b1ba140f2dbb69"
+}
