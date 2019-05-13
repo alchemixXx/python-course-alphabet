@@ -50,27 +50,6 @@ class Car:
         else:
             print("Producer should be instance of CARS_PRODUCER!")
 
-    # JSON serialization part
-    # def convert_to_dict(self):
-    #     obj_dict = {
-    #         "__class__": self.__class__.__name__,
-    #         "__module__": self.__module__
-    #     }
-    #     obj_dict.update(self.__dict__)
-    #     return obj_dict
-
-    # obj_dict = {
-    #     "__class__": self.__class__.__name__,
-    #     "__module__": self.__module__
-    # }
-    # # obj_dict.update(self.__dict__)
-    # for key, item in self.__dict__.items():
-    #     if isinstance(item, uuid.UUID):
-    #         obj_dict.update({key: item.hex})
-    #     else:
-    #         obj_dict.update({key: item})
-    # return obj_dict
-
     # INI serialization part
     def to_ini(self):
         # configs = configparser.ConfigParser()
