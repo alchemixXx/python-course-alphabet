@@ -181,8 +181,7 @@ class Roof:
         elif self.roof_type == "single-pitch":
             return self.width * self.height
         else:
-            print("Sorry there is only two types of roofs")
-            raise ValueError
+            raise ValueError("Sorry there is only two types of roofs")
 
 
 class Window:
@@ -234,8 +233,7 @@ class Door:
         elif material == "metal":
             return self.door_square() * self.metal_price
         else:
-            print("Sorry we don't have such material")
-            raise ValueError
+            raise ValueError("Sorry we don't have such material")
 
     def update_wood_price(self, new_price):
         self.wood_price = new_price
@@ -311,41 +309,34 @@ class House:
 
     def create_wall(self, width, height):
         if width == 0 or height == 0:
-            print("Value must be not 0")
-            raise ValueError
+            raise ValueError("Value must be not 0")
         elif len(self.__walls) >= 4:
-            print("Our house can not have more than 4 walls")
-            raise ValueError
+            raise ValueError("Our house can not have more than 4 walls")
         else:
             wall = Wall(width, height)
             self.__walls.append(wall)
 
     def create_roof(self, width, height, roof_type):
         if width == 0 or height == 0:
-            print("Value must be not 0")
-            raise ValueError
+            raise ValueError("Value must be not 0")
         elif self.__roof is not None:
-            print("The house can not have two roofs")
-            raise ValueError
+            raise ValueError("The house can not have two roofs")
         else:
             roof = Roof(width, height, roof_type)
             self.__roof = roof
 
     def create_window(self, width, height):
         if width == 0 or height == 0:
-            print("Value must be not 0")
-            raise ValueError
+            raise ValueError("Value must be not 0")
         else:
             window = Window(width, height)
             self.__windows.append(window)
 
     def create_door(self, width, height):
         if width == 0 or height == 0:
-            print("Value must be not 0")
-            raise ValueError
+            raise ValueError("Value must be not 0")
         elif self.__door is not None:
-            print("The house can not have two roofs")
-            raise ValueError
+            raise ValueError("The house can not have two roofs")
         else:
             door = Door(width, height)
             self.__door = door
@@ -379,8 +370,7 @@ class House:
 
     def get_number_of_rolls_of_wallpapers(self, roll_width_m, roll_height_m):
         if roll_height_m == 0 or roll_width_m == 0:
-            print("Sorry length must be not 0")
-            raise ValueError
+            raise ValueError("Sorry length must be not 0")
         return sum([wall.number_of_rolls_of_wallpaper(roll_width_m, roll_height_m) for wall in self.__walls])
 
     def get_room_square(self):
