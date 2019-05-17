@@ -40,21 +40,16 @@ class Cat:
     * Implement get_average_speed and return average_speed
 
     """
+    food = {'fodder': 10, 'apple': 5, 'milk': 2}
 
     def __init__(self, age):
         self.age = age
-        self.average_speed = self._set_average_speed()
+        self.average_speed = None
+        self._set_average_speed()
         self.saturation_level = 50
 
     def eat(self, product):
-        if product == 'fodder':
-            self._increase_saturation_level(10)
-        elif product == 'apple':
-            self._increase_saturation_level(5)
-        elif product == 'milk':
-            self._increase_saturation_level(2)
-        else:
-            self._increase_saturation_level(0)
+        self._increase_saturation_level(self.food.get(product, 0))
 
     def _reduce_saturation_level(self, value):
         self.saturation_level -= value
@@ -68,11 +63,11 @@ class Cat:
 
     def _set_average_speed(self):
         if self.age <= 7:
-            return 12
+            self.average_speed = 12
         elif self.age <= 10:
-            return 9
+            self.average_speed = 9
         else:
-            return 6
+            self.average_speed = 6
 
     def run(self, hours):
         distance = hours * self.average_speed
@@ -112,22 +107,18 @@ class Cheetah(Cat):
       if age grosser 15(not including) return 40
 
     """
+    food = {'gazelle': 30, 'rabbit': 15}
 
     def eat(self, product):
-        if product == 'gazelle':
-            self._increase_saturation_level(30)
-        elif product == 'rabbit':
-            self._increase_saturation_level(15)
-        else:
-            self._increase_saturation_level(0)
+        self._increase_saturation_level(self.food.get(product, 0))
 
     def _set_average_speed(self):
         if self.age <= 5:
-            return 90
+            self.average_speed = 90
         elif self.age <= 15:
-            return 75
+            self.average_speed = 75
         elif self.age > 15:
-            return 40
+            self.average_speed = 40
 
 
 class Wall:
