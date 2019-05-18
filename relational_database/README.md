@@ -47,7 +47,6 @@ If you catch this error installing psycopg2 in your virtual env
 
 Running next commands could fix your problem 
 
-- DISTINCT. Selection of unique values
 ```
 sudo apt-get install postgresql
 sudo apt-get install python-psycopg2
@@ -173,7 +172,6 @@ But still could not connect with python code
 subl /etc/postgresql/9.6/main/pg_hba.conf
 ```
 and change `local all all peer` to `local all all password`
-=======
 export PATH=/usr/lib/postgresql/your_version_here/bin/:$PATH
 
 ```
@@ -181,4 +179,5 @@ export PATH=/usr/lib/postgresql/your_version_here/bin/:$PATH
 
 ```.env
 sudo apt install build-essential
+```
 ```

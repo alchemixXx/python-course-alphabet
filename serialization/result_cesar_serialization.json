@@ -1,0 +1,68 @@
+{
+    "__class__": "Cesar",
+    "__module__": "__main__",
+    "name": "Alla",
+    "register_id": "4b8249c57e7541dc8c1d2d29b38b2462",
+    "garages": [
+        {
+            "__class__": "Garage",
+            "__module__": "__main__",
+            "places": 55,
+            "owner": "4b8249c5-7e75-41dc-8c1d-2d29b38b2462",
+            "number": 0,
+            "cars": [
+                {
+                    "__class__": "Car",
+                    "__module__": "__main__",
+                    "price": 768.0,
+                    "mileage": 1195.0,
+                    "producer": "Dodge",
+                    "car_type": "Sedan",
+                    "garage_numb": null,
+                    "number": "a891538ca18b4faca5b1ba140f2dbb69"
+                },
+                {
+                    "__class__": "Car",
+                    "__module__": "__main__",
+                    "price": 348.0,
+                    "mileage": 345.0,
+                    "producer": "Ford",
+                    "car_type": "Wagon",
+                    "garage_numb": null,
+                    "number": "96add234e1e743989fee48141d46b0a8"
+                }
+            ],
+            "town": "Amsterdam"
+        },
+        {
+            "__class__": "Garage",
+            "__module__": "__main__",
+            "places": 84,
+            "owner": "4b8249c5-7e75-41dc-8c1d-2d29b38b2462",
+            "number": 2,
+            "cars": [
+                {
+                    "__class__": "Car",
+                    "__module__": "__main__",
+                    "price": 197.0,
+                    "mileage": 1056.0,
+                    "producer": "Lamborghini",
+                    "car_type": "Sports Car",
+                    "garage_numb": null,
+                    "number": "0d800ac04ea041ae94faef0641b5c3f6"
+                },
+                {
+                    "__class__": "Car",
+                    "__module__": "__main__",
+                    "price": 131.0,
+                    "mileage": 1172.0,
+                    "producer": "Bugatti",
+                    "car_type": "Diesel",
+                    "garage_numb": null,
+                    "number": "e8ecf74a994444bd9325f246c46a72ff"
+                }
+            ],
+            "town": "Paris"
+        }
+    ]
+}
