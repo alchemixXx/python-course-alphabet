@@ -3,7 +3,7 @@
 import logging
 
 # Setup how many levels you will see
-#logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 
 if __name__ == "__main__":
     logging.debug('This is a debug message')
