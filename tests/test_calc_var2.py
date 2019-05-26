@@ -15,8 +15,9 @@ class TestCalc(unittest.TestCase):
 
     def test_bad_type(self):
         data = 'vagina'
-        with self.assertRaises(TypeError):
+        with self.assertRaises(TypeError) as context:
             result = calc.add(data, 1)
+        self.assertTrue("Both shpud be int or float, not str, list. dict or tuple" in context.exception.args)
 
 
 if __name__ == "__main__":
