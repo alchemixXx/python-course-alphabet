@@ -10,6 +10,7 @@ with open('movies.json') as f:
 
 
 @app.route('/')
+@app.route('/home')
 def home_page():
     return render_template('home.html', title='Home')
 
