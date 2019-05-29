@@ -70,7 +70,8 @@ class Car:
         if car_type in CARS_TYPES:
             return car_type
         else:
-            print("Type should be instance of CAR_TYPES!")
+            # print("Type should be instance of CAR_TYPES!")
+            raise ValueError("Type should be instance of CAR_TYPES!")
 
     @staticmethod
     def producer_checking(producer):

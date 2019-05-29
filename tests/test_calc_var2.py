@@ -17,7 +17,7 @@ class TestCalc(unittest.TestCase):
         data = 'vagina'
         with self.assertRaises(TypeError) as context:
             result = calc.add(data, 1)
-        self.assertTrue("Both shpud be int or float, not str, list. dict or tuple" in context.exception.args)
+        self.assertTrue("Both should be int or float, not str, list. dict or tuple" in context.exception.args)
 
 
 if __name__ == "__main__":
