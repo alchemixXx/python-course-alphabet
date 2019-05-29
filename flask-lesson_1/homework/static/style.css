@@ -1,0 +1,10 @@
+.img_main {
+    width: 100vh;
+    height: auto;
+}
+
+body {
+    text-align: center;
+    background: red;
+    color: white;
+}
