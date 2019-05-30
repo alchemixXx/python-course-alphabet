@@ -57,13 +57,23 @@ import itertools
 
 class Car:
 
-    def __init__(self, price: float, mileage: float, producer, car_type, garage_numb=None):
-        self.price = float(price)
-        self.number = uuid.uuid4()
+    def __init__(self, price: float, mileage: float, producer, car_type, garage_numb=None, number=None):
+        # self.price = float(price)
+        self.price = self._convert_to_float(price)
+        self.number = uuid.uuid4() if number == None else number
         self.mileage = float(mileage)
         self.garage_numb = garage_numb
         self.producer = self.producer_checking(producer)
         self.car_type = self.type_checking(car_type)
+
+    @staticmethod
+    def _convert_to_float(value):
+        try:
+            value = float(value)
+            return value
+        except TypeError:
+            print("You should enter a number!")
+            return None
 
     @staticmethod
     def type_checking(car_type):
@@ -78,9 +88,10 @@ class Car:
         if producer in CARS_PRODUCER:
             return producer
         else:
-            print("Producer should be instance of CARS_PRODUCER!")
+            # print("Producer should be instance of CARS_PRODUCER!")
+            raise ValueError("Producer should be instance of CARS_PRODUCER!")
 
-    def change_number(self, new_number):
+    def change_number(self, new_number: str) -> str:
         # if re.search('[\w]{8}-[\w]{4}-4[\w]{3}-[\w][\w]{3}-[\w]{12}', new_number):
         # if uuid.UUID(new_number, version=4):
         #     self.number = new_number
@@ -92,21 +103,31 @@ class Car:
             uuid.UUID(new_number, version=4)
             self.number = new_number
             return "Number has been changed"
-        except ValueError or AttributeError or TypeError:
-            return 'Sorry, you have entered wrong number'
+        # except AttributeError or ValueError or TypeError:
+        #     return 'Sorry, you have entered wrong number'
+        except AttributeError:
+            return 'Sorry, you have entered wrong number. It should be a string, not list, tuple, set, dict, int or float'
+        except ValueError:
+            return 'Sorry, you have entered bad format of string'
+        except TypeError:
+            return 'Sorry, you have entered bad type of argument. ' \
+                   'One of the hex, bytes, bytes_le, fields, or int arguments must be given'
+
+    # def __repr__(self):
+    #     return f'Car{vars(self)}"'
 
     def __repr__(self):
-        return f'"{vars(self)}"'
-
-    def __str__(self):
-        return f"""
-        'This car has next attributes:
+        return f'''Car(
         price="{self.price}",
-        type="{self.car_type}",
+        producer="{self.producer}",
+        car_type="{self.car_type}",
         number="{self.number}",
         mileage="{self.mileage}",
-        garage number = "{self.garage_numb}"'
-        """
+        garage_numb = "{self.garage_numb}"
+        )'''
+
+    def __str__(self):
+        return f'This car has attributes: {vars(self)}"'
 
     def __le__(self, other):
         return self.price <= other.price
@@ -365,50 +386,56 @@ if __name__ == '__main__':
     cesar_2 = Cesar(random.choice(NAMES), garage2)
     cesar_3 = Cesar(random.choice(NAMES), garage4, garage5)
 
-    new_id_correct = "c90cb2a4-33d2-427d-8876-ba7ed1cb3fc6"
-    # new_id_correct = uuid.uuid4()
-    new_id_wrong = " 33d2-427d-8876-ba7ed1cb3fc6 "
-    print("Testing Car class:")
-    print(car1)
-    print(car2)
-    print(car1 > car2)
-    print(car1 >= car2)
-    print(car1 == car2)
-    print(car1 <= car2)
-    print(car1 <= car2)
+    # x = car1.__repr__()
+    # print(x)
+    # print(eval(x))
+    # print(car1.change_number(None))
+    print(car1._convert_to_float(None))
 
-    print(car1.change_number(new_id_correct))
-    print(car1.change_number(new_id_wrong))
-
-    print('\n' * 5)
-    print("Testing Garage class:")
-    print(garage1)
-    print(garage2)
-    print(garage3)
-
-    print("This is hit_hat method", garage1.hit_hat())
-
-    print(garage1.add(car10))
-    print(garage1)
-    print(garage1.remove(car10))
-    print(garage1)
-    print("This is free_spaces method", garage1.free_places())
-
-    print('\n' * 5)
-    print("Testing Cesar class:")
-
-    print(cesar_1)
-    print(cesar_2)
-
-    print("Testing garages after creating cesars")
-    print(garage1)
-    print(garage2)
-    print(garage3)
-
-    print("This is hit_hat method", cesar_1.hit_hat())
-    print("This is cars_count method", cesar_1.cars_count())
-    print("This is garage_count method", cesar_1.garages_count())
-
-    print("This is add_car method with garage specification", cesar_1.add_car(car10, garage1))
-    print(garage1.remove(car10))
-    print("This is add_car method without garage specification", cesar_1.add_car(car10))
+    # new_id_correct = "c90cb2a4-33d2-427d-8876-ba7ed1cb3fc6"
+    # # new_id_correct = uuid.uuid4()
+    # new_id_wrong = " 33d2-427d-8876-ba7ed1cb3fc6 "
+    # print("Testing Car class:")
+    # print(car1)
+    # print(car2)
+    # print(car1 > car2)
+    # print(car1 >= car2)
+    # print(car1 == car2)
+    # print(car1 <= car2)
+    # print(car1 <= car2)
+    #
+    # print(car1.change_number(new_id_correct))
+    # print(car1.change_number(new_id_wrong))
+    #
+    # print('\n' * 5)
+    # print("Testing Garage class:")
+    # print(garage1)
+    # print(garage2)
+    # print(garage3)
+    #
+    # print("This is hit_hat method", garage1.hit_hat())
+    #
+    # print(garage1.add(car10))
+    # print(garage1)
+    # print(garage1.remove(car10))
+    # print(garage1)
+    # print("This is free_spaces method", garage1.free_places())
+    #
+    # print('\n' * 5)
+    # print("Testing Cesar class:")
+    #
+    # print(cesar_1)
+    # print(cesar_2)
+    #
+    # print("Testing garages after creating cesars")
+    # print(garage1)
+    # print(garage2)
+    # print(garage3)
+    #
+    # print("This is hit_hat method", cesar_1.hit_hat())
+    # print("This is cars_count method", cesar_1.cars_count())
+    # print("This is garage_count method", cesar_1.garages_count())
+    #
+    # print("This is add_car method with garage specification", cesar_1.add_car(car10, garage1))
+    # print(garage1.remove(car10))
+    # print("This is add_car method without garage specification", cesar_1.add_car(car10))
