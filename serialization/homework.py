@@ -29,102 +29,78 @@ import configparser
 class Car:
 
     def __init__(self, price: float, mileage: float, producer, car_type, garage_numb=None, number=None):
-        self.price = float(price)
+        self.price = self._convert_to_float(price)
         self.number = uuid.uuid4() if number is None else number
-        self.mileage = float(mileage)
+        self.mileage = self._convert_to_float(mileage)
         self.garage_numb = garage_numb
         self.producer = self.producer_checking(producer)
         self.car_type = self.type_checking(car_type)
+
+    @staticmethod
+    def _convert_to_float(value):
+        try:
+            if value is True or value is False:
+                raise TypeError
+            return float(value)
+        except TypeError:
+            print("You should enter a number!")
+            return None
 
     @staticmethod
     def type_checking(car_type):
         if car_type in CARS_TYPES:
             return car_type
         else:
-            print("Type should be instance of CAR_TYPES!")
+            raise ValueError("Type should be instance of CAR_TYPES!")
 
     @staticmethod
     def producer_checking(producer):
         if producer in CARS_PRODUCER:
             return producer
         else:
-            print("Producer should be instance of CARS_PRODUCER!")
-
-    # JSON serialization part
-    # def convert_to_dict(self):
-    #     obj_dict = {
-    #         "__class__": self.__class__.__name__,
-    #         "__module__": self.__module__
-    #     }
-    #     obj_dict.update(self.__dict__)
-    #     return obj_dict
-
-    # obj_dict = {
-    #     "__class__": self.__class__.__name__,
-    #     "__module__": self.__module__
-    # }
-    # # obj_dict.update(self.__dict__)
-    # for key, item in self.__dict__.items():
-    #     if isinstance(item, uuid.UUID):
-    #         obj_dict.update({key: item.hex})
-    #     else:
-    #         obj_dict.update({key: item})
-    # return obj_dict
-
-    # INI serialization part
-    def to_ini(self):
-        # configs = configparser.ConfigParser()
-        # configs.add_section('Car')
-        # configs.set('Car', 'price', str(self.price))
-        # configs.set('Car', 'mileage', str(self.mileage))
-        # configs.set('Car', 'number', str(self.number))
-        # configs.set('Car', 'garage_numb', str(self.garage_numb))
-        # configs.set('Car', 'producer', str(self.producer))
-        # configs.set('Car', 'car_type', str(self.car_type))
-        params = {'price': self.price, 'mileage': self.mileage, 'number': self.number, 'garage_numb': self.garage_numb,
-                  'producer': self.producer, 'car_type': self.car_type}
-
-        return params
-
-    # INI serialization part
-    def to_ini(self):
-        # configs = configparser.ConfigParser()
-        # configs.add_section('Car')
-        # configs.set('Car', 'price', str(self.price))
-        # configs.set('Car', 'mileage', str(self.mileage))
-        # configs.set('Car', 'number', str(self.number))
-        # configs.set('Car', 'garage_numb', str(self.garage_numb))
-        # configs.set('Car', 'producer', str(self.producer))
-        # configs.set('Car', 'car_type', str(self.car_type))
-        params = {'price': self.price, 'mileage': self.mileage, 'number': self.number, 'garage_numb': self.garage_numb,
-                  'producer': self.producer, 'car_type': self.car_type}
-
-        return params
-
-    @classmethod
-    def from_json(cls):
-        pass
+            raise ValueError("Producer should be instance of CARS_PRODUCER!")
 
     def change_number(self, new_number):
         try:
             uuid.UUID(new_number, version=4)
             self.number = new_number
             return "Number has been changed"
-        except ValueError or AttributeError or TypeError:
-            return 'Sorry, you have entered wrong number'
+        except AttributeError:
+            return 'Sorry, you have entered wrong number. It should be a string, not list, tuple, set, dict, int or float'
+        except ValueError:
+            return 'Sorry, you have entered bad format of string'
+        except TypeError:
+            return 'Sorry, you have entered bad type of argument. ' \
+                   'One of the hex, bytes, bytes_le, fields, or int arguments must be given'
+
+    def equality(self, other):
+        return vars(self) == vars(other)
+
+    # def __repr__(self):
+    #     return f'"{vars(self)}"'
+
+    # def __str__(self):
+    #     return f"""
+    #     'This car has next attributes:
+    #     price="{self.price}",
+    #     type="{self.car_type}",
+    #     number="{self.number}",
+    #     mileage="{self.mileage}",
+    #     garage number = "{self.garage_numb}"'
+    #     """
 
     def __repr__(self):
-        return f'"{vars(self)}"'
-
-    def __str__(self):
-        return f"""
-        'This car has next attributes:
+        return f'''Car(
         price="{self.price}",
-        type="{self.car_type}",
+        producer="{self.producer}",
+        car_type="{self.car_type}",
         number="{self.number}",
         mileage="{self.mileage}",
-        garage number = "{self.garage_numb}"'
-        """
+        garage_numb = "{self.garage_numb}"
+        )'''
+
+    def __str__(self):
+        return f'This car has attributes: {vars(self)}"'
 
     def __le__(self, other):
         return self.price <= other.price
@@ -140,6 +116,7 @@ class Car:
 
     def __eq__(self, other):
         return self.price == other.price
+
 
 
 class Garage:
@@ -409,6 +386,9 @@ if __name__ == '__main__':
 
     cesar_1 = Cesar(random.choice(NAMES), garage1, garage3)
     cesar_2 = Cesar(random.choice(NAMES), garage2)
+
+    print(car1.equality(car2))
+
 
     """Для класів Колекціонер Машина і Гараж написати методи, які конвертують обєкт в строку формату
     yaml, json, pickle відповідно."""
