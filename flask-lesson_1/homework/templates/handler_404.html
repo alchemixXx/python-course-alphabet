@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Sorry, my friend!</h2>
+    <p>I think you have entered wrong URL</p>
+    <p>That's why you see this page. Please, try again. You can do it properly :)</p>
+    <button><a href="{{ url_for( 'main.home' ) }}">Go homepage</a></button>
+    <p><img src="https://theatlanta100.com/wp-content/uploads/sites/26/2019/05/web1_Sorry.jpg" alt="sorry_pict"></p>
+{% endblock content %}
