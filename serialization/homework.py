@@ -43,7 +43,6 @@ class Car:
                 raise TypeError
             return float(value)
         except TypeError:
-            print("You should enter a number!")
             return None
 
     @staticmethod
@@ -90,17 +89,11 @@ class Car:
     #     """
 
     def __repr__(self):
-        return f'''Car(
-        price="{self.price}",
-        producer="{self.producer}",
-        car_type="{self.car_type}",
-        number="{self.number}",
-        mileage="{self.mileage}",
-        garage_numb = "{self.garage_numb}"
-        )'''
+        return f'Car(price={self.price}, producer={self.producer}, car_type={self.car_type}, ' \
+            f'number={self.number}, mileage={self.mileage}, garage_numb = {self.garage_numb})'
 
     def __str__(self):
-        return f'This car has attributes: {vars(self)}"'
+        return f'This car has attributes: {vars(self)}'
 
     def __le__(self, other):
         return self.price <= other.price

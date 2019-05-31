@@ -7,15 +7,6 @@ import unittest
 
 
 class CarTest(unittest.TestCase):
-    #
-    # @classmethod
-    # def setUpClass(cls) -> None:
-    #     cls.price="683.0",
-    #     cls.producer="Lamborghini"
-    #     cls.car_type="Truck",
-    #     cls.number="ce80e01a-af46-43c3-9e9e-83c324ba2c63",
-    #     cls.mileage="1523.0",
-    #     cls.garage_numb = "0"
 
     def setUp(self) -> None:
         self.fake_car_type = ['bolid', 'Hatchback', 'Convertible', '', "some fake phrase", 12553, 1258964.65465421,
@@ -149,28 +140,6 @@ class CarTest(unittest.TestCase):
         for value in self.price_bad_values:
             self.assertEqual(hw.Car._convert_to_float(value), None)
 
-    #
-    # def test_repr(self):
-    #     """This func will test __repr__ of Car class"""
-    #     self.assertIsInstance(hw.Car.__repr__(self), str)
-
-    def test_less_equal(self):
-        """This func will test __le__ of Car"""
-        for value in self.comparison:
-            self.car1.price = value
-            if value <= 1:
-                self.assertEqual(self.car1 <= self.car2, True)
-            else:
-                self.assertEqual(self.car1 <= self.car2, False)
-
-    def test_less(self):
-        """This func will test __lt__ of Car"""
-        for value in self.comparison:
-            self.car1.price = value
-            if value < 1:
-                self.assertEqual(self.car1 < self.car2, True)
-            else:
-                self.assertEqual(self.car1 < self.car2, False)
 
     def test_equality_equal(self):
         """This test will pass if two objects have the same attributes"""
@@ -207,9 +176,36 @@ class CarTest(unittest.TestCase):
         """This test will pass if two objects have NOT the same attribute garage numb"""
         self.car1.garage_numb = 1
         self.assertFalse(self.car1.equality(self.car3))
+        
 
+    def test_repr_good_value(self):
+        """This func will test __repr__ of Car class"""
+        expected_res = "Car(price=1.0, producer=Ford, car_type=Diesel, " \
+                       "number=65c11813-3eb5-4d48-b62b-3da6ef951f53, mileage=1.0, garage_numb = None)"
+        self.assertIsInstance(self.car1.__repr__(), str)
+        self.assertEqual(self.car1.__repr__(), expected_res)
 
+    def test_repr_bad_value(self):
+        """This func will test __repr__ of Car class"""
+        expected_res = "CAR(price=1.0, producer=Ford, car_type=Diesel, " \
+                       "number=65c11813-3eb5-4d48-b62b-3da6ef951f53, mileage=1.0, garage_numb = None)"
+        self.assertIsInstance(self.car1.__repr__(), str)
+        self.assertFalse(self.car1.__repr__() == expected_res)
+        
+    def test_str_good_value(self):
+        """This func will test __repr__ of Car class"""
+        expected_res = "This car has attributes: {'price': 1.0, 'number': '65c11813-3eb5-4d48-b62b-3da6ef951f53', " \
+                       "'mileage': 1.0, 'garage_numb': None, 'producer': 'Ford', 'car_type': 'Diesel'}"
+        self.assertIsInstance(self.car1.__str__(), str)
+        self.assertEqual(self.car1.__str__(), expected_res)
 
+    def test_str_bad_value(self):
+        """This func will test __repr__ of Car class"""
+        expected_res = "BAD car has attributes: {'price': 1.0, 'number': '65c11813-3eb5-4d48-b62b-3da6ef951f53', " \
+                       "'mileage': 1.0, 'garage_numb': None, 'producer': 'Ford', 'car_type': 'Diesel'}"
+        self.assertIsInstance(self.car1.__str__(), str)
+        self.assertFalse(self.car1.__str__() == expected_res)
+        
 class GarageTest(unittest.TestCase):
     pass
 
