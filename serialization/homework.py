@@ -143,6 +143,10 @@ class Garage:
         else:
             print("Town should be instance of TOWNS!")
 
+    @staticmethod
+    def to_int():
+        pass
+
     # def cars_checking(self, cars):
     #     actual_cars = list()
     #     for car in cars:
@@ -389,260 +393,260 @@ if __name__ == '__main__':
     """ Для класу Колекціонер Машина і Гараж написати методи, які створюють інстанс обєкту
     з (yaml, json, pickle) строки відповідно"""
 
-    # JSON SERIALIZATION
-    json_serialized_car = json.dumps(car1, cls=JsonConverter, indent=4)
-    json_serialized_garage = json.dumps(garage1, cls=JsonConverter, indent=4)
-    json_serialized_cesar = json.dumps(cesar_1, cls=JsonConverter, indent=4)
-
-    # JSON DESERIALIZATION
-    des_car1 = json.loads(json_serialized_car, object_hook=json_hook)
-    des_gar1 = json.loads(json_serialized_garage, object_hook=json_hook)
-    des_ces1 = json.loads(json_serialized_cesar, object_hook=json_hook)
-
-    # PICKLE SERIALIZATION
-    pickle_serialized_car = pickle.dumps(car1)
-    pickle_serialized_garage = pickle.dumps(garage1)
-    pickle_serialized_cesar = pickle.dumps(cesar_1)
-
-    # PICKLE DESERIALIZATION
-    des_car2 = pickle.loads(pickle_serialized_car)
-    des_gar2 = pickle.loads(pickle_serialized_garage)
-    des_ces2 = pickle.loads(pickle_serialized_cesar)
-
-    # # YAML SERIALIZATION
-    # yaml = YAML()
-    # yaml_serialized_car = yaml.dump(car1)
+    # # JSON SERIALIZATION
+    # json_serialized_car = json.dumps(car1, cls=JsonConverter, indent=4)
+    # json_serialized_garage = json.dumps(garage1, cls=JsonConverter, indent=4)
+    # json_serialized_cesar = json.dumps(cesar_1, cls=JsonConverter, indent=4)
+    #
+    # # JSON DESERIALIZATION
+    # des_car1 = json.loads(json_serialized_car, object_hook=json_hook)
+    # des_gar1 = json.loads(json_serialized_garage, object_hook=json_hook)
+    # des_ces1 = json.loads(json_serialized_cesar, object_hook=json_hook)
+    #
+    # # PICKLE SERIALIZATION
+    # pickle_serialized_car = pickle.dumps(car1)
     # pickle_serialized_garage = pickle.dumps(garage1)
     # pickle_serialized_cesar = pickle.dumps(cesar_1)
     #
-    # print(yaml_serialized_car)
-
-    # print("!!!--------------------JSON SERIALIZATION ZONE-------------------------!!!")
-    # print("Car serialization:")
-    # print(json_serialized_car)
-    # print('\n'*5)
-    # print("Garage serialization:")
-    # print(json_serialized_garage)
-    # print('\n'*5)
-    # print("Cesar serialization:")
-    # print(json_serialized_cesar)
-    # print('\n'*5)
+    # # PICKLE DESERIALIZATION
+    # des_car2 = pickle.loads(pickle_serialized_car)
+    # des_gar2 = pickle.loads(pickle_serialized_garage)
+    # des_ces2 = pickle.loads(pickle_serialized_cesar)
     #
-    # print("!!! --------------------JSON DESERIALIZATION ZONE--------------------!!!")
+    # # # YAML SERIALIZATION
+    # # yaml = YAML()
+    # # yaml_serialized_car = yaml.dump(car1)
+    # # pickle_serialized_garage = pickle.dumps(garage1)
+    # # pickle_serialized_cesar = pickle.dumps(cesar_1)
+    # #
+    # # print(yaml_serialized_car)
     #
-    # print("This is original car")
-    # print(car1)
-    # print()
-    # print("This is car after deserialization")
-    # print(des_car1)
-    # print('\n'*5)
+    # # print("!!!--------------------JSON SERIALIZATION ZONE-------------------------!!!")
+    # # print("Car serialization:")
+    # # print(json_serialized_car)
+    # # print('\n'*5)
+    # # print("Garage serialization:")
+    # # print(json_serialized_garage)
+    # # print('\n'*5)
+    # # print("Cesar serialization:")
+    # # print(json_serialized_cesar)
+    # # print('\n'*5)
+    # #
+    # # print("!!! --------------------JSON DESERIALIZATION ZONE--------------------!!!")
+    # #
+    # # print("This is original car")
+    # # print(car1)
+    # # print()
+    # # print("This is car after deserialization")
+    # # print(des_car1)
+    # # print('\n'*5)
+    # #
+    # # print("This is original garage")
+    # # print(garage1)
+    # # print()
+    # # print("This is garage after deserialization")
+    # # print(des_gar1)
+    # # print('\n'*5)
+    # #
+    # # print("This is original cesar")
+    # # print(cesar_1)
+    # # print()
+    # # print("This is garage after deserialization")
+    # # print(des_ces1)
+    # #
+    # # print("!!! -------------------- END OF JSON DESERIALIZATION ZONE--------------------!!!")
+    # #
     #
-    # print("This is original garage")
-    # print(garage1)
-    # print()
-    # print("This is garage after deserialization")
-    # print(des_gar1)
-    # print('\n'*5)
+    # # # PICKLE SERIALIZATION
+    # # print("!!!--------------------PICKLE SERIALIZATION ZONE--------------------!!!")
+    # # print("Car serialization:")
+    # # print(pickle_serialized_car)
+    # # print('\n'*5)
+    # # print("Garage serialization:")
+    # # print(pickle_serialized_garage)
+    # # print('\n'*5)
+    # # print("Cesar serialization:")
+    # # print(pickle_serialized_cesar)
+    # # print('\n'*5)
+    # #
+    # # print("!!!--------------------PICKLE DESERIALIZATION ZONE--------------------!!!")
+    # # print("This is original car")
+    # # print(car1)
+    # # print()
+    # # print("This is car after deserialization")
+    # # print(des_car2)
+    # # print('\n'*5)
+    # #
+    # # print("This is original garage")
+    # # print(garage1)
+    # # print()
+    # # print("This is garage after deserialization")
+    # # print(des_gar2)
+    # # print('\n'*5)
+    # #
+    # # print("This is original cesar")
+    # # print(cesar_1)
+    # # print()
+    # # print("This is garage after deserialization")
+    # # print(des_ces2)
     #
-    # print("This is original cesar")
-    # print(cesar_1)
-    # print()
-    # print("This is garage after deserialization")
-    # print(des_ces1)
+    # """Для попереднього домашнього завдання.
+    # Для класу Колекціонер Машина і Гараж написати методи, які створюють інстанс обєкту
+    # з (yaml, json, pickle) файлу відповідно
     #
-    # print("!!! -------------------- END OF JSON DESERIALIZATION ZONE--------------------!!!")
+    # Для класів Колекціонер Машина і Гараж написати методи, які зберігають стан обєкту в файли формату
+    # yaml, json, pickle відповідно."""
     #
-
+    # # JSON SERIALIZATION
+    # with open('result_car_serialization.json', 'w') as file:
+    #     json.dump(car1, file, cls=JsonConverter, indent=4)
+    #
+    # with open('result_garage_serialization.json', 'w') as file:
+    #     json.dump(garage1, file, cls=JsonConverter, indent=4)
+    #
+    # with open('result_cesar_serialization.json', 'w') as file:
+    #     json.dump(cesar_1, file, cls=JsonConverter, indent=4)
+    #
+    # # JSON DESERIALIZATION
+    # with open('result_car_serialization.json', 'r') as file:
+    #     des_car3 = json.load(file, object_hook=json_hook)
+    #
+    # with open('result_garage_serialization.json', 'r') as file:
+    #     des_gar3 = json.load(file, object_hook=json_hook)
+    #
+    # with open('result_cesar_serialization.json', 'r') as file:
+    #     des_ces3 = json.load(file, object_hook=json_hook)
+    #
     # # PICKLE SERIALIZATION
-    # print("!!!--------------------PICKLE SERIALIZATION ZONE--------------------!!!")
-    # print("Car serialization:")
-    # print(pickle_serialized_car)
-    # print('\n'*5)
-    # print("Garage serialization:")
-    # print(pickle_serialized_garage)
-    # print('\n'*5)
-    # print("Cesar serialization:")
-    # print(pickle_serialized_cesar)
-    # print('\n'*5)
+    # with open('pickle_result_car_serialization.txt', 'wb') as file:
+    #     pickle.dump(car1, file)
     #
-    # print("!!!--------------------PICKLE DESERIALIZATION ZONE--------------------!!!")
-    # print("This is original car")
-    # print(car1)
-    # print()
-    # print("This is car after deserialization")
-    # print(des_car2)
-    # print('\n'*5)
+    # with open('pickle_result_garage_serialization.txt', 'wb') as file:
+    #     pickle.dump(garage1, file)
     #
-    # print("This is original garage")
-    # print(garage1)
-    # print()
-    # print("This is garage after deserialization")
-    # print(des_gar2)
-    # print('\n'*5)
+    # with open('pickle_result_cesar_serialization.txt', 'wb') as file:
+    #     pickle.dump(cesar_1, file)
     #
-    # print("This is original cesar")
-    # print(cesar_1)
-    # print()
-    # print("This is garage after deserialization")
-    # print(des_ces2)
-
-    """Для попереднього домашнього завдання.
-    Для класу Колекціонер Машина і Гараж написати методи, які створюють інстанс обєкту
-    з (yaml, json, pickle) файлу відповідно
-    
-    Для класів Колекціонер Машина і Гараж написати методи, які зберігають стан обєкту в файли формату
-    yaml, json, pickle відповідно."""
-
-    # JSON SERIALIZATION
-    with open('result_car_serialization.json', 'w') as file:
-        json.dump(car1, file, cls=JsonConverter, indent=4)
-
-    with open('result_garage_serialization.json', 'w') as file:
-        json.dump(garage1, file, cls=JsonConverter, indent=4)
-
-    with open('result_cesar_serialization.json', 'w') as file:
-        json.dump(cesar_1, file, cls=JsonConverter, indent=4)
-
-    # JSON DESERIALIZATION
-    with open('result_car_serialization.json', 'r') as file:
-        des_car3 = json.load(file, object_hook=json_hook)
-
-    with open('result_garage_serialization.json', 'r') as file:
-        des_gar3 = json.load(file, object_hook=json_hook)
-
-    with open('result_cesar_serialization.json', 'r') as file:
-        des_ces3 = json.load(file, object_hook=json_hook)
-
-    # PICKLE SERIALIZATION
-    with open('pickle_result_car_serialization.txt', 'wb') as file:
-        pickle.dump(car1, file)
-
-    with open('pickle_result_garage_serialization.txt', 'wb') as file:
-        pickle.dump(garage1, file)
-
-    with open('pickle_result_cesar_serialization.txt', 'wb') as file:
-        pickle.dump(cesar_1, file)
-
-    # PICKLE DESERIALIZATION
-    with open('pickle_result_car_serialization.txt', 'rb') as file:
-        des_car4 = pickle.load(file)
-
-    with open('pickle_result_garage_serialization.txt', 'rb') as file:
-        des_gar4 = pickle.load(file)
-
-    with open('pickle_result_cesar_serialization.txt', 'rb') as file:
-        des_ces4 = pickle.load(file)
-
-    # YAML SERIALIZATION
-    yaml = YAML(typ='unsafe')
-    yaml.register_class(Car)
-    yaml.register_class(uuid.UUID)
-    yaml.register_class(Garage)
-    yaml.register_class(Cesar)
-
-    with open('yaml_result_car_serialization.yaml', 'w') as file:
-        yaml.dump(car1, file)
-
-    with open('yaml_result_garage_serialization.yaml', 'w') as file:
-        yaml.dump(garage1, file)
-
-    with open('yaml_result_cesar_serialization.yaml', 'w') as file:
-        yaml.dump(cesar_1, file)
-
-    # YAML DESERIALIZATION
-
-    with open('yaml_result_car_serialization.yaml', 'r') as file:
-        des_car5 = yaml.load(file)
-
-    with open('yaml_result_garage_serialization.yaml', 'r') as file:
-        des_gar5 = yaml.load(file)
-
-    with open('yaml_result_cesar_serialization.yaml', 'r') as file:
-        des_ces5 = yaml.load(file)
-
-    with open('yaml_result_cesar_serialization.yaml', 'w') as file:
-        yaml.dump(cesar_1, file)
-
-    # YAML DESERIALIZATION
-
-    with open('yaml_result_car_serialization.yaml', 'r') as file:
-        des_car5 = yaml.load(file)
-
-    with open('yaml_result_garage_serialization.yaml', 'r') as file:
-        des_gar5 = yaml.load(file)
-
-    with open('yaml_result_cesar_serialization.yaml', 'r') as file:
-        des_ces5 = yaml.load(file)
-
-    # print("!!! --------------------JSON DESERIALIZATION ZONE--------------------!!!")
-    # print('This is the car after serailization ')
-    # print(des_car3)
-    # print()
+    # # PICKLE DESERIALIZATION
+    # with open('pickle_result_car_serialization.txt', 'rb') as file:
+    #     des_car4 = pickle.load(file)
     #
-    # print('This is the garage after serailization ')
-    # print(des_gar3)
-    # print()
+    # with open('pickle_result_garage_serialization.txt', 'rb') as file:
+    #     des_gar4 = pickle.load(file)
     #
-    # print('This is cesar after serailization ')
-    # print(des_ces3)
-    # print("!!! -------------------- END OF JSON DESERIALIZATION ZONE--------------------!!!")
-
-    # print("!!! --------------------PICKLE DESERIALIZATION ZONE--------------------!!!")
-    # print('This is the car after serailization ')
-    # print(des_car4)
-    # print()
+    # with open('pickle_result_cesar_serialization.txt', 'rb') as file:
+    #     des_ces4 = pickle.load(file)
     #
-    # print('This is the garage after serailization ')
-    # print(des_gar4)
-    # print()
+    # # YAML SERIALIZATION
+    # yaml = YAML(typ='unsafe')
+    # yaml.register_class(Car)
+    # yaml.register_class(uuid.UUID)
+    # yaml.register_class(Garage)
+    # yaml.register_class(Cesar)
     #
-    # print('This is cesar after serailization ')
-    # print(des_ces4)
-    # print("!!! -------------------- END OF PICKLE DESERIALIZATION ZONE--------------------!!!")
-
+    # with open('yaml_result_car_serialization.yaml', 'w') as file:
+    #     yaml.dump(car1, file)
     #
-    # print("!!! --------------------YAML DESERIALIZATION ZONE--------------------!!!")
-    # print('This is the car after serailization ')
-    # print(des_car5)
-    # print()
+    # with open('yaml_result_garage_serialization.yaml', 'w') as file:
+    #     yaml.dump(garage1, file)
     #
-    # print('This is the garage after serailization ')
-    # print(des_gar5)
-    # print()
+    # with open('yaml_result_cesar_serialization.yaml', 'w') as file:
+    #     yaml.dump(cesar_1, file)
     #
-    # print('This is cesar after serailization ')
-    # print(des_ces5)
-    # print("!!! -------------------- END OF YAML DESERIALIZATION ZONE--------------------!!!")
-
-    # INI SERIALIZATION
-    with open('ini_car_serialization.ini', 'w') as file:
-        params = car1.to_ini()
-        Config = configparser.ConfigParser()
-        Config.add_section("Car")
-        for k, v in params.items():
-            Config.set('Car', k, str(v))
-        Config.write(file)
-
-    # INI DESERIALIZATION
-    # with open('ini_car_serialization.ini') as file:
-    # params=dict()
-    # config = configparser.ConfigParser()
-    # y = config.read('ini_car_serialization.ini')
-    # config.sections()
-    # for section in config.sections():
-    #     for option in config.options(section):
-    #         # params.update({option:y[option]})
-    #         print(type(option))
-    #         print(option, config.get(section, option))
-    # print(params)
-
-    # config = configparser.RawConfigParser(allow_no_value=True)
-    # config.readfp(io.BytesIO(car))
-
-    # print("List all contents")
-    # for section in config.sections():
-    #     print("Section: %s" % section)
-    #     for options in config.options(section):
-    #         print("x %s:::%s:::%s" % (options,
-    #                                   config.get(section, options),
-    #                                   str(type(options))))
+    # # YAML DESERIALIZATION
+    #
+    # with open('yaml_result_car_serialization.yaml', 'r') as file:
+    #     des_car5 = yaml.load(file)
+    #
+    # with open('yaml_result_garage_serialization.yaml', 'r') as file:
+    #     des_gar5 = yaml.load(file)
+    #
+    # with open('yaml_result_cesar_serialization.yaml', 'r') as file:
+    #     des_ces5 = yaml.load(file)
+    #
+    # with open('yaml_result_cesar_serialization.yaml', 'w') as file:
+    #     yaml.dump(cesar_1, file)
+    #
+    # # YAML DESERIALIZATION
+    #
+    # with open('yaml_result_car_serialization.yaml', 'r') as file:
+    #     des_car5 = yaml.load(file)
+    #
+    # with open('yaml_result_garage_serialization.yaml', 'r') as file:
+    #     des_gar5 = yaml.load(file)
+    #
+    # with open('yaml_result_cesar_serialization.yaml', 'r') as file:
+    #     des_ces5 = yaml.load(file)
+    #
+    # # print("!!! --------------------JSON DESERIALIZATION ZONE--------------------!!!")
+    # # print('This is the car after serailization ')
+    # # print(des_car3)
+    # # print()
+    # #
+    # # print('This is the garage after serailization ')
+    # # print(des_gar3)
+    # # print()
+    # #
+    # # print('This is cesar after serailization ')
+    # # print(des_ces3)
+    # # print("!!! -------------------- END OF JSON DESERIALIZATION ZONE--------------------!!!")
+    #
+    # # print("!!! --------------------PICKLE DESERIALIZATION ZONE--------------------!!!")
+    # # print('This is the car after serailization ')
+    # # print(des_car4)
+    # # print()
+    # #
+    # # print('This is the garage after serailization ')
+    # # print(des_gar4)
+    # # print()
+    # #
+    # # print('This is cesar after serailization ')
+    # # print(des_ces4)
+    # # print("!!! -------------------- END OF PICKLE DESERIALIZATION ZONE--------------------!!!")
+    #
+    # #
+    # # print("!!! --------------------YAML DESERIALIZATION ZONE--------------------!!!")
+    # # print('This is the car after serailization ')
+    # # print(des_car5)
+    # # print()
+    # #
+    # # print('This is the garage after serailization ')
+    # # print(des_gar5)
+    # # print()
+    # #
+    # # print('This is cesar after serailization ')
+    # # print(des_ces5)
+    # # print("!!! -------------------- END OF YAML DESERIALIZATION ZONE--------------------!!!")
+    #
+    # # INI SERIALIZATION
+    # with open('ini_car_serialization.ini', 'w') as file:
+    #     params = car1.to_ini()
+    #     Config = configparser.ConfigParser()
+    #     Config.add_section("Car")
+    #     for k, v in params.items():
+    #         Config.set('Car', k, str(v))
+    #     Config.write(file)
+    #
+    # # INI DESERIALIZATION
+    # # with open('ini_car_serialization.ini') as file:
+    # # params=dict()
+    # # config = configparser.ConfigParser()
+    # # y = config.read('ini_car_serialization.ini')
+    # # config.sections()
+    # # for section in config.sections():
+    # #     for option in config.options(section):
+    # #         # params.update({option:y[option]})
+    # #         print(type(option))
+    # #         print(option, config.get(section, option))
+    # # print(params)
+    #
+    # # config = configparser.RawConfigParser(allow_no_value=True)
+    # # config.readfp(io.BytesIO(car))
+    #
+    # # print("List all contents")
+    # # for section in config.sections():
+    # #     print("Section: %s" % section)
+    # #     for options in config.options(section):
+    # #         print("x %s:::%s:::%s" % (options,
+    # #                                   config.get(section, options),
+    # #                                   str(type(options))))

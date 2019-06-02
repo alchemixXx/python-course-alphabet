@@ -32,28 +32,28 @@ class CarTest(unittest.TestCase):
 
         self.bad_uuid_values_3 = [None]
 
-        self.price_values = [12553, 1258964.65465421,"12553"]
+        self.price_values = [12553, 1258964.65465421, "12553"]
 
         self.price_bad_values = [["element_one", "element_two"], ("element_one", "element_two",),
-                               {"element_one": "value_one", "element_two": "value_two"},
-                               [], (), {}, None, True, False]
+                                 {"element_one": "value_one", "element_two": "value_two"},
+                                 [], (), {}, None, True, False]
         self.comparison = [1.0025, 100, 1000, 0, -1, 0.0, 100000000000000000, 10000000000000.0, 0.00000001, -1.0025]
 
         self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
-                      producer="Ford")
+                           producer="Ford")
         self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
-                      producer="Ford")
+                           producer="Ford")
         self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
-                      producer="Ford", garage_numb=0)
+                           producer="Ford", garage_numb=0)
 
     def tearDown(self) -> None:
         self.number = 'c4595999-28b9-4a98-bd85-9d59ada33efe'
         self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
-                      producer="Ford")
+                           producer="Ford")
         self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
-                      producer="Ford")
+                           producer="Ford")
         self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
-                      producer="Ford", garage_numb=0)
+                           producer="Ford", garage_numb=0)
 
     def test_car_type_checking_valid_values(self):
         """This function will test  car type checking (if car type in CAR_TYPE list)"""
@@ -115,7 +115,6 @@ class CarTest(unittest.TestCase):
                 self.assertEqual(process, expected_res)
             self.assertTrue("Sorry, you have entered bad format of string" in context.exception.args)
 
-
     def test_change_number_bad_data_type_error(self):
         """This function will test changing uuid-number of car function on wrong values: bad string.
         Should be AttributeError"""
@@ -139,7 +138,6 @@ class CarTest(unittest.TestCase):
         """ This function will test convert to float function on bad data: str, list, dict, tuple, None, Bool"""
         for value in self.price_bad_values:
             self.assertEqual(hw.Car._convert_to_float(value), None)
-
 
     def test_equality_equal(self):
         """This test will pass if two objects have the same attributes"""
@@ -176,42 +174,258 @@ class CarTest(unittest.TestCase):
         """This test will pass if two objects have NOT the same attribute garage numb"""
         self.car1.garage_numb = 1
         self.assertFalse(self.car1.equality(self.car3))
-        
 
     def test_repr_good_value(self):
-        """This func will test __repr__ of Car class"""
+        """This func will test __repr__ of Car class on good value"""
         expected_res = "Car(price=1.0, producer=Ford, car_type=Diesel, " \
                        "number=65c11813-3eb5-4d48-b62b-3da6ef951f53, mileage=1.0, garage_numb = None)"
         self.assertIsInstance(self.car1.__repr__(), str)
         self.assertEqual(self.car1.__repr__(), expected_res)
 
     def test_repr_bad_value(self):
-        """This func will test __repr__ of Car class"""
+        """This func will test __repr__ of Car class on bad value"""
         expected_res = "CAR(price=1.0, producer=Ford, car_type=Diesel, " \
                        "number=65c11813-3eb5-4d48-b62b-3da6ef951f53, mileage=1.0, garage_numb = None)"
         self.assertIsInstance(self.car1.__repr__(), str)
         self.assertFalse(self.car1.__repr__() == expected_res)
-        
+
     def test_str_good_value(self):
-        """This func will test __repr__ of Car class"""
+        """This func will test __str__ of Car class on good value"""
         expected_res = "This car has attributes: {'price': 1.0, 'number': '65c11813-3eb5-4d48-b62b-3da6ef951f53', " \
                        "'mileage': 1.0, 'garage_numb': None, 'producer': 'Ford', 'car_type': 'Diesel'}"
         self.assertIsInstance(self.car1.__str__(), str)
         self.assertEqual(self.car1.__str__(), expected_res)
 
     def test_str_bad_value(self):
-        """This func will test __repr__ of Car class"""
+        """This func will test __str__ of Car class on bad value"""
         expected_res = "BAD car has attributes: {'price': 1.0, 'number': '65c11813-3eb5-4d48-b62b-3da6ef951f53', " \
                        "'mileage': 1.0, 'garage_numb': None, 'producer': 'Ford', 'car_type': 'Diesel'}"
         self.assertIsInstance(self.car1.__str__(), str)
         self.assertFalse(self.car1.__str__() == expected_res)
-        
+
+
 class GarageTest(unittest.TestCase):
-    pass
+    def setUp(self) -> None:
+        pass
+
+    def tearDown(self) -> None:
+        pass
+
+    def test_to_int_good_values(self):
+        """This func will test to init convert_func on good value"""
+        pass
+
+    def test_to_int_bad_values(self):
+        """This func will test to init convert_func on bad value"""
+        pass
+
+    def test_owner_checking_good_values(self):
+        """This func will test owner checking func on good value"""
+        pass
+
+    def test_owner_checking_bad_values(self):
+        """This func will test owner checking func on bad value"""
+        pass
+
+    def test_town_checking_good_values(self):
+        """This func will test town checking func on good value"""
+        pass
+
+    def test_town_checking_bad_values(self):
+        """This func will test town checking func on bad value"""
+        pass
+
+    def test_add_car_good_values(self):
+        """This func will test add car func on good value"""
+        pass
+
+    def test_add_car_bad_values(self):
+        """This func will test add car func on bad value"""
+        pass
+
+    def test_remove_car_good_values(self):
+        """This func will test remove func on good value"""
+        pass
+
+    def test_remove_bad_values(self):
+        """This func will test remove car func on bad value"""
+        pass
+
+    def test_hit_hat_good_values(self):
+        """This func will test hit_hat func on good value"""
+        pass
+
+    def test_hit_hat_bad_values(self):
+        """This func will test hit_hat func on bad value"""
+        pass
+
+    def test_change_owner_good_values(self):
+        """This func will test change_owner func on good value"""
+        pass
+
+    def test_change_owner_bad_values(self):
+        """This func will test change_owner func on bad value"""
+        pass
+
+    def test_free_places_good_values(self):
+        """This func will test free_places func on good value"""
+        pass
+
+    def test_free_places_bad_values(self):
+        """This func will test free_places func on bad value"""
+        pass
+
+    def test_str_good_values(self):
+        """This func will test __str__ of Garage class on good value"""
+        pass
+
+    def test_str_bad_values(self):
+        """This func will test __str__ of Garage class on bad value"""
+        pass
+
+    def test_repr_good_values(self):
+        """This func will test __repr__ of Garage class on good value"""
+        pass
+
+    def test_repr_bad_values(self):
+        """This func will test __repr__ of Garage class on bad value"""
+        pass
+
 
 
 class CesarTest(unittest.TestCase):
-    pass
+
+    def setUp(self) -> None:
+        pass
+
+    def tearDown(self) -> None:
+        pass
+
+    def test_garages_checking_good_value(self):
+        """This func will test if garage isn't belong to other cesar on good value"""
+        pass
+
+    def test_garages_checking_bad_value(self):
+        """This func will test if garage isn't belong to other cesar on bad value"""
+        pass
+
+    def test_garages_count_good_value(self):
+        """This func will test count number of garages on good values"""
+        pass
+
+    def test_garages_count_bad_value(self):
+        """This func will test count number of garages on bad values"""
+        pass
+
+    def test_hit_hat_good_value(self):
+        """This func will test summary price of garages on good values"""
+        pass
+
+    def test_hit_hat_bad_value(self):
+        """This func will test summary price of garages on bad values"""
+        pass
+
+    def test_cars_count_good_value(self):
+        """This func will test count of cars in all garages on good values"""
+        pass
+
+    def test_cars_count_bad_value(self):
+        """This func will test count of cars in all garages on bad values"""
+        pass
+
+    def test_add_car_good_value(self):
+        """This func will test car adding to garage on good value"""
+        pass
+
+    def test_add_car_bad_value(self):
+        """This func will test car adding to garage on bad value"""
+        pass
+
+    def test_str_good_value(self):
+        """This func will test __str__ of Garage class on good value"""
+        pass
+
+    def test_str_bad_value(self):
+        """This func will test __str__ of Garage class on bad value"""
+        pass
+
+    def test_rept_good_value(self):
+        """This func will test __repr__ of Garage class on good value"""
+        pass
+
+    def test_rept_bad_value(self):
+        """This func will test __repr__ of Garage class on bad value"""
+        pass
+
+class JsonConverterTest(unittest.TestCase):
+    def setUp(self) -> None:
+        pass
+
+    def tearDown(self) -> None:
+        pass
+
+    def test_default_car_good_value(self):
+        """This func will test car serialization func on good value"""
+        pass
+
+    def test_default_garage_good_value(self):
+        """This func will test garage serialization func on good value"""
+        pass
+
+    def test_default_cesar_good_value(self):
+        """This func will test cesar serialization func on good value"""
+        pass
+
+    def test_default_car_bad_value(self):
+        """This func will test car serialization func on bad value"""
+        pass
+
+    def test_default_garage_bad_value(self):
+        """This func will test garage serialization func on bad value"""
+        pass
+
+    def test_default_cesar_bad_value(self):
+        """This func will test cesar serialization func on bad value"""
+        pass
+
+class DeserailizationTest(unittest.TestCase):
+    def setUp(self) -> None:
+        pass
+
+    def tearDown(self) -> None:
+        pass
+
+    def test_car_deserial_good_value(self):
+        """This func will test car deserialization func on good value"""
+        pass
+
+    def test_garage_deserial_good_value(self):
+        """This func will test garage deserialization func on good value"""
+        pass
+
+    def test_cesar_deserial_good_value(self):
+        """This func will test cesar deserialization func on good value"""
+        pass
+
+    def test_car_deserial_bad_value(self):
+        """This func will test car deserialization func on bad value"""
+        pass
+
+    def test_garage_deserial_bad_value(self):
+        """This func will test garage deserialization func on bad value"""
+        pass
+
+    def test_cesar_deserial_bad_value(self):
+        """This func will test cesar deserialization func on bad value"""
+        pass
+
+    def test_json_hook_bad_value(self):
+        """This func will test json_hook func on good value"""
+        pass
+
+    def test_json_hook_bad_value(self):
+        """This func will test json_hook func on bad value"""
+        pass
 
 
 if __name__ == "__main__":
