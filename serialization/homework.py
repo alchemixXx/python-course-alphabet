@@ -117,7 +117,7 @@ class Garage:
     garage_number = itertools.count()
 
     def __init__(self, places: int, town, *cars, owner=None, number=None):
-        self.places = int(places)
+        self.places = self._to_int(places)
         self.owner = self.owner_checking(owner)
         self.number = next(Garage.garage_number) if number is None else number
         # self.cars = self.cars_checking(cars)
@@ -133,19 +133,30 @@ class Garage:
             try:
                 uuid.UUID(owner, version=4)
                 return owner
-            except ValueError or AttributeError or TypeError:
-                print("Owner should be UUID!")
+            except AttributeError:
+                return 'Sorry, you have entered wrong number. ' \
+                       'It should be a string, not list, tuple, set, dict, int or float'
+            except ValueError:
+                return 'Sorry, you have entered bad format of string'
+            except TypeError:
+                return 'Sorry, you have entered bad type of argument. ' \
+                       'One of the hex, bytes, bytes_le, fields, or int arguments must be given'
 
     @staticmethod
     def town_checking(town):
         if town in TOWNS:
             return town
         else:
-            print("Town should be instance of TOWNS!")
+            raise ValueError("Town should be instance of TOWNS!")
 
     @staticmethod
-    def to_int():
-        pass
+    def _to_int(value):
+        try:
+            if value is True or value is False:
+                raise TypeError
+            return int(value)
+        except TypeError:
+            return None
 
     # def cars_checking(self, cars):
     #     actual_cars = list()
@@ -383,8 +394,6 @@ if __name__ == '__main__':
 
     cesar_1 = Cesar(random.choice(NAMES), garage1, garage3)
     cesar_2 = Cesar(random.choice(NAMES), garage2)
-
-    print(car1.equality(car2))
 
 
     """Для класів Колекціонер Машина і Гараж написати методи, які конвертують обєкт в строку формату

@@ -1,5 +1,5 @@
 import homework as hw
-from constants import CARS_TYPES, CARS_PRODUCER
+from constants import CARS_TYPES, CARS_PRODUCER, TOWNS
 # from fixtures import car1, car2, car3, car4, car5, garage1, garage2, garage3, cesar_1, cesar_2
 from fixtures import car4, car5, garage1, garage2, garage3, cesar_1, cesar_2
 import uuid
@@ -206,34 +206,64 @@ class CarTest(unittest.TestCase):
 
 class GarageTest(unittest.TestCase):
     def setUp(self) -> None:
-        pass
+        self.converted_values = [12553, 1258964.65465421, "12553"]
+
+        self.converted_bad_values = [["element_one", "element_two"], ("element_one", "element_two",),
+                                 {"element_one": "value_one", "element_two": "value_two"},
+                                 [], (), {}, True, False,  None]
+
+        self.uuid_number = 'c4595999-28b9-4a98-bd85-9d59ada33efe'
+        self.uuid_bad_number = 'c4595999-28b9-4a98-bd85-9d59ada33ef'
+
+        self.change_owner_number = [None, self.uuid_number]
+
+        self.bad_towns = ['Zdolbuniv', 'Irpin', 'Ivachkiv',
+                          ["element_one", "element_two"], ("element_one", "element_two",),
+                          {"element_one": "value_one", "element_two": "value_two"},
+                          [], (), {}, True, False, None]
+
+        self.free_places = 15
 
     def tearDown(self) -> None:
         pass
 
     def test_to_int_good_values(self):
         """This func will test to init convert_func on good value"""
-        pass
+        for value in self.converted_values:
+            self.assertIsInstance(hw.Garage._to_int(value), int)
+            self.assertEqual(hw.Garage._to_int(value), int(value))
 
     def test_to_int_bad_values(self):
         """This func will test to init convert_func on bad value"""
-        pass
+        for value in self.converted_bad_values:
+            self.assertEqual(hw.Garage._to_int(value), None)
 
     def test_owner_checking_good_values(self):
         """This func will test owner checking func on good value"""
-        pass
+        self.assertEqual(hw.Garage.owner_checking(self.change_owner_number[0]), None)
+        self.assertEqual(hw.Garage.owner_checking(self.change_owner_number[1]), self.change_owner_number[1])
 
     def test_owner_checking_bad_values(self):
         """This func will test owner checking func on bad value"""
-        pass
+        for value in self.converted_bad_values[:-1]:
+            expected_res = 'Sorry, you have entered wrong number. ' \
+                       'It should be a string, not list, tuple, set, dict, int or float'
+            self.assertEqual(hw.Garage.owner_checking(value), expected_res)
+        expected_res_2 = 'Sorry, you have entered bad format of string'
+        self.assertEqual(hw.Garage.owner_checking(self.uuid_bad_number), expected_res_2)
 
     def test_town_checking_good_values(self):
         """This func will test town checking func on good value"""
-        pass
+        for town in TOWNS:
+            self.assertEqual(hw.Garage.town_checking(town), town)
 
     def test_town_checking_bad_values(self):
         """This func will test town checking func on bad value"""
-        pass
+        with self.assertRaises(ValueError) as context:
+            for town in self.bad_towns:
+                hw.Garage.town_checking(town)
+            self.assertTrue('Town should be instance of TOWNS!' in context.exception.args)
+
 
     def test_add_car_good_values(self):
         """This func will test add car func on good value"""
