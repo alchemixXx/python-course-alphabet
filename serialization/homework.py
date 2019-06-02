@@ -206,15 +206,18 @@ class Garage:
 
     def __str__(self):
         return f"""Garage {self.number} has next attributes:
-        cars =  '{len(self.cars)} cars', 
-        owner = '{self.owner}',
-        town = '{self.town}',
-        number = '{self.number}',
-        free places = {self.free_places()}
+        "{vars(self)}"
         """
 
     def __repr__(self):
-        return f'"{vars(self)}"'
+        return f"Garage(" \
+            f"cars={self.cars}, " \
+            f"owner={self.owner}, " \
+            f"town={self.town}, " \
+            f"number={self.number}, " \
+            f"places={self.places})"
+
+
 
 
 class Cesar:
@@ -394,6 +397,8 @@ if __name__ == '__main__':
 
     cesar_1 = Cesar(random.choice(NAMES), garage1, garage3)
     cesar_2 = Cesar(random.choice(NAMES), garage2)
+
+    print(garage1.__repr__())
 
 
     """Для класів Колекціонер Машина і Гараж написати методи, які конвертують обєкт в строку формату

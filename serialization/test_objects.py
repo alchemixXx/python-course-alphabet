@@ -224,6 +224,18 @@ class GarageTest(unittest.TestCase):
 
         self.free_places = 15
 
+        self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
+                           producer="Ford")
+        self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
+                           producer="Ford")
+        self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
+                           producer="Ford", garage_numb=0)
+
+
+        self.garage1 = hw.Garage(self.car1, self.car2, places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=1, town='Amsterdam')
+        self.garage2 = hw.Garage(self.car3, places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84523', number=2, town='Kiev')
+        self.garage1 = hw.Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=3, town='Prague')
+
     def tearDown(self) -> None:
         pass
 
@@ -315,11 +327,28 @@ class GarageTest(unittest.TestCase):
 
     def test_repr_good_values(self):
         """This func will test __repr__ of Garage class on good value"""
-        pass
+        expected_res_1 = "Garage(cars=(Car(price=1.0, producer=Ford, car_type=Diesel, number=65c11813-3eb5-4d48-b62b-3da6ef951f53, mileage=1.0, garage_numb = None), " \
+                         "Car(price=1.0, producer=Ford, car_type=Diesel, number=65c11813-3eb5-4d48-b62b-3da6ef951f53, mileage=1.0, garage_numb = None)), " \
+                         "owner=be23adf5-3d7f-43f1-9874-e60d61c84522, town=Amsterdam, number=1, places=15)"
+        expected_res_2 = "Garage(cars=(Car(price=1.0, producer=Ford, car_type=Diesel, number=65c11813-3eb5-4d48-b62b-3da6ef951f55, mileage=1.0, garage_numb = None), " \
+                         "owner=be23adf5-3d7f-43f1-9874-e60d61c84523, town=Kiev, number=2, places=15)"
+        self.assertEqual(self.garage1.__repr__(), expected_res_1)
+        self.assertEqual(self.garage2.__repr__(), expected_res_2)
 
     def test_repr_bad_values(self):
         """This func will test __repr__ of Garage class on bad value"""
         pass
+
+        # self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
+        #                    producer="Ford")
+        # self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
+        #                    producer="Ford")
+        # self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
+        #                    producer="Ford", garage_numb=0)
+        #
+        # self.garage1 = Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=1, cars=[self.car1, self.car2], town='Amsterdam')
+        # self.garage2 = Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84523', number=2, cars=[self.car3], town='Kiev')
+        # self.garage1 = Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=3, cars=[], town='Prague')
 
 
 
