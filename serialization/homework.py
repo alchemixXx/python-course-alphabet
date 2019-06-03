@@ -125,7 +125,7 @@ class Garage:
         self.owner = self.owner_checking(owner)
         self.number = next(Garage.garage_number) if number is None else number
         # self.cars = self.cars_checking(cars)
-        self.cars = cars
+        self.cars = [car for car in cars]
 
         self.town = self.town_checking(town)
 
@@ -179,13 +179,13 @@ class Garage:
     def add(self, car):
         if self.free_places() > 0:
             if car.garage_numb is None:
-                car.garage_numb = self.garage_number
+                car.garage_numb = self.garage_number.__repr__()
                 self.cars.append(car)
                 return "Car has been added"
             else:
-                print("This car is already in other garage")
+                raise ValueError("This car is already in other garage")
         else:
-            print("Sorry, this garage is full. Car has not been changed")
+            raise ValueError("Sorry, this garage is full. Car has not been changed")
 
     def remove(self, car):
         if car in self.cars:
@@ -210,16 +210,15 @@ class Garage:
 
     def __str__(self):
         return f"""Garage {self.number} has next attributes:
-        "{vars(self)}"
+        cars = '{len(self.cars)} cars', 
+        owner = '{self.owner}',
+        town = '{self.town}',
+        number = '{self.number}',
+        free places = {self.free_places()}
         """
 
     def __repr__(self):
-        return f"Garage(" \
-            f"{self.places}, " \
-            f"town='{self.town}," \
-            f"{self.cars}, " \
-            f"owner='{self.owner}', " \
-            f"number={self.number})"
+        return f'Garage("{vars(self)}")'
 
 
 
@@ -395,15 +394,14 @@ if __name__ == '__main__':
 
     garage1 = Garage(random.randrange(5, 150), random.choice(TOWNS), car1, car2)
 
-    garage2 = Garage(random.randrange(5, 150), random.choice(TOWNS), car3)
+    # garage2 = Garage(random.randrange(5, 150), random.choice(TOWNS), car3)
 
     garage3 = Garage(random.randrange(5, 150), random.choice(TOWNS), car4, car5)
 
     cesar_1 = Cesar(random.choice(NAMES), garage1, garage3)
-    cesar_2 = Cesar(random.choice(NAMES), garage2)
+    # cesar_2 = Cesar(random.choice(NAMES), garage2)
 
-    print(garage1.__repr__())
-    print(eval(garage1.__repr__()))
+    print(garage3.add(car3))
 
 
     """Для класів Колекціонер Машина і Гараж написати методи, які конвертують обєкт в строку формату
