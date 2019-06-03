@@ -242,11 +242,15 @@ class Cesar:
         if len(garages) > 0:
             real_garages = list()
             for garage in garages:
-                # if garage.owner is None or garage.owner == self.register_id:
-                garage.change_owner(str(self.register_id))
-                real_garages.append(garage)
-                # else:
-                #     print("Other cesar own this garage")
+                if isinstance(garage, Garage):
+                    # if garage.owner is None or garage.owner == self.register_id:
+                    garage.change_owner(str(self.register_id))
+                    real_garages.append(garage)
+                    # else:
+                    #     print("Other cesar own this garage")
+                else:
+                    raise AttributeError('Sorry, you have entered garages. '
+                                         'It should be a Garage, not list, tuple, set, dict, int or float')
             return real_garages
         else:
             return []
@@ -407,13 +411,8 @@ if __name__ == '__main__':
     cesar_1 = Cesar(random.choice(NAMES), garage1, garage3)
     cesar_2 = Cesar(random.choice(NAMES), garage2)
 
-    print(garage3.add(car3))
-    print(car1.garage_numb)
-    print(garage1.number)
-    print(garage1.remove(car1))
-    print("Hello")
-
-
+    cesar3 = Cesar("Pavel", garage1, garage2, garage3, register_id=None)
+    print(cesar3.__repr__())
     """Для класів Колекціонер Машина і Гараж написати методи, які конвертують обєкт в строку формату
     yaml, json, pickle відповідно."""
 

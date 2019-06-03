@@ -372,6 +372,8 @@ class GarageTest(unittest.TestCase):
                 self.assertEqual(process, expected_res)
             self.assertTrue(expected_res in context.exception.args)
 
+
+
     def test_change_owner_fail_type_error(self):
         """This func will test change_owner func on wrong values: bad string.
         Should be AttributeError"""
@@ -449,6 +451,11 @@ class GarageTest(unittest.TestCase):
 class CesarTest(unittest.TestCase):
 
     def setUp(self) -> None:
+        self.fake_values = [["element_one", "element_two"], ("element_one", "element_two",),
+                                 {"element_one": "value_one", "element_two": "value_two"},
+                                 [], (), {}, True, False,  None]
+
+
         self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
                            producer="Ford")
         self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
@@ -499,35 +506,37 @@ class CesarTest(unittest.TestCase):
     def test_garages_checking_success(self):
         """This func will test if garage isn't belong to other cesar on good value"""
         self.assertEqual(self.cesar3.garages_checking(self.cesar3.garages), [])
-        self.assertEqual(self.cesar2.garages_checking(self.cesar2.garages), [self.garage4])
+        self.assertEqual(self.cesar2.garages_checking(self.cesar2.garages),
+                         [self.garage4])
+        self.assertEqual(self.cesar1.garages_checking(self.cesar1.garages),
+                         [self.garage1, self.garage2, self.garage3])
 
     def test_garages_checking_fail(self):
         """This func will test if garage isn't belong to other cesar on bad value"""
-        pass
+        expected_res = 'Sorry, you have entered garages.' \
+                       'It should be a Garage, not list, tuple, set, dict, int or float'
+        with self.assertRaises(AttributeError) as context:
+            for value in self.fake_values:
+                self.cesar1.garages_checking(value)
+            self.assertTrue(expected_res in context.exception.args)
 
     def test_garages_count_success(self):
         """This func will test count number of garages on good values"""
-        pass
-
-    def test_garages_count_fail(self):
-        """This func will test count number of garages on bad values"""
-        pass
+        self.assertEqual(self.cesar1.garages_count(), 3)
+        self.assertEqual(self.cesar2.garages_count(), 1)
+        self.assertEqual(self.cesar3.garages_count(), 0)
 
     def test_hit_hat_success(self):
         """This func will test summary price of garages on good values"""
-        pass
-
-    def test_hit_hat_fail(self):
-        """This func will test summary price of garages on bad values"""
-        pass
+        self.assertEqual(self.cesar1.hit_hat(), 2.0)
+        self.assertEqual(self.cesar2.hit_hat(), 0)
+        self.assertEqual(self.cesar3.hit_hat(), 0)
 
     def test_cars_count_success(self):
         """This func will test count of cars in all garages on good values"""
-        pass
-
-    def test_cars_count_fail(self):
-        """This func will test count of cars in all garages on bad values"""
-        pass
+        self.assertEqual(self.cesar1.cars_count(), 2.0)
+        self.assertEqual(self.cesar2.cars_count(), 0)
+        self.assertEqual(self.cesar3.cars_count(), 0)
 
     def test_add_car_success(self):
         """This func will test car adding to garage on good value"""
@@ -539,15 +548,51 @@ class CesarTest(unittest.TestCase):
 
     def test_str_success(self):
         """This func will test __str__ of Garage class on good value"""
-        pass
+        expected_res_1 = """This Cesar has next attributes:
+        name = 'Masha',
+        id = '75c11813-3eb5-4d48-b62b-3da6ef951f57',
+        number of garages = 0"""
+        self.assertEqual(self.cesar3.__str__(), expected_res_1)
+        uuid = self.cesar1.register_id
+        expected_res_2 = f"""This Cesar has next attributes:
+        name = 'Pavel',
+        id = '{uuid}',
+        number of garages = 3"""
+        self.assertEqual(self.cesar1.__str__(), expected_res_2)
 
     def test_str_fail(self):
         """This func will test __str__ of Garage class on bad value"""
-        pass
+        expected_res_1 = """This Cesar has next attributes:
+        name = 'Pasha',
+        id = '75c11813-3eb5-4d48-b62b-3da6ef951f57',
+        number of garages = 0"""
+        self.assertFalse(self.cesar3.__str__() == expected_res_1)
+        uuid = self.cesar1.register_id
+        expected_res_2 = f"""This Cesar has next attributes:
+        name = 'Mavel',
+        id = '{uuid}',
+        number of garages = 3"""
+        self.assertFalse(self.cesar1.__str__() == expected_res_2)
 
     def test_rept_success(self):
         """This func will test __repr__ of Garage class on good value"""
-        pass
+        uuid = self.cesar1.register_id
+        expected_res = """{'name': 'Pavel', 'register_id': UUID(''),
+        'garages': 
+        [Garage("{'places': 15, 'owner': '8183ad50-1b57-4033-af28-2820aa26c327', 'number': 1, 
+        'cars': 
+        [Car(price=1.0, producer="Ford", car_type='Diesel', number='65c11813-3eb5-4d48-b62b-3da6ef951f53', 
+        mileage=1.0, garage_numb=None)], 'town': 'Amsterdam'}'), 
+        Garage('{'places': 15, 'owner': '8183ad50-1b57-4033-af28-2820aa26c327', 'number': 2, 
+        'cars': 
+        [Car(price=1.0, producer='Ford', car_type='Diesel', number='65c11813-3eb5-4d48-b62b-3da6ef951f55', 
+        mileage=1.0, garage_numb=2)], 
+        'town': 'Kiev'}'), 
+        Garage('{'places': 15, 'owner': '8183ad50-1b57-4033-af28-2820aa26c327', 'number': 3, 'cars': [], 'town': 'Prague'}')]}"""
+        self.assertEqual(self.cesar1.__repr__(), expected_res)
+
+
+
 
     def test_rept_fail(self):
         """This func will test __repr__ of Garage class on bad value"""
