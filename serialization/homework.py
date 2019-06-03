@@ -89,8 +89,12 @@ class Car:
     #     """
 
     def __repr__(self):
-        return f'Car(price={self.price}, producer={self.producer}, car_type={self.car_type}, ' \
-            f'number={self.number}, mileage={self.mileage}, garage_numb = {self.garage_numb})'
+        return f'Car(price={self.price}, ' \
+            f'producer="{self.producer}", ' \
+            f'car_type="{self.car_type}", ' \
+            f'number="{self.number}", ' \
+            f'mileage={self.mileage}, ' \
+            f'garage_numb={self.garage_numb})'
 
     def __str__(self):
         return f'This car has attributes: {vars(self)}'
@@ -211,11 +215,11 @@ class Garage:
 
     def __repr__(self):
         return f"Garage(" \
-            f"cars={self.cars}, " \
-            f"owner={self.owner}, " \
-            f"town={self.town}, " \
-            f"number={self.number}, " \
-            f"places={self.places})"
+            f"{self.places}, " \
+            f"town='{self.town}," \
+            f"{self.cars}, " \
+            f"owner='{self.owner}', " \
+            f"number={self.number})"
 
 
 
@@ -399,6 +403,7 @@ if __name__ == '__main__':
     cesar_2 = Cesar(random.choice(NAMES), garage2)
 
     print(garage1.__repr__())
+    print(eval(garage1.__repr__()))
 
 
     """Для класів Колекціонер Машина і Гараж написати методи, які конвертують обєкт в строку формату

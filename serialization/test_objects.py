@@ -229,12 +229,12 @@ class GarageTest(unittest.TestCase):
         self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
                            producer="Ford")
         self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
-                           producer="Ford", garage_numb=0)
+                           producer="Ford", garage_numb=None)
 
 
-        self.garage1 = hw.Garage(self.car1, self.car2, places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=1, town='Amsterdam')
-        self.garage2 = hw.Garage(self.car3, places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84523', number=2, town='Kiev')
-        self.garage1 = hw.Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=3, town='Prague')
+        self.garage1 = hw.Garage(15, 'Amsterdam', self.car1, self.car2,  owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=1,)
+        self.garage2 = hw.Garage(15, 'Kiev', self.car3, owner='be23adf5-3d7f-43f1-9874-e60d61c84523', number=2)
+        self.garage3 = hw.Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=3, town='Prague')
 
     def tearDown(self) -> None:
         pass
@@ -330,8 +330,9 @@ class GarageTest(unittest.TestCase):
         expected_res_1 = "Garage(cars=(Car(price=1.0, producer=Ford, car_type=Diesel, number=65c11813-3eb5-4d48-b62b-3da6ef951f53, mileage=1.0, garage_numb = None), " \
                          "Car(price=1.0, producer=Ford, car_type=Diesel, number=65c11813-3eb5-4d48-b62b-3da6ef951f53, mileage=1.0, garage_numb = None)), " \
                          "owner=be23adf5-3d7f-43f1-9874-e60d61c84522, town=Amsterdam, number=1, places=15)"
-        expected_res_2 = "Garage(cars=(Car(price=1.0, producer=Ford, car_type=Diesel, number=65c11813-3eb5-4d48-b62b-3da6ef951f55, mileage=1.0, garage_numb = None), " \
+        expected_res_2 = "Garage(cars=(Car(price=1.0, producer=Ford, car_type=Diesel, number=65c11813-3eb5-4d48-b62b-3da6ef951f55, mileage=1.0, garage_numb = None),), " \
                          "owner=be23adf5-3d7f-43f1-9874-e60d61c84523, town=Kiev, number=2, places=15)"
+        print(self.garage1.__repr__())
         self.assertEqual(self.garage1.__repr__(), expected_res_1)
         self.assertEqual(self.garage2.__repr__(), expected_res_2)
 
