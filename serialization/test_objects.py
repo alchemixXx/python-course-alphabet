@@ -1,7 +1,7 @@
 import homework as hw
 from constants import CARS_TYPES, CARS_PRODUCER, TOWNS
 # from fixtures import car1, car2, car3, car4, car5, garage1, garage2, garage3, cesar_1, cesar_2
-from fixtures import car4, car5, garage1, garage2, garage3, cesar_1, cesar_2
+from fixtures import car4
 import uuid
 import unittest
 
@@ -79,14 +79,6 @@ class CarTest(unittest.TestCase):
                 hw.Car.producer_checking(producer)
             self.assertTrue("Producer should be instance of CARS_PRODUCER!" in context.exception.args)
 
-    def change_number(self, new_number):
-        try:
-            uuid.UUID(new_number, version=4)
-            self.number = new_number
-            return "Number has been changed"
-        except ValueError or AttributeError or TypeError:
-            return 'Sorry, you have entered wrong number'
-
     def test_change_number_success(self):
         """This function will test changing uuid-number of car function """
         expected_res = "Number has been changed"
@@ -101,9 +93,7 @@ class CarTest(unittest.TestCase):
             for value in self.bad_uuid_values_2:
                 process = hw.Car.change_number(self, new_number=value)
                 self.assertEqual(process, expected_res)
-            self.assertTrue(
-                'Sorry, you have entered wrong number. It should be a string, not list, tuple, set, dict, int or float'
-                in context.exception.args)
+            self.assertTrue(expected_res in context.exception.args)
 
     def test_change_number_fail_value_error(self):
         """This function will test changing uuid-number of car function on wrong values: bad string.
@@ -113,7 +103,7 @@ class CarTest(unittest.TestCase):
             for value in self.bad_uuid_values_1:
                 process = hw.Car.change_number(self, new_number=value)
                 self.assertEqual(process, expected_res)
-            self.assertTrue("Sorry, you have entered bad format of string" in context.exception.args)
+            self.assertTrue(expected_res in context.exception.args)
 
     def test_change_number_fail_type_error(self):
         """This function will test changing uuid-number of car function on wrong values: bad string.
@@ -124,9 +114,7 @@ class CarTest(unittest.TestCase):
             for value in self.bad_uuid_values_3:
                 process = hw.Car.change_number(self, new_number=value)
                 self.assertEqual(process, expected_res)
-            self.assertTrue("Sorry, you have entered bad type of argument. "
-                            "One of the hex, bytes, bytes_le, fields, or int arguments must be given"
-                            in context.exception.args)
+            self.assertTrue(expected_res in context.exception.args)
 
     def test_convert_to_float_success(self):
         """ This function will test convert to float function """
@@ -344,6 +332,8 @@ class GarageTest(unittest.TestCase):
         self.assertEqual(self.garage2.remove(self.car3), expected_res)
         self.assertEqual(self.car3.garage_numb, None)
 
+    # Here I have a problem!!!
+
     def test_remove_car_from_garage_fail(self):
         """This func will test remove car func on bad value"""
         with self.assertRaises(ValueError) as context:
@@ -358,19 +348,46 @@ class GarageTest(unittest.TestCase):
 
     def test_change_owner_success(self):
         """This func will test change_owner func on good value"""
-        pass
+        expected_res = self.new_uuid_number
+        self.assertEqual(self.garage1.change_owner(expected_res), None)
+        self.assertEqual(self.garage1.owner, expected_res)
 
-    def test_change_owner_fail(self):
-        """This func will test change_owner func on bad value"""
-        pass
+    def test_change_owner_fail_attribute_error(self):
+        """This func will test change_owner func on wrong values: list, tuple, dict, float, int.
+        Should be AttributeError"""
+        expected_res = 'Sorry, you have entered wrong number. It should be a string, not list, tuple, set, dict, int or float'
+        with self.assertRaises(AttributeError) as context:
+            for value in self.bad_uuid_values_2:
+                process = self.garage1.change_owner(value)
+                self.assertEqual(process, expected_res)
+            self.assertTrue(expected_res in context.exception.args)
+
+    def test_change_owner_fail_value_error(self):
+        """This func will test change_owner func on wrong values: bad string.
+        Should be AttributeError"""
+        expected_res = 'Sorry, you have entered bad format of string'
+        with self.assertRaises(AttributeError) as context:
+            for value in self.bad_uuid_values_1:
+                process = self.garage1.change_owner(value)
+                self.assertEqual(process, expected_res)
+            self.assertTrue(expected_res in context.exception.args)
+
+    def test_change_owner_fail_type_error(self):
+        """This func will test change_owner func on wrong values: bad string.
+        Should be AttributeError"""
+        expected_res = 'Sorry, you have entered bad type of argument. ' \
+                       'One of the hex, bytes, bytes_le, fields, or int arguments must be given'
+        with self.assertRaises(AttributeError) as context:
+            for value in self.bad_uuid_values_3:
+                process = self.garage1.change_owner(value)
+                self.assertEqual(process, expected_res)
+            self.assertTrue(expected_res in context.exception.args)
 
     def test_free_places_success(self):
         """This func will test free_places func on good value"""
-        pass
-
-    def test_free_places_fail(self):
-        """This func will test free_places func on bad value"""
-        pass
+        self.assertEqual(self.garage1.free_places(), 14)
+        self.assertEqual(self.garage4.free_places(), 0)
+        self.assertEqual(self.garage5.free_places(), 13)
 
     def test_str_success(self):
         """This func will test __str__ of Garage class on good value"""
@@ -420,8 +437,6 @@ class GarageTest(unittest.TestCase):
         self.assertEqual(self.garage1.__repr__(), expected_res_1)
         self.assertEqual(self.garage2.__repr__(), expected_res_2)
 
-
-
     def test_repr_fail(self):
         """This func will test __repr__ of Garage class on bad value"""
         expected_res_1 = """Garage("{'places': 1, 'owner': 'be23adf5-3d7f-43f1-9874-e60d61c84522', 'number': 1, 'cars': [Car(price=1.0, producer="Ford", car_type="Diesel", number="65c11813-3eb5-4d48-b62b-3da6ef951f53", mileage=1.0, garage_numb=None), Car(price=1.0, producer="Ford", car_type="Diesel", number="65c11813-3eb5-4d48-b62b-3da6ef951f53", mileage=1.0, garage_numb=None)], 'town': 'Amsterdam'}")"""
@@ -434,14 +449,57 @@ class GarageTest(unittest.TestCase):
 class CesarTest(unittest.TestCase):
 
     def setUp(self) -> None:
-        pass
+        self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
+                           producer="Ford")
+        self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
+                           producer="Ford", garage_numb=None)
+        self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
+                           producer="Ford", garage_numb=2)
+
+        self.car4 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f56', car_type="Diesel",
+                           producer="Ford", garage_numb=4)
+        self.car5 = hw.Car(price=15, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f57', car_type="Diesel",
+                           producer="Ford", garage_numb=5)
+        self.car6 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f58', car_type="Diesel",
+                           producer="Ford", garage_numb=5)
+
+        self.garage1 = hw.Garage(15, 'Amsterdam', self.car1, owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=1, )
+        self.garage2 = hw.Garage(15, 'Kiev', self.car3, owner='be23adf5-3d7f-43f1-9874-e60d61c84523', number=2)
+        self.garage3 = hw.Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=3, town='Prague')
+        self.garage4 = hw.Garage(places=0, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=4, town='Prague')
+
+        self.cesar1 = hw.Cesar("Pavel", self.garage1, self.garage2, self.garage3, register_id=None)
+        self.cesar2 = hw.Cesar("Denis", self.garage4, register_id=None)
+        self.cesar3 = hw.Cesar("Masha", register_id='75c11813-3eb5-4d48-b62b-3da6ef951f57')
 
     def tearDown(self) -> None:
-        pass
+        self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
+                           producer="Ford")
+        self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
+                           producer="Ford", garage_numb=None)
+        self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
+                           producer="Ford", garage_numb=2)
+
+        self.car4 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f56', car_type="Diesel",
+                           producer="Ford", garage_numb=4)
+        self.car5 = hw.Car(price=15, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f57', car_type="Diesel",
+                           producer="Ford", garage_numb=5)
+        self.car6 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f58', car_type="Diesel",
+                           producer="Ford", garage_numb=5)
+
+        self.garage1 = hw.Garage(15, 'Amsterdam', self.car1, owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=1, )
+        self.garage2 = hw.Garage(15, 'Kiev', self.car3, owner='be23adf5-3d7f-43f1-9874-e60d61c84523', number=2)
+        self.garage3 = hw.Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=3, town='Prague')
+        self.garage4 = hw.Garage(places=0, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=4, town='Prague')
+
+        self.cesar1 = hw.Cesar("Pavel", self.garage1, self.garage2, self.garage3, register_id=None)
+        self.cesar2 = hw.Cesar("Denis", self.garage4, register_id=None)
+        self.cesar3 = hw.Cesar("Masha", register_id='75c11813-3eb5-4d48-b62b-3da6ef951f57')
 
     def test_garages_checking_success(self):
         """This func will test if garage isn't belong to other cesar on good value"""
-        pass
+        self.assertEqual(self.cesar3.garages_checking(self.cesar3.garages), [])
+        self.assertEqual(self.cesar2.garages_checking(self.cesar2.garages), [self.garage4])
 
     def test_garages_checking_fail(self):
         """This func will test if garage isn't belong to other cesar on bad value"""
