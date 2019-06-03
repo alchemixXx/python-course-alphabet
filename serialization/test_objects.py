@@ -230,20 +230,48 @@ class GarageTest(unittest.TestCase):
                            producer="Ford", )
         self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
                            producer="Ford", garage_numb=None)
+        self.car4 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
+                           producer="Ford", garage_numb=4)
+        self.car5 = hw.Car(price=15, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f57', car_type="Diesel",
+                           producer="Ford", garage_numb=5)
+        self.car6 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f58', car_type="Diesel",
+                           producer="Ford", garage_numb=5)
+
 
 
         self.garage1 = hw.Garage(15, 'Amsterdam', self.car1,  owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=1,)
         self.garage2 = hw.Garage(15, 'Kiev', self.car3, owner='be23adf5-3d7f-43f1-9874-e60d61c84523', number=2)
         self.garage3 = hw.Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=3, town='Prague')
-        self.garage4 = hw.Garage(places=0, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=4, town='Prague')
+        self.garage4 = hw.Garage(places=0, owner='be23adf5-3d7f-43f1-9874-e60d61c84525', number=4, town='Prague')
+        self.garage5 = hw.Garage(15, 'Amsterdam', self.car5, self.car6, owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=5)
+
+
+        self.new_uuid_number = str(uuid.uuid4())
+
+        self.bad_uuid_values_1 = ['35461654651-sadasd-szdfsf', '%4595999-28b9-4a98-bd85-9d59ada33efe',
+                                  'c4595999-28b9-4a98-bd85-d59ada33efe', '', "some fake phrase"]
+
+        self.bad_uuid_values_2 = [["element_one", "element_two"], ("element_one", "element_two",),
+                                  {"element_one": "value_one", "element_two": "value_two"},
+                                  [], (), {}, 12553, 1258964.65465421, uuid.uuid4(), True, False]
+
+        self.bad_uuid_values_3 = [None]
+
 
     def tearDown(self) -> None:
         self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
                            producer="Ford")
         self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
-                           producer="Ford")
-        self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
                            producer="Ford", garage_numb=None)
+        self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
+                           producer="Ford", garage_numb=2)
+
+        self.car4 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f56', car_type="Diesel",
+                           producer="Ford", garage_numb=4)
+        self.car5 = hw.Car(price=15, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f57', car_type="Diesel",
+                           producer="Ford", garage_numb=5)
+        self.car6 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f58', car_type="Diesel",
+                           producer="Ford", garage_numb=5)
 
         self.garage1 = hw.Garage(15, 'Amsterdam', self.car1,  owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=1,)
         self.garage2 = hw.Garage(15, 'Kiev', self.car3, owner='be23adf5-3d7f-43f1-9874-e60d61c84523', number=2)
@@ -299,23 +327,34 @@ class GarageTest(unittest.TestCase):
 
     def test_add_car_to_garage_fail(self):
         """This func will test add car func on bad value"""
-        pass
+        with self.assertRaises(ValueError) as context:
+            self.garage1.add(self.car4)
+        expected_res_1 = "This car is already in other garage"
+        self.assertTrue(expected_res_1 in context.exception.args)
+        with self.assertRaises(ValueError) as context:
+            self.garage4.add(self.car1)
+        expected_res_2 = "Sorry, this garage is full. Car has not been changed"
+        self.assertTrue(expected_res_2 in context.exception.args)
 
     def test_remove_car_from_garage_success(self):
         """This func will test remove func on good value"""
-        pass
+        expected_res = "Car has been removed"
+        self.assertEqual(self.garage1.remove(self.car1), expected_res)
+        self.assertEqual(self.car1.garage_numb, None)
+        self.assertEqual(self.garage2.remove(self.car3), expected_res)
+        self.assertEqual(self.car3.garage_numb, None)
 
     def test_remove_car_from_garage_fail(self):
         """This func will test remove car func on bad value"""
-        pass
+        with self.assertRaises(ValueError) as context:
+            self.garage1.remove(car4)
+        expected_res = "Sorry, there is no that car in the garage"
+        self.assertTrue(expected_res in context.exception.args)
 
     def test_hit_hat_success(self):
         """This func will test hit_hat func on good value"""
-        pass
-
-    def test_hit_hat_fail(self):
-        """This func will test hit_hat func on bad value"""
-        pass
+        self.assertEqual(self.garage1.hit_hat(), 1.0)
+        self.assertEqual(self.garage5.hit_hat(), 16.0)
 
     def test_change_owner_success(self):
         """This func will test change_owner func on good value"""

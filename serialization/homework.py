@@ -179,7 +179,7 @@ class Garage:
     def add(self, car):
         if self.free_places() > 0:
             if car.garage_numb is None:
-                car.garage_numb = self.garage_number.__repr__()
+                car.garage_numb = self.number
                 self.cars.append(car)
                 return "Car has been added"
             else:
@@ -189,11 +189,12 @@ class Garage:
 
     def remove(self, car):
         if car in self.cars:
+        # if car.garage_numb == self.number:
             car.garage_numb = None
             self.cars.remove(car)
             return "Car has been removed"
         else:
-            print("Sorry, there is no that car in the garage")
+            raise ValueError("Sorry, there is no that car in the garage")
 
     def hit_hat(self):
         return sum([car.price for car in self.cars])
@@ -202,8 +203,13 @@ class Garage:
         try:
             uuid.UUID(owner_id, version=4)
             self.owner = owner_id
-        except ValueError or AttributeError or TypeError:
-            print("Sorry, it's not UUID. Owner has not been changed")
+        except AttributeError:
+            return 'Sorry, you have entered wrong number. It should be a string, not list, tuple, set, dict, int or float'
+        except ValueError:
+            return 'Sorry, you have entered bad format of string'
+        except TypeError:
+            return 'Sorry, you have entered bad type of argument. ' \
+                   'One of the hex, bytes, bytes_le, fields, or int arguments must be given'
 
     def free_places(self):
         return self.places - len(self.cars)
@@ -382,7 +388,7 @@ def json_hook(obj):
 
 if __name__ == '__main__':
     car1 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
-               random.choice(CARS_TYPES))
+               random.choice(CARS_TYPES), garage_numb=0)
     car2 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
                random.choice(CARS_TYPES))
     car3 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
@@ -394,14 +400,18 @@ if __name__ == '__main__':
 
     garage1 = Garage(random.randrange(5, 150), random.choice(TOWNS), car1, car2)
 
-    # garage2 = Garage(random.randrange(5, 150), random.choice(TOWNS), car3)
+    garage2 = Garage(random.randrange(5, 150), random.choice(TOWNS), car3)
 
     garage3 = Garage(random.randrange(5, 150), random.choice(TOWNS), car4, car5)
 
     cesar_1 = Cesar(random.choice(NAMES), garage1, garage3)
-    # cesar_2 = Cesar(random.choice(NAMES), garage2)
+    cesar_2 = Cesar(random.choice(NAMES), garage2)
 
     print(garage3.add(car3))
+    print(car1.garage_numb)
+    print(garage1.number)
+    print(garage1.remove(car1))
+    print("Hello")
 
 
     """Для класів Колекціонер Машина і Гараж написати методи, які конвертують обєкт в строку формату
@@ -636,13 +646,13 @@ if __name__ == '__main__':
     # # print("!!! -------------------- END OF YAML DESERIALIZATION ZONE--------------------!!!")
     #
     # # INI SERIALIZATION
-    # with open('ini_car_serialization.ini', 'w') as file:
-    #     params = car1.to_ini()
-    #     Config = configparser.ConfigParser()
-    #     Config.add_section("Car")
-    #     for k, v in params.items():
-    #         Config.set('Car', k, str(v))
-    #     Config.write(file)
+    # # with open('ini_car_serialization.ini', 'w') as file:
+    # #     params = car1.to_ini()
+    # #     Config = configparser.ConfigParser()
+    # #     Config.add_section("Car")
+    # #     for k, v in params.items():
+    # #         Config.set('Car', k, str(v))
+    # #     Config.write(file)
     #
     # # INI DESERIALIZATION
     # # with open('ini_car_serialization.ini') as file:
