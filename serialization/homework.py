@@ -162,6 +162,10 @@ class Garage:
         except TypeError:
             return None
 
+
+
+    # Commented 'cause serialization!!!
+
     # def cars_checking(self, cars):
     #     actual_cars = list()
     #     for car in cars:
@@ -188,13 +192,12 @@ class Garage:
             raise ValueError("Sorry, this garage is full. Car has not been changed")
 
     def remove(self, car):
-        if car in self.cars:
-        # if car.garage_numb == self.number:
-            car.garage_numb = None
+        try:
             self.cars.remove(car)
+            car.garage_numb = None
             return "Car has been removed"
-        else:
-            raise ValueError("Sorry, there is no that car in the garage")
+        except ValueError:
+            return "Sorry, there is no that car in the garage"
 
     def hit_hat(self):
         return sum([car.price for car in self.cars])
@@ -239,6 +242,9 @@ class Cesar:
         # self.garages = self.garages
 
     def garages_checking(self, garages):
+        if isinstance(garages, bool) or garages is None:
+            raise TypeError("Value should'n be bool or None")
+
         if len(garages) > 0:
             real_garages = list()
             for garage in garages:
@@ -265,43 +271,39 @@ class Cesar:
         return sum([len(garage.cars) for garage in self.garages])
 
     def max_free(self):
-        all_garages = {garage.number: (garage.places - len(garage.cars)) for garage in self.garages}
-        max_free_garage = {key: value for (key, value) in all_garages.items() if
-                           value == max(all_garages.values())}
+        if len(self.garages) > 0:
+            all_garages = {garage.number: (garage.places - len(garage.cars)) for garage in self.garages}
+            max_free_garage = {key: value for (key, value) in all_garages.items() if
+                               value == max(all_garages.values())}
 
-        if max_free_garage.values() != 0:
-            return max_free_garage
+            if list(max_free_garage.values())[0] > 0:
+                return max_free_garage
+            else:
+                return "Sorry, there is no free places in the garages"
         else:
-            return "Sorry, there is no free places in the garages"
+            return "Sorry, there is no garages that belongs to you"
 
     def add_car(self, car, chosen_garage=None):
-        if chosen_garage is None:
-            # def max_free():
-            #     all_garages = {garage.number: (garage.places - len(garage.cars)) for garage in self.garages}
-            #     max_free_garage = {key: value for (key, value) in all_garages.items() if
-            #                        value == max(all_garages.values())}
-            #
-            #     if max_free_garage.values() != 0:
-            #         return max_free_garage
-            #     else:
-            #         return "Sorry, there is no free places in the garages"
-
+        if chosen_garage is None and isinstance(car, Car):
             most_empty_garage = self.max_free()
-            if most_empty_garage is isinstance(most_empty_garage, str):
+            if isinstance(most_empty_garage, str):
                 return most_empty_garage
             else:
                 for garage in self.garages:
                     if garage.number == [x for x in most_empty_garage.keys()][0]:
                         garage.add(car)
                         return f"Car has been added to garage {garage.number}"
-        elif chosen_garage in self.garages:
-            if chosen_garage.free_places() >= 0:
+        elif isinstance(chosen_garage, Garage) and isinstance(car, Car) and chosen_garage in self.garages:
+            if chosen_garage.free_places() > 0:
                 chosen_garage.add(car)
-                return f"Car has been added to garage {chosen_garage}"
+                return f"Car has been added to garage {chosen_garage.number}"
             else:
-                return f"Sorry, there is no free places in the garage {chosen_garage}"
+                return f"Sorry, there is no free places in the garage {chosen_garage.number}"
         else:
-            print("Get out of here! It's not your garage!")
+            if isinstance(chosen_garage, Garage) and isinstance(car, Car):
+                return "Get out of here! It's not your garage!"
+            else:
+                raise AttributeError('car should be instance of Car and garage should be instance of Garage')
 
     def __str__(self):
         return (f"""This Cesar has next attributes:
@@ -416,15 +418,15 @@ if __name__ == '__main__':
 
     garage2 = Garage(random.randrange(5, 150), random.choice(TOWNS), car3)
 
-    garage3 = Garage(random.randrange(5, 150), random.choice(TOWNS), car4, car5)
+    garage3 = Garage(random.randrange(5, 150), random.choice(TOWNS), car4)
 
     cesar_1 = Cesar(random.choice(NAMES), garage1, garage3)
     cesar_2 = Cesar(random.choice(NAMES), garage2)
 
     cesar3 = Cesar("Pavel", garage1, garage2, garage3, register_id=None)
-    test_1 = cesar_1.add_car(car1)
+    # print(cesar_1.max_free())
+    print(car1.change_number(None))
 
-    print(test_1())
     """Для класів Колекціонер Машина і Гараж написати методи, які конвертують обєкт в строку формату
     yaml, json, pickle відповідно."""
 
