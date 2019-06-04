@@ -328,10 +328,29 @@ class GarageTest(unittest.TestCase):
         self.assertEqual(self.garage2.remove(self.car3), expected_res)
         self.assertEqual(self.car3.garage_numb, None)
 
+
+
+
+
+
+
     def test_remove_car_from_garage_fail(self):
         """This func will test remove car func on bad value"""
         expected_res = "Sorry, there is no that car in the garage"
         self.assertEqual(self.garage3.remove(self.car4), expected_res)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def test_hit_hat_success(self):
         """This func will test hit_hat func on good value"""
