@@ -264,19 +264,29 @@ class Cesar:
     def cars_count(self):
         return sum([len(garage.cars) for garage in self.garages])
 
+    def max_free(self):
+        all_garages = {garage.number: (garage.places - len(garage.cars)) for garage in self.garages}
+        max_free_garage = {key: value for (key, value) in all_garages.items() if
+                           value == max(all_garages.values())}
+
+        if max_free_garage.values() != 0:
+            return max_free_garage
+        else:
+            return "Sorry, there is no free places in the garages"
+
     def add_car(self, car, chosen_garage=None):
         if chosen_garage is None:
-            def max_free():
-                all_garages = {garage.number: (garage.places - len(garage.cars)) for garage in self.garages}
-                max_free_garage = {key: value for (key, value) in all_garages.items() if
-                                   value == max(all_garages.values())}
+            # def max_free():
+            #     all_garages = {garage.number: (garage.places - len(garage.cars)) for garage in self.garages}
+            #     max_free_garage = {key: value for (key, value) in all_garages.items() if
+            #                        value == max(all_garages.values())}
+            #
+            #     if max_free_garage.values() != 0:
+            #         return max_free_garage
+            #     else:
+            #         return "Sorry, there is no free places in the garages"
 
-                if max_free_garage.values() != 0:
-                    return max_free_garage
-                else:
-                    return "Sorry, there is no free places in the garages"
-
-            most_empty_garage = max_free()
+            most_empty_garage = self.max_free()
             if most_empty_garage is isinstance(most_empty_garage, str):
                 return most_empty_garage
             else:
@@ -412,7 +422,9 @@ if __name__ == '__main__':
     cesar_2 = Cesar(random.choice(NAMES), garage2)
 
     cesar3 = Cesar("Pavel", garage1, garage2, garage3, register_id=None)
-    print(cesar3.__repr__())
+    test_1 = cesar_1.add_car(car1)
+
+    print(test_1())
     """Для класів Колекціонер Машина і Гараж написати методи, які конвертують обєкт в строку формату
     yaml, json, pickle відповідно."""
 

@@ -538,6 +538,14 @@ class CesarTest(unittest.TestCase):
         self.assertEqual(self.cesar2.cars_count(), 0)
         self.assertEqual(self.cesar3.cars_count(), 0)
 
+    def test_max_free_inside_add_car_success(self):
+        """This func will test car adding to garage on good value"""
+        self.cesar1.add_car()()
+
+    def test_max_free_inside_add_car_fail(self):
+        """This func will test car adding to garage on bad value"""
+        pass
+
     def test_add_car_success(self):
         """This func will test car adding to garage on good value"""
         pass
