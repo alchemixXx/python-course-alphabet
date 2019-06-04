@@ -8,6 +8,11 @@ def error_testing():
     abort(404, "You can't do that!")
 
 
-@handlers.errorhandler(404)
+@handlers.app_errorhandler(404)
 def handler_404(error):
-    return render_template("handler_404.html", title="Error 404. Sorry!", error=error)
+    return render_template("handler_404.html", 404, title="Error 404. Sorry!", error=error), 404
+
+
+@handlers.app_errorhandler(500)
+def handler_500(error):
+    return render_template("handler_404.html", title="Error 404. Sorry!", error=error), 500
