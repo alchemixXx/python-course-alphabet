@@ -576,27 +576,20 @@ class CesarTest(unittest.TestCase):
 
     def test_rept_success(self):
         """This func will test __repr__ of Garage class on good value"""
-        uuid = self.cesar1.register_id
-        expected_res = """{'name': 'Pavel', 'register_id': UUID(''),
-        'garages': 
-        [Garage("{'places': 15, 'owner': '8183ad50-1b57-4033-af28-2820aa26c327', 'number': 1, 
-        'cars': 
-        [Car(price=1.0, producer="Ford", car_type='Diesel', number='65c11813-3eb5-4d48-b62b-3da6ef951f53', 
-        mileage=1.0, garage_numb=None)], 'town': 'Amsterdam'}'), 
-        Garage('{'places': 15, 'owner': '8183ad50-1b57-4033-af28-2820aa26c327', 'number': 2, 
-        'cars': 
-        [Car(price=1.0, producer='Ford', car_type='Diesel', number='65c11813-3eb5-4d48-b62b-3da6ef951f55', 
-        mileage=1.0, garage_numb=2)], 
-        'town': 'Kiev'}'), 
-        Garage('{'places': 15, 'owner': '8183ad50-1b57-4033-af28-2820aa26c327', 'number': 3, 'cars': [], 'town': 'Prague'}')]}"""
-        self.assertEqual(self.cesar1.__repr__(), expected_res)
-
-
-
+        expected_res_ces_3 = "{'name': 'Masha', 'register_id': '75c11813-3eb5-4d48-b62b-3da6ef951f57', 'garages': []}"
+        self.assertEqual(self.cesar3.__repr__(), expected_res_ces_3)
+        register_id = self.cesar2.register_id
+        expected_res_ces_2 = """{'name': 'Denis', 'register_id':""" + f""" UUID('{register_id}')""" + """, 'garages': [Garage("{'places': 0, """ + f"""'owner': '{register_id}',""" + """ 'number': 4, 'cars': [], 'town': 'Prague'}")]}"""
+        self.assertEqual(self.cesar2.__repr__(), expected_res_ces_2)
 
     def test_rept_fail(self):
         """This func will test __repr__ of Garage class on bad value"""
-        pass
+        expected_res_ces_3 = "{'name': 'Pasha', 'register_id': '75c11813-3eb5-4d48-b62b-3da6ef951f57', 'garages': []}"
+        self.assertFalse(self.cesar3.__repr__() == expected_res_ces_3)
+        register_id = self.cesar2.register_id
+        expected_res_ces_2 = """{'name': 'Penis', 'register_id':""" + f""" UUID('{register_id}')""" + """, 'garages': [Garage("{'places': 0, """ + f"""'owner': '{register_id}',""" + """ 'number': 4, 'cars': [], 'town': 'Prague'}")]}"""
+        self.assertFalse(self.cesar2.__repr__() == expected_res_ces_2)
+
 
 class JsonConverterTest(unittest.TestCase):
     def setUp(self) -> None:

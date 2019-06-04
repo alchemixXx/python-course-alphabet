@@ -300,7 +300,7 @@ class Cesar:
         number of garages = {self.garages_count()}""")
 
     def __repr__(self):
-        return f'"{vars(self)}"'
+        return f'{vars(self)}'
 
     def __le__(self, other):
         return self.hit_hat() <= other.hit_hat()
