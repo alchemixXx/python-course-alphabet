@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Hello from vegetables</h2>
+
+    <ul>
+        {% for vegetable in vegetables_list %}
+
+            <li><a href="{{ url_for('vegetables.vegetable', vegetable_name=vegetable) }}">{{ vegetable }}</a></li>
+
+        {% endfor %}
+    </ul>
+
+    <img class="img_main" src="https://www.meme-arsenal.com/memes/f9acf437c11d7808ce1cc50961dd9688.jpg"
+         alt="python_image" l>
+
+{% endblock content %}
