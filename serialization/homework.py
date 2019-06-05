@@ -352,7 +352,7 @@ class JsonConverter(json.JSONEncoder):
                     'owner': obj.owner,
                     'number': obj.number,
                     # 'cars': obj.cars,
-                    'cars': [self.default(inst) for inst in obj.cars],
+                    'cars': [JsonConverter.default(self, inst) for inst in obj.cars],
                     'town': obj.town}
         if isinstance(obj, Cesar):
             return {"__class__": obj.__class__.__name__,
@@ -403,29 +403,28 @@ def json_hook(obj):
 
 
 if __name__ == '__main__':
-    car1 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
-               random.choice(CARS_TYPES), garage_numb=0)
-    car2 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
-               random.choice(CARS_TYPES))
-    car3 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
-               random.choice(CARS_TYPES))
-    car4 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
-               random.choice(CARS_TYPES))
-    car5 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
-               random.choice(CARS_TYPES))
+    # car1 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
+    #            random.choice(CARS_TYPES), garage_numb=0)
+    # car2 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
+    #            random.choice(CARS_TYPES))
+    # car3 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
+    #            random.choice(CARS_TYPES))
+    # car4 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
+    #            random.choice(CARS_TYPES))
+    # car5 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
+    #            random.choice(CARS_TYPES))
+    #
+    # garage1 = Garage(random.randrange(5, 150), random.choice(TOWNS), car1, car2)
+    #
+    # garage2 = Garage(random.randrange(5, 150), random.choice(TOWNS), car3)
+    #
+    # garage3 = Garage(random.randrange(5, 150), random.choice(TOWNS), car4)
+    #
+    # cesar_1 = Cesar(random.choice(NAMES), garage1, garage3)
+    # cesar_2 = Cesar(random.choice(NAMES), garage2)
 
-    garage1 = Garage(random.randrange(5, 150), random.choice(TOWNS), car1, car2)
 
-    garage2 = Garage(random.randrange(5, 150), random.choice(TOWNS), car3)
-
-    garage3 = Garage(random.randrange(5, 150), random.choice(TOWNS), car4)
-
-    cesar_1 = Cesar(random.choice(NAMES), garage1, garage3)
-    cesar_2 = Cesar(random.choice(NAMES), garage2)
-
-    cesar3 = Cesar("Pavel", garage1, garage2, garage3, register_id=None)
-    # print(cesar_1.max_free())
-    print(car1.change_number(None))
+    # print(JsonConverter.default(car1))
 
     """Для класів Колекціонер Машина і Гараж написати методи, які конвертують обєкт в строку формату
     yaml, json, pickle відповідно."""

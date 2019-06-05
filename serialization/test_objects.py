@@ -628,45 +628,165 @@ class CesarTest(unittest.TestCase):
 
 class JsonConverterTest(unittest.TestCase):
     def setUp(self) -> None:
-        pass
+        self.new_uuid_number = uuid.uuid4()
+
+        self.bad_uuid_values = ['35461654651-sadasd-szdfsf', '%4595999-28b9-4a98-bd85-9d59ada33efe',
+                                  'c4595999-28b9-4a98-bd85-d59ada33efe', '', "some fake phrase",
+                                  ["element_one", "element_two"], ("element_one", "element_two",),
+                                  {"element_one": "value_one", "element_two": "value_two"},
+                                  [], (), {}, 12553, 1258964.65465421, True, False, None]
+
+        self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
+                           producer="Ford")
+        self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
+                           producer="Ford", garage_numb=None)
+        self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
+                           producer="Ford", garage_numb=2)
+
+        self.car4 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f56', car_type="Diesel",
+                           producer="Ford", garage_numb=4)
+        self.car5 = hw.Car(price=15, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f57', car_type="Diesel",
+                           producer="Ford", garage_numb=5)
+        self.car6 = hw.Car(price=1, mileage=1, number=uuid.uuid4(), car_type="Diesel",
+                           producer="Ford", garage_numb=5)
+
+        self.garage1 = hw.Garage(15, 'Amsterdam', self.car1, owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=1, )
+        self.garage2 = hw.Garage(15, 'Kiev', self.car3, owner='be23adf5-3d7f-43f1-9874-e60d61c84523', number=2)
+        self.garage3 = hw.Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=3, town='Prague')
+        self.garage4 = hw.Garage(places=0, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=4, town='Prague')
+
+        self.cesar1 = hw.Cesar("Pavel", self.garage1, self.garage2, self.garage3, register_id=None)
+        self.cesar2 = hw.Cesar("Denis", self.garage4, register_id=None)
+        self.cesar3 = hw.Cesar("Masha", register_id='75c11813-3eb5-4d48-b62b-3da6ef951f57')
+
 
     def tearDown(self) -> None:
         pass
 
     def test_default_car_success(self):
         """This func will test car serialization func on good value"""
-        pass
+
+        expected_res_1 = {"__class__": "Car",
+                    "__module__": "homework",
+                    'price': self.car1.price,
+                    'mileage': self.car1.mileage,
+                    'producer': self.car1.producer,
+                    'car_type': self.car1.car_type,
+                    'garage_numb': self.car1.garage_numb,
+                    'number': self.car1.number
+                          }
+        self.assertEqual(hw.JsonConverter.default(self, self.car1), expected_res_1)
+
+        expected_res_2 = {"__class__": "Car",
+                    "__module__": "homework",
+                    'price': self.car2.price,
+                    'mileage': self.car2.mileage,
+                    'producer': self.car2.producer,
+                    'car_type': self.car2.car_type,
+                    'garage_numb': self.car2.garage_numb,
+                    'number': self.car2.number
+                          }
+        self.assertEqual(hw.JsonConverter.default(self, self.car2), expected_res_2)
+
+        expected_res_6 = {"__class__": "Car",
+                    "__module__": "homework",
+                    'price': self.car6.price,
+                    'mileage': self.car6.mileage,
+                    'producer': self.car6.producer,
+                    'car_type': self.car6.car_type,
+                    'garage_numb': self.car6.garage_numb,
+                    'number': self.car6.number
+                          }
+        self.assertEqual(hw.JsonConverter.default(self, self.car6), expected_res_6)
+
+    def test_default_uuid_success(self):
+        """This func will test car serialization func on good value"""
+        value = self.new_uuid_number
+        value_hex = self.new_uuid_number.hex
+        self.assertEqual(hw.JsonConverter.default(self, value), value_hex)
+
 
     def test_default_garage_success(self):
         """This func will test garage serialization func on good value"""
-        pass
+        expected_res_1 = {"__class__": "Garage",
+                    "__module__": "homework",
+                    'places': self.garage1.places,
+                    'owner': self.garage1.owner,
+                    'number': self.garage1.number,
+                    'cars': [hw.JsonConverter.default(hw.Garage, inst) for inst in self.garage1.cars],
+                    'town': self.garage1.town}
+        self.assertEqual(hw.JsonConverter.default(self, self.garage1), expected_res_1)
+
+        expected_res_3 = {"__class__": "Garage",
+                    "__module__": "homework",
+                    'places': self.garage3.places,
+                    'owner': self.garage3.owner,
+                    'number': self.garage3.number,
+                    'cars': [hw.JsonConverter.default(hw.Garage, inst) for inst in self.garage3.cars],
+                    'town': self.garage3.town}
+        self.assertEqual(hw.JsonConverter.default(self, self.garage3), expected_res_3)
 
     def test_default_cesar_success(self):
         """This func will test cesar serialization func on good value"""
-        pass
+        expected_res_1 = {"__class__": "Cesar",
+                    "__module__": "homework",
+                    'name': self.cesar1.name,
+                    'register_id': self.cesar1.register_id,
+                    'garages': self.cesar1.garages }
+        self.assertEqual(hw.JsonConverter.default(self, self.cesar1), expected_res_1)
 
-    def test_default_car_fail(self):
+        expected_res_3 = {"__class__": "Cesar",
+                    "__module__": "homework",
+                    'name': self.cesar3.name,
+                    'register_id': self.cesar3.register_id,
+                    'garages': self.cesar3.garages }
+        self.assertEqual(hw.JsonConverter.default(self, self.cesar3), expected_res_3)
+
+    def test_default_fail(self):
         """This func will test car serialization func on bad value"""
-        pass
-
-    def test_default_garage_fail(self):
-        """This func will test garage serialization func on bad value"""
-        pass
-
-    def test_default_cesar_fail(self):
-        """This func will test cesar serialization func on bad value"""
-        pass
+        for value in self.bad_uuid_values:
+            value_type = str(type(value))[8:-2]
+            expected_res = f"Object of type {value_type} is not JSON serializable"
+            with self.assertRaises(TypeError) as context:
+                self.assertEqual(hw.JsonConverter.default(self, value), value)
+            self.assertTrue(expected_res in context.exception.args)
 
 class DeserailizationTest(unittest.TestCase):
     def setUp(self) -> None:
-        pass
+        self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
+                           producer="Ford")
+        self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
+                           producer="Ford", garage_numb=None)
+
+        self.car3 = hw.Car(price=1, mileage=1, number=uuid.uuid4(), car_type="Diesel",
+                           producer="Ford", garage_numb=5)
+
+        self.garage1 = hw.Garage(15, 'Amsterdam', self.car1, owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=1, )
+        self.garage2 = hw.Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=2, town='Prague')
+        self.garage3 = hw.Garage(places=0, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=3, town='Prague')
+
+        self.cesar1 = hw.Cesar("Pavel", self.garage1, self.garage2, self.garage3, register_id=None)
+        self.cesar3 = hw.Cesar("Masha", register_id='75c11813-3eb5-4d48-b62b-3da6ef951f57')
+
+        self.car1_ser = '{"__class__": "Car", "__module__": "__main__", "price": 1.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": null, "number": "65c11813-3eb5-4d48-b62b-3da6ef951f53"}'
+        self.car2_ser = '{"__class__": "Car", "__module__": "__main__", "price": 1.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": null, "number": "65c11813-3eb5-4d48-b62b-3da6ef951f53"}'
+        self.car3_ser = '{"__class__": "Car", "__module__": "__main__", "price": 1.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": 5, "number": "7b27e9a0169f44d88fe0634c994847c4"}'
+
+        self.garage1_ser = '{"__class__": "Garage", "__module__": "__main__", "places": 15, "owner": "7b5259b6-c69c-47f6-95e4-08dd9b1d7d3a", "number": 1, "cars": [{"__class__": "Car", "__module__": "__main__", "price": 1.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": null, "number": "65c11813-3eb5-4d48-b62b-3da6ef951f53"}], "town": "Amsterdam"}'
+        self.garage2_ser = '{"__class__": "Garage", "__module__": "__main__", "places": 15, "owner": "75abdaa9-cea2-41d7-8d39-86d2fd250a4d", "number": 2, "cars": [], "town": "Prague"}'
+        self.garage3_ser = '{"__class__": "Garage", "__module__": "__main__", "places": 0, "owner": "f04c953e-1254-4a7b-b77c-a803effcb891", "number": 3, "cars": [], "town": "Prague"}'
+
+        self.cesar1_ser = '{"__class__": "Cesar", "__module__": "__main__", "name": "Pavel", "register_id": "c37af56114f84bdb84bf9a8fb209a95a", "garages": [{"__class__": "Garage", "__module__": "__main__", "places": 15, "owner": "c37af561-14f8-4bdb-84bf-9a8fb209a95a", "number": 1, "cars": [{"__class__": "Car", "__module__": "__main__", "price": 1.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": null, "number": "65c11813-3eb5-4d48-b62b-3da6ef951f53"}], "town": "Amsterdam"}, {"__class__": "Garage", "__module__": "__main__", "places": 15, "owner": "c37af561-14f8-4bdb-84bf-9a8fb209a95a", "number": 2, "cars": [], "town": "Prague"}, {"__class__": "Garage", "__module__": "__main__", "places": 0, "owner": "c37af561-14f8-4bdb-84bf-9a8fb209a95a", "number": 3, "cars": [], "town": "Prague"}]}'
+        self.cesar3_ser = '{"__class__": "Cesar", "__module__": "__main__", "name": "Masha", "register_id": "75c11813-3eb5-4d48-b62b-3da6ef951f57", "garages": []}'
+
+
 
     def tearDown(self) -> None:
         pass
 
     def test_car_deserial_success(self):
         """This func will test car deserialization func on good value"""
-        pass
+        self.assertEqual(hw.car_deserial(self.car1_ser), self.car1)
 
     def test_garage_deserial_success(self):
         """This func will test garage deserialization func on good value"""
