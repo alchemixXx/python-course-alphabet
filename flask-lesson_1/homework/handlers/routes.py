@@ -10,7 +10,7 @@ def error_testing():
 
 @handlers.app_errorhandler(404)
 def handler_404(error):
-    return render_template("handler_404.html", 404, title="Error 404. Sorry!", error=error), 404
+    return render_template("handler_404.html", title="Error 404. Sorry!", error=error), 404
 
 
 @handlers.app_errorhandler(500)

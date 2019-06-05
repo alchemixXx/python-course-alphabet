@@ -3,13 +3,12 @@
     <h2>Hello from fruits</h2>
     <h3>Now we have here:</h3>
     <ul>
-        {% for fruit in fruit_list %}
+        {% for fruit in fruits_list %}
 
-            <li>{{ fruit }}</li>
+            <li><a href="{{ url_for('fruits.fruit', fruit_name=fruit) }}">{{ fruit }}</a></li>
 
         {% endfor %}
     </ul>
-    <p>If you want to add new fruit, please use the form below.</p>
 
     <img class="img_main" src="https://static.tildacdn.com/tild6236-3461-4439-b462-613061613266/photo.png"
          alt="python_image" l>
