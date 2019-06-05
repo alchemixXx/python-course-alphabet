@@ -229,6 +229,14 @@ class Garage:
     def __repr__(self):
         return f'Garage("{vars(self)}")'
 
+    # def __eq__(self, other):
+    #     self.places = other.places
+    #     self.owner = other.owner
+    #     self.number = other.number
+    #     self.cars = other.cars
+    #     self.town = other.town
+
+
 
 
 
@@ -389,6 +397,7 @@ def cesar_deserial(obj):
     name = obj['name']
     register_id = uuid.UUID(obj['register_id'], version=4)
     garages = obj['garages']
+    # garages = [garage_deserial(garage) for garage in obj['garages']]
     cesar = Cesar(name, *garages, register_id=register_id)
     return cesar
 
@@ -403,25 +412,25 @@ def json_hook(obj):
 
 
 if __name__ == '__main__':
-    # car1 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
-    #            random.choice(CARS_TYPES), garage_numb=0)
-    # car2 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
-    #            random.choice(CARS_TYPES))
-    # car3 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
-    #            random.choice(CARS_TYPES))
-    # car4 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
-    #            random.choice(CARS_TYPES))
-    # car5 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
-    #            random.choice(CARS_TYPES))
-    #
-    # garage1 = Garage(random.randrange(5, 150), random.choice(TOWNS), car1, car2)
-    #
-    # garage2 = Garage(random.randrange(5, 150), random.choice(TOWNS), car3)
-    #
-    # garage3 = Garage(random.randrange(5, 150), random.choice(TOWNS), car4)
-    #
-    # cesar_1 = Cesar(random.choice(NAMES), garage1, garage3)
-    # cesar_2 = Cesar(random.choice(NAMES), garage2)
+    car1 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
+               random.choice(CARS_TYPES), garage_numb=0)
+    car2 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
+               random.choice(CARS_TYPES))
+    car3 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
+               random.choice(CARS_TYPES))
+    car4 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
+               random.choice(CARS_TYPES))
+    car5 = Car(random.randrange(100, 1000), random.randrange(100, 2000), random.choice(CARS_PRODUCER),
+               random.choice(CARS_TYPES))
+
+    garage1 = Garage(random.randrange(5, 150), random.choice(TOWNS), car1, car2)
+
+    garage2 = Garage(random.randrange(5, 150), random.choice(TOWNS), car3)
+
+    garage3 = Garage(random.randrange(5, 150), random.choice(TOWNS), car4)
+
+    cesar_1 = Cesar(random.choice(NAMES), garage1, garage3)
+    cesar_2 = Cesar(random.choice(NAMES), garage2)
 
 
     # print(JsonConverter.default(car1))
@@ -433,14 +442,15 @@ if __name__ == '__main__':
     з (yaml, json, pickle) строки відповідно"""
 
     # # JSON SERIALIZATION
-    # json_serialized_car = json.dumps(car1, cls=JsonConverter, indent=4)
-    # json_serialized_garage = json.dumps(garage1, cls=JsonConverter, indent=4)
-    # json_serialized_cesar = json.dumps(cesar_1, cls=JsonConverter, indent=4)
+    json_serialized_car = json.dumps(car1, cls=JsonConverter, indent=4)
+    json_serialized_garage = json.dumps(garage1, cls=JsonConverter, indent=4)
+    json_serialized_cesar = json.dumps(cesar_1, cls=JsonConverter, indent=4)
     #
     # # JSON DESERIALIZATION
-    # des_car1 = json.loads(json_serialized_car, object_hook=json_hook)
-    # des_gar1 = json.loads(json_serialized_garage, object_hook=json_hook)
-    # des_ces1 = json.loads(json_serialized_cesar, object_hook=json_hook)
+    des_car1 = json.loads(json_serialized_car, object_hook=json_hook)
+    des_gar1 = json.loads(json_serialized_garage, object_hook=json_hook)
+    des_ces1 = json.loads(json_serialized_cesar, object_hook=json_hook)
+    print(des_ces1)
     #
     # # PICKLE SERIALIZATION
     # pickle_serialized_car = pickle.dumps(car1)

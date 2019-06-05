@@ -2,8 +2,10 @@ import homework as hw
 from constants import CARS_TYPES, CARS_PRODUCER, TOWNS
 # from fixtures import car1, car2, car3, car4, car5, garage1, garage2, garage3, cesar_1, cesar_2
 from fixtures import car4
+from fake import Fake_json_hook
 import uuid
 import unittest
+import json
 
 
 class CarTest(unittest.TestCase):
@@ -444,6 +446,7 @@ class GarageTest(unittest.TestCase):
         self.assertEqual(self.garage1.__repr__(), expected_res_1)
         self.assertEqual(self.garage2.__repr__(), expected_res_2)
 
+
     def test_repr_fail(self):
         """This func will test __repr__ of Garage class on bad value"""
         expected_res_1 = """Garage("{'places': 1, 'owner': 'be23adf5-3d7f-43f1-9874-e60d61c84522', 'number': 1, 'cars': [Car(price=1.0, producer="Ford", car_type="Diesel", number="65c11813-3eb5-4d48-b62b-3da6ef951f53", mileage=1.0, garage_numb=None), Car(price=1.0, producer="Ford", car_type="Diesel", number="65c11813-3eb5-4d48-b62b-3da6ef951f53", mileage=1.0, garage_numb=None)], 'town': 'Amsterdam'}")"""
@@ -659,7 +662,6 @@ class JsonConverterTest(unittest.TestCase):
         self.cesar2 = hw.Cesar("Denis", self.garage4, register_id=None)
         self.cesar3 = hw.Cesar("Masha", register_id='75c11813-3eb5-4d48-b62b-3da6ef951f57')
 
-
     def tearDown(self) -> None:
         pass
 
@@ -755,7 +757,7 @@ class DeserailizationTest(unittest.TestCase):
     def setUp(self) -> None:
         self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
                            producer="Ford")
-        self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
+        self.car2 = hw.Car(price=2, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
                            producer="Ford", garage_numb=None)
 
         self.car3 = hw.Car(price=1, mileage=1, number=uuid.uuid4(), car_type="Diesel",
@@ -763,22 +765,25 @@ class DeserailizationTest(unittest.TestCase):
 
         self.garage1 = hw.Garage(15, 'Amsterdam', self.car1, owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=1, )
         self.garage2 = hw.Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=2, town='Prague')
-        self.garage3 = hw.Garage(places=0, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=3, town='Prague')
+        self.garage3 = hw.Garage(places=0, owner='be23adf5-3d7f-43f1-9874-e60d61c84525', number=3, town='Prague')
 
-        self.cesar1 = hw.Cesar("Pavel", self.garage1, self.garage2, self.garage3, register_id=None)
+        self.cesar1 = hw.Cesar("Pavel", self.garage1, self.garage2, register_id=None)
         self.cesar3 = hw.Cesar("Masha", register_id='75c11813-3eb5-4d48-b62b-3da6ef951f57')
 
-        self.car1_ser = '{"__class__": "Car", "__module__": "__main__", "price": 1.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": null, "number": "65c11813-3eb5-4d48-b62b-3da6ef951f53"}'
-        self.car2_ser = '{"__class__": "Car", "__module__": "__main__", "price": 1.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": null, "number": "65c11813-3eb5-4d48-b62b-3da6ef951f53"}'
+        self.car1_ser = '{"__class__": "Car", "__module__": "__main__", "price": 1.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": "null", "number": "65c11813-3eb5-4d48-b62b-3da6ef951f53"}'
+        self.car2_ser = '{"__class__": "Car", "__module__": "__main__", "price": 2.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": "null", "number": "65c11813-3eb5-4d48-b62b-3da6ef951f53"}'
         self.car3_ser = '{"__class__": "Car", "__module__": "__main__", "price": 1.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": 5, "number": "7b27e9a0169f44d88fe0634c994847c4"}'
 
-        self.garage1_ser = '{"__class__": "Garage", "__module__": "__main__", "places": 15, "owner": "7b5259b6-c69c-47f6-95e4-08dd9b1d7d3a", "number": 1, "cars": [{"__class__": "Car", "__module__": "__main__", "price": 1.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": null, "number": "65c11813-3eb5-4d48-b62b-3da6ef951f53"}], "town": "Amsterdam"}'
-        self.garage2_ser = '{"__class__": "Garage", "__module__": "__main__", "places": 15, "owner": "75abdaa9-cea2-41d7-8d39-86d2fd250a4d", "number": 2, "cars": [], "town": "Prague"}'
-        self.garage3_ser = '{"__class__": "Garage", "__module__": "__main__", "places": 0, "owner": "f04c953e-1254-4a7b-b77c-a803effcb891", "number": 3, "cars": [], "town": "Prague"}'
+        self.garage1_ser = '{"__class__": "Garage", "__module__": "__main__", "places": 15, "owner": "be23adf5-3d7f-43f1-9874-e60d61c84522", "number": 1, "cars": [{"__class__": "Car", "__module__": "__main__", "price": 1.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": "null", "number": "65c11813-3eb5-4d48-b62b-3da6ef951f53"}], "town": "Amsterdam"}'
+        self.garage2_ser = '{"__class__": "Garage", "__module__": "__main__", "places": 15, "owner": "be23adf5-3d7f-43f1-9874-e60d61c84524", "number": 2, "cars": [], "town": "Prague"}'
+        self.garage3_ser = '{"__class__": "Garage", "__module__": "__main__", "places": 0, "owner": "be23adf5-3d7f-43f1-9874-e60d61c84525", "number": 3, "cars": [], "town": "Prague"}'
 
-        self.cesar1_ser = '{"__class__": "Cesar", "__module__": "__main__", "name": "Pavel", "register_id": "c37af56114f84bdb84bf9a8fb209a95a", "garages": [{"__class__": "Garage", "__module__": "__main__", "places": 15, "owner": "c37af561-14f8-4bdb-84bf-9a8fb209a95a", "number": 1, "cars": [{"__class__": "Car", "__module__": "__main__", "price": 1.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": null, "number": "65c11813-3eb5-4d48-b62b-3da6ef951f53"}], "town": "Amsterdam"}, {"__class__": "Garage", "__module__": "__main__", "places": 15, "owner": "c37af561-14f8-4bdb-84bf-9a8fb209a95a", "number": 2, "cars": [], "town": "Prague"}, {"__class__": "Garage", "__module__": "__main__", "places": 0, "owner": "c37af561-14f8-4bdb-84bf-9a8fb209a95a", "number": 3, "cars": [], "town": "Prague"}]}'
+        self.cesar1_ser = '{"__class__": "Cesar", "__module__": "__main__", "name": "Pavel", "register_id": "c37af56114f84bdb84bf9a8fb209a95a", "garages": [{"__class__": "Garage", "__module__": "__main__", "places": 15, "owner": "c37af561-14f8-4bdb-84bf-9a8fb209a95a", "number": 1, "cars": [{"__class__": "Car", "__module__": "__main__", "price": 1.0, "mileage": 1.0, "producer": "Ford", "car_type": "Diesel", "garage_numb": "null", "number": "65c11813-3eb5-4d48-b62b-3da6ef951f53"}], "town": "Amsterdam"}, {"__class__": "Garage", "__module__": "__main__", "places": 15, "owner": "c37af561-14f8-4bdb-84bf-9a8fb209a95a", "number": 2, "cars": [], "town": "Prague"}, {"__class__": "Garage", "__module__": "__main__", "places": 0, "owner": "c37af561-14f8-4bdb-84bf-9a8fb209a95a", "number": 3, "cars": [], "town": "Prague"}]}'
         self.cesar3_ser = '{"__class__": "Cesar", "__module__": "__main__", "name": "Masha", "register_id": "75c11813-3eb5-4d48-b62b-3da6ef951f57", "garages": []}'
 
+        self.fake_serialization = {"__class__": "No_name", "__module__": "__main__", "places": 0, "owner": "f04c953e-1254-4a7b-b77c-a803effcb891", "number": 3, "cars": [], "town": "Prague"}
+        self.fake_classes = ["Car", "Garage", "Cesar", "No_Name"]
+        self.hook = Fake_json_hook()
 
 
     def tearDown(self) -> None:
@@ -786,35 +791,61 @@ class DeserailizationTest(unittest.TestCase):
 
     def test_car_deserial_success(self):
         """This func will test car deserialization func on good value"""
-        self.assertEqual(hw.car_deserial(self.car1_ser), self.car1)
+        self.assertTrue(isinstance(json.loads(self.car1_ser, object_hook=hw.json_hook), hw.Car))
+        self.assertEqual(json.loads(self.car1_ser, object_hook=hw.json_hook), self.car1)
 
     def test_garage_deserial_success(self):
         """This func will test garage deserialization func on good value"""
-        pass
+        self.assertTrue(isinstance(json.loads(self.garage3_ser, object_hook=hw.json_hook), hw.Garage))
+        res = json.loads(self.garage3_ser, object_hook=hw.json_hook)
+        self.assertTrue(res.owner == self.garage3.owner)
+        self.assertTrue(res.places == self.garage3.places)
+        self.assertTrue(res.number == self.garage3.number)
+        self.assertTrue(res.cars == self.garage3.cars)
+        self.assertTrue(res.town == self.garage3.town)
 
     def test_cesar_deserial_success(self):
         """This func will test cesar deserialization func on good value"""
-        pass
+        self.assertTrue(isinstance(json.loads(self.cesar1_ser, object_hook=hw.json_hook), hw.Cesar))
+        self.assertEqual(json.loads(self.cesar1_ser, object_hook=hw.json_hook), self.cesar1)
+        # res = json.loads(self.cesar1_ser, object_hook=hw.json_hook)
+        # self.assertTrue(res.name == self.cesar1.name)
+        # self.assertTrue(res.register_id == self.cesar1.register_id)
+        # self.assertTrue(res.garages == self.cesar1.garages)
 
     def test_car_deserial_fail(self):
         """This func will test car deserialization func on bad value"""
-        pass
+        self.assertFalse(isinstance(json.loads(self.car1_ser, object_hook=hw.json_hook), hw.Garage))
+        self.assertFalse(json.loads(self.car1_ser, object_hook=hw.json_hook) == self.car2)
 
     def test_garage_deserial_fail(self):
         """This func will test garage deserialization func on bad value"""
-        pass
+        self.assertFalse(isinstance(json.loads(self.garage1_ser, object_hook=hw.json_hook), hw.Car))
+        self.assertFalse(json.loads(self.garage1_ser, object_hook=hw.json_hook) == self.garage3)
 
     def test_cesar_deserial_fail(self):
         """This func will test cesar deserialization func on bad value"""
-        pass
+        self.assertFalse(isinstance(json.loads(self.cesar1_ser, object_hook=hw.json_hook), hw.Garage))
+        self.assertFalse(json.loads(self.cesar1_ser, object_hook=hw.json_hook) == self.cesar3)
 
-    def test_json_hook_fail(self):
-        """This func will test json_hook func on good value"""
-        pass
+    def test_json_hook_success(self):
+        """This func will test json_hook func on good car value"""
+        expected_res_1 = "Car deserialization has been run"
+        expected_res_2 = "Garage deserialization has been run"
+        expected_res_3 = "Cesar deserialization has been run"
+        for value in self.fake_classes:
+            if value == "Car":
+                self.assertEqual(self.hook.json_hook(value), expected_res_1)
+            elif value == "Garage":
+                self.assertEqual(self.hook.json_hook(value), expected_res_2)
+            elif value == "Cesar":
+                self.assertEqual(self.hook.json_hook(value), expected_res_3)
+
 
     def test_json_hook_fail(self):
         """This func will test json_hook func on bad value"""
-        pass
+        res = self.hook.json_hook(self.fake_serialization)
+        self.assertEqual(res, None)
 
 
 if __name__ == "__main__":
