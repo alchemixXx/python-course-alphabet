@@ -450,7 +450,6 @@ if __name__ == '__main__':
     des_car1 = json.loads(json_serialized_car, object_hook=json_hook)
     des_gar1 = json.loads(json_serialized_garage, object_hook=json_hook)
     des_ces1 = json.loads(json_serialized_cesar, object_hook=json_hook)
-    print(des_ces1)
     #
     # # PICKLE SERIALIZATION
     # pickle_serialized_car = pickle.dumps(car1)
