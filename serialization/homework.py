@@ -115,7 +115,6 @@ class Car:
         return self.price == other.price
 
 
-
 class Garage:
     cars = List[Car]
     garage_number = itertools.count()
@@ -159,10 +158,8 @@ class Garage:
             if value is True or value is False:
                 raise TypeError
             return int(value)
-        except TypeError:
+        except (TypeError, AssertionError, ValueError):
             return None
-
-
 
     # Commented 'cause serialization!!!
 
@@ -235,9 +232,6 @@ class Garage:
     #     self.number = other.number
     #     self.cars = other.cars
     #     self.town = other.town
-
-
-
 
 
 class Cesar:
@@ -431,7 +425,6 @@ if __name__ == '__main__':
 
     cesar_1 = Cesar(random.choice(NAMES), garage1, garage3)
     cesar_2 = Cesar(random.choice(NAMES), garage2)
-
 
     # print(JsonConverter.default(car1))
 

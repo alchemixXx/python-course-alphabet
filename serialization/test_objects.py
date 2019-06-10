@@ -1,7 +1,5 @@
 import homework as hw
 from constants import CARS_TYPES, CARS_PRODUCER, TOWNS
-# from fixtures import car1, car2, car3, car4, car5, garage1, garage2, garage3, cesar_1, cesar_2
-from fixtures import car4
 from fake import Fake_json_hook
 import uuid
 import unittest
@@ -41,15 +39,6 @@ class CarTest(unittest.TestCase):
                                  [], (), {}, None, True, False]
         self.comparison = [1.0025, 100, 1000, 0, -1, 0.0, 100000000000000000, 10000000000000.0, 0.00000001, -1.0025]
 
-        self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
-                           producer="Ford")
-        self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
-                           producer="Ford")
-        self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
-                           producer="Ford", garage_numb=0)
-
-    def tearDown(self) -> None:
-        self.number = 'c4595999-28b9-4a98-bd85-9d59ada33efe'
         self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
                            producer="Ford")
         self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
@@ -237,26 +226,6 @@ class GarageTest(unittest.TestCase):
                                   [], (), {}, 12553, 1258964.65465421, uuid.uuid4(), True, False]
 
         self.bad_uuid_values_3 = [None]
-
-    def tearDown(self) -> None:
-        self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
-                           producer="Ford")
-        self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
-                           producer="Ford", garage_numb=None)
-        self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
-                           producer="Ford", garage_numb=2)
-
-        self.car4 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f56', car_type="Diesel",
-                           producer="Ford", garage_numb=4)
-        self.car5 = hw.Car(price=15, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f57', car_type="Diesel",
-                           producer="Ford", garage_numb=5)
-        self.car6 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f58', car_type="Diesel",
-                           producer="Ford", garage_numb=5)
-
-        self.garage1 = hw.Garage(15, 'Amsterdam', self.car1, owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=1, )
-        self.garage2 = hw.Garage(15, 'Kiev', self.car3, owner='be23adf5-3d7f-43f1-9874-e60d61c84523', number=2)
-        self.garage3 = hw.Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=3, town='Prague')
-        self.garage4 = hw.Garage(places=0, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=4, town='Prague')
 
     def test_to_int_success(self):
         """This func will test to init convert_func on good value"""
@@ -447,23 +416,6 @@ class CesarTest(unittest.TestCase):
         self.cesar2 = hw.Cesar("Denis", self.garage4, register_id=None)
         self.cesar3 = hw.Cesar("Masha", register_id='75c11813-3eb5-4d48-b62b-3da6ef951f57')
 
-    def tearDown(self) -> None:
-        self.car1 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
-                           producer="Ford")
-        self.car2 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f53', car_type="Diesel",
-                           producer="Ford", garage_numb=None)
-        self.car3 = hw.Car(price=1, mileage=1, number='65c11813-3eb5-4d48-b62b-3da6ef951f55', car_type="Diesel",
-                           producer="Ford", garage_numb=2)
-
-        self.garage1 = hw.Garage(15, 'Amsterdam', self.car1, owner='be23adf5-3d7f-43f1-9874-e60d61c84522', number=1, )
-        self.garage2 = hw.Garage(15, 'Kiev', self.car3, owner='be23adf5-3d7f-43f1-9874-e60d61c84523', number=2)
-        self.garage3 = hw.Garage(places=15, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=3, town='Prague')
-        self.garage4 = hw.Garage(places=0, owner='be23adf5-3d7f-43f1-9874-e60d61c84524', number=4, town='Prague')
-
-        self.cesar1 = hw.Cesar("Pavel", self.garage1, self.garage2, self.garage3, register_id=None)
-        self.cesar2 = hw.Cesar("Denis", self.garage4, register_id=None)
-        self.cesar3 = hw.Cesar("Masha", register_id='75c11813-3eb5-4d48-b62b-3da6ef951f57')
-
     def test_garages_checking_success(self):
         """This func will test if garage isn't belong to other cesar on good value"""
         self.assertEqual(self.cesar3.garages_checking(self.cesar3.garages), [])
@@ -608,7 +560,7 @@ class JsonConverterTest(unittest.TestCase):
         self.cesar1 = hw.Cesar("Pavel", self.garage1, self.garage2, self.garage3, register_id=None)
         self.cesar3 = hw.Cesar("Masha", register_id='75c11813-3eb5-4d48-b62b-3da6ef951f57')
 
-    def test_default_car_success(self):
+    def test_serialization_default_car_success(self):
         """This func will test car serialization func on good value"""
 
         expected_res_1 = {"__class__": "Car",
@@ -644,13 +596,13 @@ class JsonConverterTest(unittest.TestCase):
                           }
         self.assertEqual(hw.JsonConverter.default(self, self.car6), expected_res_6)
 
-    def test_default_uuid_success(self):
+    def test_serialization_default_uuid_success(self):
         """This func will test car serialization func on good value"""
         value = self.new_uuid_number
         value_hex = self.new_uuid_number.hex
         self.assertEqual(hw.JsonConverter.default(self, value), value_hex)
 
-    def test_default_garage_success(self):
+    def test_serialization_default_garage_success(self):
         """This func will test garage serialization func on good value"""
         expected_res_1 = {"__class__": "Garage",
                           "__module__": "homework",
@@ -670,7 +622,7 @@ class JsonConverterTest(unittest.TestCase):
                           'town': self.garage3.town}
         self.assertEqual(hw.JsonConverter.default(self, self.garage3), expected_res_3)
 
-    def test_default_cesar_success(self):
+    def test_serialization_default_cesar_success(self):
         """This func will test cesar serialization func on good value"""
         expected_res_1 = {"__class__": "Cesar",
                           "__module__": "homework",
@@ -686,7 +638,7 @@ class JsonConverterTest(unittest.TestCase):
                           'garages': self.cesar3.garages}
         self.assertEqual(hw.JsonConverter.default(self, self.cesar3), expected_res_3)
 
-    def test_default_fail(self):
+    def test_serialization_default_fail(self):
         """This func will test car serialization func on bad value"""
         for value in self.bad_uuid_values:
             value_type = str(type(value))[8:-2]
