@@ -6,11 +6,10 @@
 </head>
 <body>
 
-<form action="{% url 'create' %}" method="post">
+<form action="{% url 'update' form.instance.id %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Submit</button>
 </form>
-
 </body>
 </html>

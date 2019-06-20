@@ -7,7 +7,8 @@
 <body>
 {% for article in object_list %}
 <hr>
-<a href="{% url 'detail' article.id %}"{{ article.title }}</a>
+<a href="{% url 'detail' article.id %}">{{ article.title }}</a>
+<br>
     {{ article.description }}
 <hr>
 {% endfor %}
