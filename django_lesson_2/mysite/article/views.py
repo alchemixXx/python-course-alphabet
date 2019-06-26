@@ -4,6 +4,7 @@ from .models import Article
 from .forms import ArticleForm
 from account.models import Profile
 
+
 class IndexView(ListView):
     model = Article
     template_name = 'index.html'
@@ -23,15 +24,13 @@ class ArticleCreateView(CreateView):
     template_name = 'article/create.html'
     form_class = ArticleForm
 
+    def form_valid(self, form):
+        profile = Profile.objects.get(user=self.request.user)
+        form.instance.author = profile
+        return super(ArticleCreateView, self).form_valid(form)
+
     def get_success_url(self):
         return reverse('detail', args=(self.object.id,))
-
-    def form_valid(self, form):
-        # article = form.save(comit=False)
-        profile = Profile.objects.get(user=self.request.user)
-        form.author = profile.id
-        form.save()
-        return super().form_valid(form)
 
 
 class ArticleDetailView(DetailView):

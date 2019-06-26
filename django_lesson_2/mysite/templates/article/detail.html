@@ -1,7 +1,8 @@
-<p>Author: {{ article.profile }}</p>
-Title: {{ article.title }}
+<p>Author: {{ article.author }}</p>
+
+<p>Title: {{ article.title }}</p>
 <br>
-Description: {{ article.description }}
+<p>Description: {{ article.description }}</p>
 
 <a href="{% url 'update' article.id %}">Update</a>
 <a href="{% url 'delete' article.id %}">Delete</a>
