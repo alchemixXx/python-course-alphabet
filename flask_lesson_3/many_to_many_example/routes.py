@@ -3,12 +3,12 @@ import json
 from flask import request
 from flask_restful import Resource, marshal_with
 
-from db import db
+from flask_lesson_3.db import db
 
-from many_to_many_example.parser import author_book_parser
+from .parser import author_book_parser
 
-from many_to_many_example.structures import book_structure, author_structure
-from models.many_to_many_example import Book, Author
+from .structures import book_structure, author_structure
+from flask_lesson_3.models.many_to_many_example import Book, Author
 
 
 class BookView(Resource):

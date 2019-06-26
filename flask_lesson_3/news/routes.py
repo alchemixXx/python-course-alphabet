@@ -1,11 +1,11 @@
 from flask import request
 from flask_restful import Resource, marshal_with
 
-from db import db
+from flask_lesson_3.db import db
 
-from utils import check_login
-from news.marshal_structure import news_structure
-from models.news_model import NewsModel
+# from utils import check_login
+from .marshal_structure import news_structure
+from flask_lesson_3.models.news_model import NewsModel
 import json
 
 

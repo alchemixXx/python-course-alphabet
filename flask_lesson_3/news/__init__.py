@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_restful import Api
-from news.routes import News
+from .routes import News
 
 news = Blueprint("news", __name__)
 api_news = Api(news)

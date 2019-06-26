@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_restful import Api
-from create_db.routes import CreateDB
+from .routes import CreateDB
 
 create_db = Blueprint("create_db", __name__)
 api_create_db = Api(create_db)

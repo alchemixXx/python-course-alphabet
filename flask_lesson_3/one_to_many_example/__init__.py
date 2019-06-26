@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api
 
-from one_to_many_example.routes import StreetView, HouseView, StreetHouses
+from .routes import StreetView, HouseView, StreetHouses
 
 one_to_many = Blueprint("one_to_many", __name__)
 api_one_to_many = Api(one_to_many)

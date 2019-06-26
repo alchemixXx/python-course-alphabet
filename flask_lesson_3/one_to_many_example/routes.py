@@ -3,11 +3,11 @@ import json
 from flask import request
 from flask_restful import Resource, marshal_with
 
-from db import db
-from app import app
+from flask_lesson_3.db import db
+from flask_lesson_3.app import app
 
-from one_to_many_example.structures import street_structure, house_structure
-from models.one_to_many_example import Street, House
+from .structures import street_structure, house_structure
+from flask_lesson_3.models.one_to_many_example import Street, House
 
 
 class StreetView(Resource):

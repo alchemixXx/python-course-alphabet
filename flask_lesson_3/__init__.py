@@ -1,14 +1,14 @@
 from datetime import timedelta
 
-from config import run_config
-from db import db
+from .config import run_config
+from .db import db
 
-from news import news
-from auth import auth
-from one_to_many_example import one_to_many
-from many_to_many_example import many_to_many
-from create_db import create_db
-from app import app
+from .news import news
+from .auth import auth
+from .one_to_many_example import one_to_many
+from .many_to_many_example import many_to_many
+from .create_db import create_db
+from .app import app
 
 
 def run_app():

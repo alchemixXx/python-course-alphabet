@@ -1,4 +1,4 @@
-from db import db
+from flask_lesson_3.db import db
 
 author_works = db.Table(
     'author_works',
