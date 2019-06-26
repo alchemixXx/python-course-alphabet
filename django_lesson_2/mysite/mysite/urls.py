@@ -26,8 +26,8 @@ urlpatterns = [
     path('article/<int:article_id>', ArticleDetailView.as_view(), name='detail'),
     path('article/update/<int:article_id>', ArticleUpdateView.as_view(), name='update'),
     path('article/delete/<int:article_id>', ArticleDeleteView.as_view(), name='delete'),
-    # Account Profile
+    # Account/Profile
     path('account/profile/<int:profile_id>', ProfileDetailView.as_view(), name='profile'),
     path('account/', include('django.contrib.auth.urls')),
-    path('signup', SignUp.as_view(), name='signup')
+    path('signup/', SignUp.as_view(), name='signup')
 ]
