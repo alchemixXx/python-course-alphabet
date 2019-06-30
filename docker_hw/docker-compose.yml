@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+    database:
+        build: db/
+        environment:
+            POSTRGRES_PASSWORD: password
+            PGPOSTGRES_USER: jeniatrofimenko
+            POSTGRES_DB: test_orm_cursor
+        ports:
+            - 5432:5432
+
+        network_mode: host
+
+    app:
+        build: app/flask_lesson_3/
+        #command: pip install -r requirements.txt
+        command: flask run --host=0.0.0.0
+        ports:
+            - 5000:5000
+            - 5432:5432
+    
+        network_mode: host
+        depends_on:
+            - database
+
+#    databse:
+#        environment:
+#            POSTRGRES_PASSWORD: password
+#            PGPOSTGRES_USER: jeniatrofimenko
+#            POSTGRES_DB: test_orm_cursor
+#        ports:
+#             - 5435:5432
+
+#        network_mode: host
