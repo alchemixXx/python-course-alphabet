@@ -12,6 +12,16 @@ class Article(models.Model):
         return self.title
 
 
+# class Comment(models.Model):
+#     author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True)
+#     timespan_created = models.DateTimeField(auto_now_add=True)
+#     timespan_updated = models.DateTimeField(auto_now=True)
+#     description = RichTextUploadingField(null=True, blank=True)
+#
+#     def __str__(self):
+#         return self.author, self.timespan_created
+
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import send_mail

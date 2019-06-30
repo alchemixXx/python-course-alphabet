@@ -8,5 +8,19 @@
 <br>
 <p>Description: {{ article.description|safe }}</p>
 
+
 <a href="{% url 'update' article.id %}">Update</a>
 <a href="{% url 'delete' article.id %}">Delete</a>
+<hr>
+{#<button type="button">Comment</button>#}
+{# Here I will withdraw all comments in a loop #}
+
+{#{% for comment in comments %}#}
+{#    {% if comment.author != '' %}#}
+{#        <p>Author: {{ comment.author }}</p>#}
+{#    {% else %}#}
+{#        <p>Author: Unknown</p>#}
+{#    {% endif %}#}
+{#    <p>Date of the publication: {{ comment.timespan_created }}</p>#}
+{#    <p>Comment: {{ comment.description }}</p>#}
+{#{% endfor %}#}
