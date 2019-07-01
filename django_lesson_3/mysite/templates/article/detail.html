@@ -14,13 +14,14 @@
 <hr>
 {#<button type="button">Comment</button>#}
 {# Here I will withdraw all comments in a loop #}
+<button type="button"><a href="{% url 'new_comment' %}">Add comment</a></button>
 
-{#{% for comment in comments %}#}
-{#    {% if comment.author != '' %}#}
-{#        <p>Author: {{ comment.author }}</p>#}
-{#    {% else %}#}
-{#        <p>Author: Unknown</p>#}
-{#    {% endif %}#}
-{#    <p>Date of the publication: {{ comment.timespan_created }}</p>#}
-{#    <p>Comment: {{ comment.description }}</p>#}
-{#{% endfor %}#}
+{% for comment in comments %}
+    {% if comment.author != '' %}
+        <p>Author: {{ comment.author }}</p>
+    {% else %}
+        <p>Author: Unknown</p>
+    {% endif %}
+    <p>Date of the publication: {{ comment.timespan_created }}</p>
+    <p>Comment: {{ comment.description }}</p>
+{% endfor %}

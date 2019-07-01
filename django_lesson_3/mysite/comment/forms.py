@@ -3,8 +3,9 @@ from comment.models import Comment
 
 class CommentForm(forms.ModelForm):
     class Meta:
-        model = Article
-        fields = ('__all__')
+        model = Comment
+        fields = ('author', 'description')
         labels = {
             'title': 'Custom Title',
         }
+
