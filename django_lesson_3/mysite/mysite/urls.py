@@ -30,13 +30,12 @@ urlpatterns = [
     path('article/update/<int:article_id>', ArticleUpdateView.as_view(), name='update'),
     path('article/delete/<int:article_id>', ArticleDeleteView.as_view(), name='delete'),
     # Account/Profile
-    path('account/profile/<int:profile_id>', ProfileDetailView.as_view(), name='profile'),
+    path('account/profile/<int:profile_id>', ArticleUpdateView.as_view(), name='profile'),
     path('account/', include('django.contrib.auth.urls')),
     path('signup/', SignUp.as_view(), name='signup'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 
     # Comments
-    path('comment/<int:article_id>', CommentView.as_view(), name='comment'),
-    path('article/create_comment', NewCommentView.as_view(), name='new_comment'),
+    path('article/create_comment/<int:article_id>', ArticleDetailView.add_comment, name='new_comment'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

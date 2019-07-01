@@ -3,6 +3,8 @@ from django.urls import reverse
 from .models import Article
 from .forms import ArticleForm
 from account.models import Profile
+from comment.forms import CommentForm
+from django.shortcuts import render, redirect
 
 
 class IndexView(ListView):
@@ -39,6 +41,25 @@ class ArticleDetailView(DetailView):
     context_object_name = 'article'
     pk_url_kwarg = 'article_id'
 
+    def add_comment(self, request):
+        if request.method == "POST":
+            article_id = request.POST.get('article_id')
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.author = form.author
+                comment.description = form.description
+                comment.save()
+                return redirect('detail', article_id=article_id)
+            # pass
+        else:
+            form = CommentForm()
+        template_name = 'article/detail.html'
+        context = {'form': form}
+        return render(request, template_name, context)
+        #     pass
+        # pass
+
 
 class ArticleUpdateView(UpdateView):
     model = Article
@@ -48,6 +69,7 @@ class ArticleUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('detail', args=(self.object.id,))
+
 
 
 class ArticleDeleteView(DeleteView):
