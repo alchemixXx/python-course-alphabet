@@ -1,10 +1,13 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from .models import Article
 from .forms import ArticleForm
 from account.models import Profile
 from comment.forms import CommentForm
+from comment.models import ArticleComment
 from django.shortcuts import render, redirect
+from django.http import request, HttpRequest
+from django.urls import resolve
 
 
 class IndexView(ListView):
@@ -31,6 +34,8 @@ class ArticleCreateView(CreateView):
         form.instance.author = profile
         return super(ArticleCreateView, self).form_valid(form)
 
+
+
     def get_success_url(self):
         return reverse('detail', args=(self.object.id,))
 
@@ -41,25 +46,52 @@ class ArticleDetailView(DetailView):
     context_object_name = 'article'
     pk_url_kwarg = 'article_id'
 
-    def add_comment(self, request):
-        if request.method == "POST":
-            article_id = request.POST.get('article_id')
-            form = CommentForm(request.POST)
-            if form.is_valid():
-                comment = form.save(commit=False)
-                comment.author = form.author
-                comment.description = form.description
-                comment.save()
-                return redirect('detail', article_id=article_id)
-            # pass
-        else:
-            form = CommentForm()
-        template_name = 'article/detail.html'
-        context = {'form': form}
-        return render(request, template_name, context)
-        #     pass
-        # pass
+    def get_context_data(self, *, object_list=None, **kwargs):
+        article = self.get_object()
+        context = super(ArticleDetailView, self).get_context_data()
+        context['comments'] = ArticleComment.objects.filter(id=article.id)
+        return context
 
+
+class CreateArticleComment(CreateView):
+    model = ArticleComment
+    template_name = 'comment/new_comment.html'
+    context_object_name = 'comment'
+    pk_url_kwarg = 'article_id'
+    form_class = CommentForm
+
+    def get_context_data(self, **kwargs):
+        article = self.get_object()
+        context = super().get_context_data(**kwargs)
+        context['id'] = article.id
+        print(article.id)
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.article = self.get_object()
+        self.object.article = self.article.id
+        self.object.save()
+        super(CreateArticleComment, self).form_valid(form)
+
+
+    # def form_valid(self, form):
+    #     article = self.get_object()
+    #     form['article'] = article.id
+    #     form.save()
+    #     return super(CreateArticleComment, self).form_valid(form)
+
+    # def post_valid(self, form):
+    #     article = self.get_object()
+    #     # article = Article.objects.all()
+    #     comment_articlecomment = form.save(commit=False)
+    #     form.article = article.id
+    #     # articlecomment.article = article
+    #     comment_articlecomment.save()
+    #     # return reverse('detail', args=(self.object.id,))
+
+    def get_success_url(self):
+        return reverse('detail', args=(self.object.id,))
 
 class ArticleUpdateView(UpdateView):
     model = Article

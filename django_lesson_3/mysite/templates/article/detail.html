@@ -14,7 +14,7 @@
 <hr>
 {#<button type="button">Comment</button>#}
 {# Here I will withdraw all comments in a loop #}
-<button type="button"><a href="{% url 'new_comment'%}">Add comment</a></button>
+<button type="button"><a href="{% url 'new_comment' article.id %}">Add comment</a></button>
 
 {% for comment in comments %}
     {% if comment.author != '' %}
@@ -24,4 +24,5 @@
     {% endif %}
     <p>Date of the publication: {{ comment.timespan_created }}</p>
     <p>Comment: {{ comment.description }}</p>
+    <hr>
 {% endfor %}

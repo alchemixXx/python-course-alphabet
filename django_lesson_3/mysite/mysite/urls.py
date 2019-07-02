@@ -17,9 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from article.views import IndexView, ArticleCreateView, ArticleDetailView, ArticleUpdateView, ArticleDeleteView
+from article.views import IndexView, ArticleCreateView, ArticleDetailView, ArticleUpdateView, ArticleDeleteView, CreateArticleComment
 from account.views import ProfileDetailView, SignUp
-from comment.views import CommentView, NewCommentView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,6 +35,6 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
 
     # Comments
-    path('article/create_comment/<int:article_id>', ArticleDetailView.add_comment, name='new_comment'),
+    path('article/<int:article_id>/create_comment/', CreateArticleComment.as_view(), name='new_comment'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
