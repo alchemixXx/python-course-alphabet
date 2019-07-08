@@ -8,11 +8,11 @@ from datetime import datetime
 # Create your models here.
 class ArticleComment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, null=False, blank=False)
-    author = models.CharField(max_length=500, null=False, blank=False)
+    author = models.CharField(max_length=500, null=False, blank=False, help_text="Please enter valid email",)
     # author = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
-    timespan_created = models.DateTimeField(auto_now_add=True)
+    timespan_created = models.DateTimeField(default=datetime.now)
     timespan_updated = models.DateTimeField(auto_now=True)
-    description = RichTextUploadingField(null=True, blank=True)
+    description = RichTextUploadingField(null=True, blank=True, help_text="Please enter the Body of Comment",)
 
     class Meta:
         verbose_name = 'Article Comment'

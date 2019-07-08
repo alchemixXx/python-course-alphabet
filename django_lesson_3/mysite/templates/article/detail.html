@@ -17,12 +17,26 @@
 <button type="button"><a href="{% url 'new_comment' article.id %}">Add comment</a></button>
 
 {% for comment in comments %}
-    {% if comment.author != '' %}
-        <p>Author: {{ comment.author }}</p>
-    {% else %}
-        <p>Author: Unknown</p>
-    {% endif %}
+    <p>Author: {{ comment.author }}</p>
     <p>Date of the publication: {{ comment.timespan_created }}</p>
-    <p>Comment: {{ comment.description }}</p>
+    <p>Comment: {{ comment.description|safe }}</p>
     <hr>
 {% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if comments.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ comments.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ comments.number }} of {{ comments.paginator.num_pages }}.
+        </span>
+
+        {% if comments.has_next %}
+            <a href="?page={{ comments.next_page_number }}">next</a>
+            <a href="?page={{ comments.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>

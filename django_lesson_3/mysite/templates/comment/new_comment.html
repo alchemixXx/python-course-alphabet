@@ -14,6 +14,15 @@
 
 <form action="{% url 'new_comment' id %}" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% if user.is_authenticated %}
+        <p>{{ form.author }}</p>
+
+        <p>{{ form.description }}</p>
+
+{#           {{ form.as_p }}#}
+    {% else %}
+       {{ form.as_p }}
+    {% endif %}
+
     <button type="submit">Submit</button>
 </form>
