@@ -6,7 +6,7 @@ from account.models import Profile
 from comment.forms import CommentForm
 from comment.models import ArticleComment
 from django.shortcuts import render, redirect
-# from django.http import request, HttpRequest
+from django.http import request, HttpRequest
 from django.urls import resolve
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -64,11 +64,11 @@ class CreateArticleComment(CreateView):
     # def __init__(self, author, *args, **kwargs):
     #     super(CreateArticleComment, self).__init__(*args, **kwargs)
     #     self.fields['author'] = author
-    def __init__(self, *args, **kwargs):
-        super(CreateArticleComment, self).__init__(*args, **kwargs)
-        self.fields['author'].initial = User.objects.filter(username=self.request.user.username)[0].email
+    # def __init__(self, *args, **kwargs):
+    #     super(CreateArticleComment, self).__init__(*args, **kwargs)
+    #     self.fields['author'].initial = User.objects.filter(username=self.request.user.username)[0].email
 
-    # def get_author(self):
+    # def get_author(self, request):
     #     if self.request.user.is_authenticated:
     #         self.nickname = self.request.user.username
     #         self.user = User.objects.filter(username=self.nickname)[0]
@@ -78,44 +78,30 @@ class CreateArticleComment(CreateView):
     #     else:
     #         return None
 
-
-
     model = ArticleComment
     template_name = 'comment/new_comment.html'
     context_object_name = 'comment'
     pk_url_kwarg = 'article_id'
     form_class = CommentForm
-    # form_class.initial = {'author': get_author()}
+
+
     def get_context_data(self, **kwargs):
         article = self.get_object()
-        # print(article)
         context = super().get_context_data(**kwargs)
         context['id'] = article.id
         if self.request.user.is_authenticated:
-            print(self.request.user.username)
             self.nickname = self.request.user.username
             self.user = User.objects.filter(username=self.nickname)[0]
             context['author'] = self.user.email
-            print(self.user.email)
         return context
 
 
 
     def form_valid(self, form):
-        print("Hello world")
         self.object = form.save(commit=False)
         self.article = self.get_object()
         self.actual_article = Article.objects.filter(id=self.article.id)
         self.object.article = self.actual_article[0]
-
-        if self.request.user.is_authenticated:
-            self.nickname = self.request.user.username
-            self.user = User.objects.filter(username=self.nickname)[0]
-            self.object.author = self.user.email
-            # form['author'] = self.user.email
-            # form.instance.author = self.user.email
-            self.object.save()
-
         self.object.save()
         return super(CreateArticleComment, self).form_valid(form)
 
