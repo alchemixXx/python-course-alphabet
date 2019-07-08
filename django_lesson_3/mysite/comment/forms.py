@@ -1,11 +1,16 @@
 from django import forms
-from .models import Comment
+from .models import ArticleComment
 
 class CommentForm(forms.ModelForm):
+
+    # article_id = forms.IntegerField(widget=forms.HiddenInput)
+    author = forms.EmailField(max_length=500)
+
     class Meta:
-        model = Comment
+        model = ArticleComment
         fields = ('author', 'description')
-        labels = {
-            'title': 'Comment Title',
-        }
+
+        # labels = {
+        #     'title': 'Comment Title',
+        # }
 
