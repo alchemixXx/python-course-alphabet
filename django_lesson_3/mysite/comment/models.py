@@ -5,14 +5,29 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from datetime import datetime
 
 
-# Create your models here.
+# First level comment.
 class ArticleComment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, null=False, blank=False)
-    author = models.CharField(max_length=500, null=False, blank=False, help_text="Please enter valid email",)
-    # author = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
+    author = models.CharField(max_length=500, null=False, blank=False, help_text="Please enter valid email", )
     timespan_created = models.DateTimeField(default=datetime.now)
     timespan_updated = models.DateTimeField(auto_now=True)
-    description = RichTextUploadingField(null=True, blank=True, help_text="Please enter the Body of Comment",)
+    description = RichTextUploadingField(null=True, blank=True, help_text="Please enter the Body of Comment", )
+
+    class Meta:
+        verbose_name = 'Article Comment'
+        verbose_name_plural = 'Article Comments'
+
+    def __str__(self):
+        return "This is comment:" + self.description[:200]
+
+
+# Second level comment.
+class CommentOnComment(models.Model):
+    comment = models.ForeignKey(ArticleComment, on_delete=models.CASCADE, null=False, blank=False)
+    author = models.CharField(max_length=500, null=False, blank=False, help_text="Please enter valid email", )
+    timespan_created = models.DateTimeField(default=datetime.now)
+    timespan_updated = models.DateTimeField(auto_now=True)
+    description = RichTextUploadingField(null=True, blank=True, help_text="Please enter the Answer to the Comment", )
 
     class Meta:
         verbose_name = 'Article Comment'

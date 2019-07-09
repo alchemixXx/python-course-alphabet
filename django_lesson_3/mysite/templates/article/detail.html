@@ -12,7 +12,7 @@
 <a href="{% url 'update' article.id %}">Update</a>
 <a href="{% url 'delete' article.id %}">Delete</a>
 <hr>
-{#<button type="button">Comment</button>#}
+
 {# Here I will withdraw all comments in a loop #}
 <button type="button"><a href="{% url 'new_comment' article.id %}">Add comment</a></button>
 
@@ -20,6 +20,20 @@
     <p>Author: {{ comment.author }}</p>
     <p>Date of the publication: {{ comment.timespan_created }}</p>
     <p>Comment: {{ comment.description|safe }}</p>
+    <br>
+{#    <button type="button"><a href="{% url 'reply_comment' comment.id %}">Reply</a></button>#}
+        <button type="button"><a href="{% url 'reply_comment' comment.id %}">Reply</a></button>
+
+    <div style="margin-left: 5%">
+    {% for second_comment in second_comments %}
+        {% if second_comment.comment_id == comment.id %}
+            <p>Author: {{ second_comment.author }}</p>
+            <p>Date of the publication: {{ second_comment.timespan_created }}</p>
+            <p>Comment: {{ second_comment.description|safe }}</p>
+            <br>
+        {% endif %}
+    {% endfor %}
+    </div>
     <hr>
 {% endfor %}
 
