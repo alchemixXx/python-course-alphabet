@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>{{ page_title }}</h1>
+{% for profile in profiles %}
+    <a href="{% url 'profile' profile.id %}">{{ profile.user }}</a>
+    <p>{{ profile.bio }}</p>
+    <p>{{ profile.location }}</p>
+    <hr>
+
+
+{% endfor %}
+
+</body>
+</html>

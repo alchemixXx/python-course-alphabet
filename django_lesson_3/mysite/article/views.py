@@ -61,23 +61,6 @@ class ArticleDetailView(DetailView):
 
 
 class CreateArticleComment(CreateView):
-    # def __init__(self, author, *args, **kwargs):
-    #     super(CreateArticleComment, self).__init__(*args, **kwargs)
-    #     self.fields['author'] = author
-    # def __init__(self, *args, **kwargs):
-    #     super(CreateArticleComment, self).__init__(*args, **kwargs)
-    #     self.fields['author'].initial = User.objects.filter(username=self.request.user.username)[0].email
-
-    # def get_author(self, request):
-    #     if self.request.user.is_authenticated:
-    #         self.nickname = self.request.user.username
-    #         self.user = User.objects.filter(username=self.nickname)[0]
-    #         return self.user.email
-    #         # form['author'] = self.user.email
-    #         # form.instance.author = self.user.email
-    #     else:
-    #         return None
-
     model = ArticleComment
     template_name = 'comment/new_comment.html'
     context_object_name = 'comment'
@@ -92,7 +75,8 @@ class CreateArticleComment(CreateView):
         if self.request.user.is_authenticated:
             self.nickname = self.request.user.username
             self.user = User.objects.filter(username=self.nickname)[0]
-            context['author'] = self.user.email
+            context['author_email'] = self.user.email
+            context['author_nickname'] =self.nickname
         return context
 
 

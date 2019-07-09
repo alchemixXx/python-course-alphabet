@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from article.views import IndexView, ArticleCreateView, ArticleDetailView, ArticleUpdateView, ArticleDeleteView, CreateArticleComment
-from account.views import ProfileDetailView, SignUp
+from account.views import ProfileDetailView, SignUp, ProfilesList, ProfileUpdateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,7 +29,9 @@ urlpatterns = [
     path('article/update/<int:article_id>', ArticleUpdateView.as_view(), name='update'),
     path('article/delete/<int:article_id>', ArticleDeleteView.as_view(), name='delete'),
     # Account/Profile
-    path('account/profile/<int:profile_id>', ArticleUpdateView.as_view(), name='profile'),
+    path('account/profile/<int:profile_id>', ProfileDetailView.as_view(), name='profile'),
+    path('account/profile/update/<int:profile_id>', ProfileUpdateView.as_view(), name='update_profile'),
+    path('account/profiles', ProfilesList.as_view(), name='profiles'),
     path('account/', include('django.contrib.auth.urls')),
     path('signup/', SignUp.as_view(), name='signup'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
