@@ -1,14 +1,8 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from .models import Article
 from .forms import ArticleForm
 from account.models import Profile
-from comment.forms import CommentForm
-from comment.models import ArticleComment
-from django.shortcuts import render, redirect
-from django.http import request, HttpRequest
-from django.urls import resolve
-from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 
 
@@ -50,50 +44,8 @@ class ArticleDetailView(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         article = self.get_object()
         context = super(ArticleDetailView, self).get_context_data()
-        # context['comments'] = ArticleComment.objects.filter(article_id=article.id)
-        all_comments = ArticleComment.objects.filter(article_id=article.id)
-        paginator = Paginator(all_comments, 5)
-        page = self.request.GET.get('page')
-        comments = paginator.get_page(page)
-        context['comments'] = comments
         return context
 
-
-
-class CreateArticleComment(CreateView):
-    model = ArticleComment
-    template_name = 'comment/new_comment.html'
-    context_object_name = 'comment'
-    pk_url_kwarg = 'article_id'
-    form_class = CommentForm
-
-
-    def get_context_data(self, **kwargs):
-        article = self.get_object()
-        context = super().get_context_data(**kwargs)
-        context['id'] = article.id
-        if self.request.user.is_authenticated:
-            self.nickname = self.request.user.username
-            self.user = User.objects.filter(username=self.nickname)[0]
-            context['author_email'] = self.user.email
-            context['author_nickname'] =self.nickname
-        return context
-
-
-
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.article = self.get_object()
-        self.actual_article = Article.objects.filter(id=self.article.id)
-        self.object.article = self.actual_article[0]
-        self.object.save()
-        return super(CreateArticleComment, self).form_valid(form)
-
-    def form_invalid(self, form):
-        print('This form is invalid')
-
-    def get_success_url(self):
-        return reverse('detail', args=(self.article.id,))
 
 class ArticleUpdateView(UpdateView):
     model = Article

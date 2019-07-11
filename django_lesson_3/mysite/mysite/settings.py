@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
 
-    'comment.apps.CommentConfig',
+    'disqus',
 ]
 
 MIDDLEWARE = [
@@ -150,3 +151,10 @@ DEFAULT_FROM_EMAIL = 'noreply@ali.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 SERVER_EMAIL = 'noreply@ali.com'
+
+#DISQUS SETTINGS
+DISQUS_API_KEY = 'Rhm5ShcbHsstBT22bIxY18XO6t7nUKftPu9Ujh3bhL6Zu1T6UdqKSQ6YE8ys6FEY'
+DISQUS_WEBSITE_SHORTNAME = 'Django_app_cursor'
+
+
+SITE_ID = 1

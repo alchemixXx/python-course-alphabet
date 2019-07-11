@@ -1,4 +1,6 @@
 {% load static %}
+
+
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 
@@ -13,32 +15,29 @@
 <a href="{% url 'delete' article.id %}">Delete</a>
 <hr>
 
-{# Here I will withdraw all comments in a loop #}
-<button type="button"><a href="{% url 'new_comment' article.id %}">Add comment</a></button>
 
-{% for comment in comments %}
-    <p>Author: {{ comment.author }}</p>
-    <p>Date of the publication: {{ comment.timespan_created }}</p>
-    <p>Comment: {{ comment.description|safe }}</p>
-    <br>
-    <button type="button"><a href="{% url 'new_comment' article.id %}">Reply</a></button>
-    <hr>
-{% endfor %}
 
-<div class="pagination">
-    <span class="step-links">
-        {% if comments.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ comments.previous_page_number }}">previous</a>
-        {% endif %}
 
-        <span class="current">
-            Page {{ comments.number }} of {{ comments.paginator.num_pages }}.
-        </span>
+{% load disqus_tags %}
+{#{% disqus_dev %}#}
+{% disqus_show_comments %}
 
-        {% if comments.has_next %}
-            <a href="?page={{ comments.next_page_number }}">next</a>
-            <a href="?page={{ comments.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
+<div id="disqus_thread"></div>
+
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'localhost-zb0lfux2ij'; // required: replace example with your forum shortname
+
+    // The following are highly recommended additional parameters. Remove the slashes in front to use.
+    // var disqus_identifier = 'unique_dynamic_id_1234';
+    // var disqus_url = 'http://example.com/permalink-to-page.html';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
