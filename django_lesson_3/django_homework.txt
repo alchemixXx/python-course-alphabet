@@ -1,0 +1,44 @@
+CURSOR.EDUCATION
+@Albert LiJune 25, 2019
+Homework "Django"
+
+ 1. Implement a new application for article comments. 
+ # basic
+
+1) Any type of user can leave a comment
+
+2) An article comment should contain next fields: author, description, timestamp
+
+3) If a commentator is logged in: disable author field and automatically insert his username into “author” field.
+
+4) A user can leave a comment for another comment. (ManyToMany relation)
+
+5) Comments should be on the same page with an article.
+
+6) Comment should display all the 3 fields: author, description, timestamp
+
+7) Comments should have a pagination.
+
+
+
+# medium (optional)
+
+Add an email field for a comment. If the email is provided and author’s comment has been commented by another user - notify the author about that by mail.
+
+
+
+
+# advanced (optional)
+
+For the comment system add ability to be signed in by social network(or google account). A new user should be created with the provided data from social network.
+
+If the comment belongs to a logged in user - the “author” field in the comment should be a link to the user profile.
+
+ 
+
+2. Integrate DISQUS comment system in a different git branch. 
+https://disqus.com/
+
+
+
+ 3.   Add ability to edit a profile.
