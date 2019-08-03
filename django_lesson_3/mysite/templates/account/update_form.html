@@ -1,0 +1,14 @@
+{% load static %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+{% if form.errors.non_field_errors %}
+    {{ form.errors.non_field_errors }}
+{% endif %}
+
+<form action="{% url 'update_profile' form.instance.id %}" method="post">
+    {% csrf_token %}
+    <p>User: {{ nickname }}</p>
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>

@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 
     'ckeditor',
     'ckeditor_uploader',
+
+    'comment.apps.CommentConfig',
 ]
 
 MIDDLEWARE = [

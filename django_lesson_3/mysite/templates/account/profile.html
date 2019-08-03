@@ -1,3 +1,11 @@
-{{ profile.user.username }}
-{{ profile.bio }}
-{{ profile.location }}
+Username: {{ profile.user.username }}
+<br>
+Bio Information: {{ profile.bio }}
+<br>
+Location: {{ profile.location }}
+<br>
+{% if user.is_authenticated %}
+    {% if profile.id == current_profile_id  %}
+        <button type="button"><a href="{% url 'update_profile' profile.id %}">Edit Profile</a></button>
+        {% endif %}
+{% endif %}

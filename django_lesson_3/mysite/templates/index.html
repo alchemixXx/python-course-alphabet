@@ -1,7 +1,7 @@
 {% if user.is_authenticated %}
     Hi {{ user.username }}
     {% comment %}
-        <a href="{% url 'profile' %}">Profile</a>
+        Hi <a href="{% url 'profile' profile.id %}">Profile</a>
     {% endcomment %}
     <a href="{% url 'logout' %}">Logout</a>
 {% else %}
@@ -17,4 +17,5 @@
     <br>
     {{ article.description }}
     <hr>
+
 {% endfor %}

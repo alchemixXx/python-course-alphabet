@@ -1,0 +1,30 @@
+{% load static %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+<h1>Origin article</h1>
+<p>Author: {{ article.author }}</p>
+<p>Description: {{ article.description|safe }}</p>
+
+
+<h1>Please enter comment</h1>
+<form action="{% url 'new_comment' id %}" method="post">
+    {% csrf_token %}
+        {{ author }}
+    {% if user.is_authenticated %}
+
+
+{#        <label for="id_author">Author:</label>#}
+        {% if author_email != "" %}
+            <input type="hidden" name="author" value="{{ author_email }}" maxlength="500" required id="id_author">
+        {% else %}
+            <input type="hidden" name="author" value="{{ author_nickname }}@random.com" maxlength="500" required id="id_author">
+        {% endif %}
+        <p><label for="id_description">Enter your comment:</label></p>
+        <p>{{ form.description }}</p>
+    {% else %}
+       {{ form.as_p }}
+    {% endif %}
+
+    <button type="submit">Submit</button>
+</form>
